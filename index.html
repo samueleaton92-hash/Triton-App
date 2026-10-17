@@ -204,6 +204,66 @@ html[data-theme=eaton] .brand{display:inline-flex}
   .drive .tile .val{font-size:min(120px,11vw)}
   .drive .tile .label{justify-content:center}
 }
+
+/* ===== Daytime light look ===== */
+html.day[data-theme=eaton]{--bg:#f2f1ed;--panel:#ffffff;--panel2:#e9ece5;--line:#cfd6cc;--text:#092217;--muted:#536a5d;--accent:#043625;--ok:#1f8a4c;--warn:#b86e00;--alarm:#d32f2f}
+html.day[data-theme=standard]{--bg:#eef2f6;--panel:#ffffff;--panel2:#e6ebf1;--line:#cdd6e0;--text:#0d1620;--muted:#5a6878;--accent:#1769c2;--ok:#1d8a4a;--warn:#b86e00;--alarm:#d32f2f}
+html.day[data-theme=eaton] nav,html.day[data-theme=standard] nav{background:var(--panel)}
+html.day .tile{box-shadow:0 1px 2px rgba(9,34,23,.06)}
+html.day .tile.ok,html.day[data-theme=eaton] .tile.ok{border-color:#b9d3c2}
+html.day .tile.warn{background:#fff4df}
+html.day .tile.alarm{background:#fde3e3;animation-name:pulseDay}
+@keyframes pulseDay{50%{background:#f7c4c5}}
+html.day .tyre.alarm{background:#fde3e3}
+html.day .strip.cool{background:#e3eefb;color:#0d3a66}
+html.day .strip.okgo{background:#e2f4e9;color:#0f4a2a}
+html.day .strip.warmup{background:#fff4df;color:#6b4200}
+html.day .tag.work{background:#e3eefb;color:#0d3a66}html.day .tag.due{background:#fff4df}html.day .tag.over{background:#fde3e3;color:#a11d1f}html.day .tag.ok{background:#e2f4e9;color:#0f4a2a}
+html.day button.primary,html.day[data-theme=eaton] button.primary{color:#f2f1ed}
+html.day .chip.on{color:#fff}
+html.day #copilot .bubble{color:var(--bg)}
+html.day .sheet{background:rgba(9,34,23,.35)}
+
+/* ===== Futuristic boot sequence ===== */
+#boot{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;
+  background:radial-gradient(120% 80% at 50% 45%,#0c3a27 0%,#061a11 55%,#020a06 100%);color:#e9f5ee;
+  --glow:#8fd6ac;font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:opacity .55s ease}
+#boot.show{display:flex}
+#boot.out{opacity:0}
+#boot .grid{position:absolute;inset:-50%;background-image:linear-gradient(rgba(143,214,172,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(143,214,172,.07) 1px,transparent 1px);background-size:34px 34px;transform:perspective(500px) rotateX(62deg) translateY(30%);animation:bootGrid 3s linear infinite;mask-image:linear-gradient(to top,#000 10%,transparent 70%);-webkit-mask-image:linear-gradient(to top,#000 10%,transparent 70%)}
+@keyframes bootGrid{to{background-position:0 34px}}
+#boot .scan{position:absolute;left:0;right:0;height:120px;top:-120px;background:linear-gradient(to bottom,transparent,rgba(143,214,172,.16),transparent);animation:bootScan 1.6s cubic-bezier(.5,0,.5,1) .2s 2}
+@keyframes bootScan{to{top:100%}}
+#boot .core{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;width:min(360px,86vw)}
+#boot .rings{width:min(230px,52vw);height:auto;overflow:visible;filter:drop-shadow(0 0 10px rgba(143,214,172,.45))}
+#boot .rings circle{fill:none;stroke:var(--glow)}
+#boot .r1{stroke-width:1.2;stroke-dasharray:2 7;opacity:.7;transform-origin:120px 120px;animation:bootSpin 6s linear infinite}
+#boot .r2{stroke-width:5;stroke-linecap:round;stroke-dasharray:578;stroke-dashoffset:578;transform:rotate(-90deg);transform-origin:120px 120px;animation:bootDraw 1.8s cubic-bezier(.6,0,.2,1) .15s forwards}
+#boot .r3{stroke-width:1.5;opacity:.35;stroke-dasharray:60 30;transform-origin:120px 120px;animation:bootSpin 4s linear infinite reverse}
+#boot .r4{stroke-width:9;opacity:.12}
+@keyframes bootSpin{to{transform:rotate(360deg)}}
+@keyframes bootDraw{to{stroke-dashoffset:0}}
+#boot .mark{position:absolute;top:0;left:50%;width:min(230px,52vw);aspect-ratio:1;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+#boot .mark svg{width:30%;color:var(--glow);opacity:0;animation:bootFade .6s ease .5s forwards}
+#boot .mark .pct{font-size:13px;letter-spacing:.2em;font-variant-numeric:tabular-nums;color:var(--glow);opacity:.85}
+@keyframes bootFade{to{opacity:1}}
+#boot .title{font-size:30px;font-weight:800;letter-spacing:.9em;margin-right:-.9em;opacity:0;animation:bootTitle 1s cubic-bezier(.2,.8,.2,1) .35s forwards;text-shadow:0 0 18px rgba(143,214,172,.5)}
+@keyframes bootTitle{from{opacity:0;letter-spacing:1.6em;filter:blur(6px)}to{opacity:1;letter-spacing:.55em;filter:blur(0)}}
+#boot .sub{font-size:11px;letter-spacing:.35em;color:#a9bfb2;text-transform:uppercase;margin-top:-6px}
+#boot .checks{list-style:none;margin:4px 0 0;padding:0;width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;display:flex;flex-direction:column;gap:5px;min-height:118px}
+#boot .checks li{display:flex;gap:8px;align-items:baseline;opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .25s}
+#boot .checks li.in{opacity:1;transform:none}
+#boot .checks .k{color:#a9bfb2;white-space:nowrap}
+#boot .checks .dots{flex:1;border-bottom:1px dotted rgba(169,191,178,.35);transform:translateY(-4px)}
+#boot .checks .v{font-weight:700;letter-spacing:.08em}
+#boot .checks .v.ok{color:#8fd6ac}#boot .checks .v.wait{color:#ffcf70}#boot .checks .v.bad{color:#ff8a8a}#boot .checks .v.dim{color:#6f8a7b}
+#boot .bar{width:100%;height:3px;background:rgba(143,214,172,.15);border-radius:3px;overflow:hidden}
+#boot .bar i{display:block;height:100%;width:0;background:var(--glow);box-shadow:0 0 12px var(--glow)}
+#boot .go{font-size:15px;font-weight:800;letter-spacing:.4em;margin-right:-.4em;color:var(--glow);opacity:0;height:20px}
+#boot .go.in{animation:bootGo .7s ease forwards}
+@keyframes bootGo{0%{opacity:0;transform:scale(.9)}40%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+#boot .skip{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 18px);font-size:11px;letter-spacing:.2em;color:#6f8a7b;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){#boot *{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
 </head>
 <body>
@@ -211,6 +271,21 @@ html[data-theme=eaton] .brand{display:inline-flex}
 <div id="banner"><span id="bannerText">Alarm</span><button id="silenceBtn">Silence</button></div>
 <div id="toast"></div>
 
+<div id="boot" aria-hidden="true">
+  <div class="grid"></div><div class="scan"></div>
+  <div class="core">
+    <div style="position:relative">
+      <svg class="rings" viewBox="0 0 240 240"><circle class="r4" cx="120" cy="120" r="92"/><circle class="r1" cx="120" cy="120" r="112"/><circle class="r2" cx="120" cy="120" r="92"/><circle class="r3" cx="120" cy="120" r="72"/></svg>
+      <div class="mark"><svg viewBox="0 0 40 48"><rect x="2.5" y="2.5" width="35" height="43" rx="6" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M20 42 C20 32 21 21 24 10" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M20 34 Q12 35 8 27 Q16 25 20 34Z M21 28 Q28 30 32 21 Q24 20 21 28Z M21 22 Q13 23 10 14 Q18 13 21 22Z M22 17 Q29 18 31 9 Q24 9 22 17Z M24 11 Q19 8 21 3 Q27 6 24 11Z" fill="currentColor"/></svg><span class="pct" id="bootPct">0%</span></div>
+    </div>
+    <div class="title" id="bootTitle">TRITON</div>
+    <div class="sub">Systems check</div>
+    <ul class="checks" id="bootChecks"></ul>
+    <div class="bar"><i id="bootBar"></i></div>
+    <div class="go" id="bootGo">ALL SYSTEMS GO</div>
+  </div>
+  <div class="skip">Tap to skip</div>
+</div>
 <header>
   <h1><span class="brand"><svg viewBox="0 0 40 48"><rect x="2.5" y="2.5" width="35" height="43" rx="6" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M20 42 C20 32 21 21 24 10" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M20 34 Q12 35 8 27 Q16 25 20 34Z M21 28 Q28 30 32 21 Q24 20 21 28Z M21 22 Q13 23 10 14 Q18 13 21 22Z M22 17 Q29 18 31 9 Q24 9 22 17Z M24 11 Q19 8 21 3 Q27 6 24 11Z" fill="currentColor"/></svg></span><span id="appTitle">Triton Dash</span></h1>
   <div class="hbtns">
@@ -410,7 +485,7 @@ const DEFAULTS = {
   battType:'lithium', battAh:100, drawA:2.5,
   show_egt:true, show_boost:true, show_cool:true, show_rpm:true, show_speed:true, show_volt:true, show_load:true,
   show_aux:false, show_fridge:false, show_tyres:true, show_doors:true,
-  night:'auto', sound:true,
+  night:'auto', dayLook:'light', sound:true,
   driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com'
 };
 const FIELDS = [
@@ -440,12 +515,13 @@ const FIELDS = [
   ['drawA','Fridge average draw (if sensor box has no current reading)','A'],
   ['Display and sound'],
   ['night','Night mode','select', [['auto','Auto (7pm to 6am)'],['on','Always on'],['off','Off']]],
+  ['dayLook','Daytime look','select', [['light','Light'],['dark','Dark']]],
   ['sound','Alarm sound','check'],
   ['Fun'],
   ['driverName','Driver name','text'], ['uteName','Ute name','text'], ['dogName','Co-pilot (dog) name','text'],
   ['theme','Theme','select', [['eaton','Eaton Gardening'],['standard','Standard'],['retro','Retro dials'],['rally','Rally']]],
   ['gaugeStyle','Gauge style','select', [['digital','Digital numbers'],['analog','Analog dials']]],
-  ['copilot','Show co-pilot','check'], ['sweep','Startup gauge sweep','check'], ['chime','Startup chime','check'],
+  ['copilot','Show co-pilot','check'], ['sweep','Startup sequence','check'], ['chime','Startup sounds','check'],
   ['wrapFooter','Wrapped card footer','text']
 ];
 let cfg = Object.assign({}, DEFAULTS, store.get('cfg', {}));
@@ -581,7 +657,7 @@ function drawSpark(id, data, warn){
   if (hi - lo < 1){ hi += 0.5; lo -= 0.5; }
   const pad = 3, Y = v => h - pad - (v - lo) / (hi - lo) * (h - pad * 2), X = i => i / 299 * w + (w - (data.length - 1) / 299 * w);
   if (warn != null){ x.strokeStyle = 'rgba(255,176,32,.6)'; x.setLineDash([4, 4]); x.beginPath(); x.moveTo(0, Y(warn)); x.lineTo(w, Y(warn)); x.stroke(); x.setLineDash([]); }
-  x.strokeStyle = '#4da3ff'; x.lineWidth = 2; x.beginPath();
+  x.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#4da3ff'; x.lineWidth = 2; x.beginPath();
   data.forEach((v, i) => i ? x.lineTo(X(i), Y(v)) : x.moveTo(X(i), Y(v)));
   x.stroke();
 }
@@ -741,6 +817,7 @@ const SND = { unlocked:false, warned:false, els:{} };
 try {
   SND.els.beep = new Audio(wavURI([[880, 0, 0.22], [880, 0.3, 0.22]]));
   SND.els.chime = new Audio(wavURI([[660, 0, 0.4, 0.4], [880, 0.16, 0.4, 0.4], [1175, 0.32, 0.6, 0.45]]));
+  SND.els.boot = new Audio(wavURI([[196, 0, 0.5, 0.18], [294, 0.18, 0.5, 0.2], [392, 0.36, 0.5, 0.22], [587, 0.54, 0.45, 0.24], [784, 0.72, 0.9, 0.26], [1175, 0.9, 1.0, 0.18]]));
   SND.els.blip = new Audio(wavURI([[988, 0, 0.12, 0.35], [1319, 0.1, 0.25, 0.35]]));
   for (const a of Object.values(SND.els)){ a.preload = 'auto'; a.setAttribute('playsinline', ''); }
 } catch(e){}
@@ -826,8 +903,13 @@ function applyNight(){
   const h = new Date().getHours();
   const auto = h >= 19 || h < 6;
   const on = nightForced != null ? nightForced : cfg.night === 'on' || (cfg.night === 'auto' && auto);
-  document.documentElement.classList.toggle('night', on);
+  const root = document.documentElement;
+  root.classList.toggle('night', on);
+  const lightOK = cfg.theme === 'eaton' || cfg.theme === 'standard';
+  root.classList.toggle('day', !on && cfg.dayLook !== 'dark' && lightOK);
   $('#btnNight').classList.toggle('active', on);
+  const tc = document.querySelector('meta[name=theme-color]');
+  if (tc) tc.content = getComputedStyle(root).getPropertyValue('--bg').trim() || '#0b0f14';
 }
 $('#btnNight').onclick = () => { nightForced = !document.documentElement.classList.contains('night'); applyNight(); };
 setInterval(applyNight, 60000);
@@ -1631,14 +1713,60 @@ function greeting(){
   const ute = cfg.uteName.charAt(0).toUpperCase() + cfg.uteName.slice(1);
   return `${g} ${cfg.driverName}. ${ute} is ready.`;
 }
-function startSweep(){
-  if (cfg.sweep){
-    sweep.on = true; sweep.start = performance.now();
-    const loop = () => { render(); if (sweep.on) requestAnimationFrame(loop); };
-    requestAnimationFrame(loop);
-  }
-  chime();
-  say(greeting(), 5000);
+let lastBoot = 0, bootTimers = [];
+function bootLines(){
+  const svcDue = $('#chip-service') && $('#chip-service').style.display !== 'none';
+  const o = typeof obd !== 'undefined' && obd.connected, se = typeof sensor !== 'undefined' && sensor.connected, d = typeof demo !== 'undefined' && demo.on;
+  const L = [
+    ['ENGINE LINK', o ? 'ONLINE' : d ? 'DEMO' : 'STANDBY', o ? 'ok' : d ? 'wait' : 'dim'],
+    ['SENSOR BOX', se ? 'ONLINE' : d ? 'DEMO' : 'STANDBY', se ? 'ok' : d ? 'wait' : 'dim'],
+    ['ALARMS', towing ? 'ARMED · TOW' : 'ARMED', 'ok'],
+    ['TILT + GPS', 'READY', 'ok'],
+    ['SERVICE', svcDue ? 'DUE' : 'OK', svcDue ? 'bad' : 'ok']
+  ];
+  if (cfg.copilot) L.push(['CO-PILOT', (cfg.dogName || 'DOG').toUpperCase() + ' ONBOARD', 'ok']);
+  return L;
+}
+function bootSequence(done){
+  const b = $('#boot'), ul = $('#bootChecks'), bar = $('#bootBar'), pct = $('#bootPct'), go = $('#bootGo');
+  bootTimers.forEach(clearTimeout); bootTimers = [];
+  $('#bootTitle').textContent = (cfg.uteName || 'Triton').replace(/^the\s+/i, '').toUpperCase().slice(0, 12);
+  ul.innerHTML = ''; go.classList.remove('in'); bar.style.transition = 'none'; bar.style.width = '0'; pct.textContent = '0%';
+  b.classList.remove('out'); b.classList.add('show');
+  // restart CSS animations
+  b.querySelectorAll('.r2,.title,.mark svg').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+  if (cfg.chime) playSound('boot');
+  const T = 2600, lines = bootLines(), t0 = performance.now();
+  requestAnimationFrame(() => { bar.style.transition = `width ${T}ms cubic-bezier(.4,0,.2,1)`; bar.style.width = '100%'; });
+  const tick = () => { const f = Math.min(1, (performance.now() - t0) / T); pct.textContent = Math.round(f * 100) + '%'; if (f < 1 && b.classList.contains('show')) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+  lines.forEach(([k, v, cls], i) => bootTimers.push(setTimeout(() => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="k">${esc(k)}</span><span class="dots"></span><span class="v ${cls}">${esc(v)}</span>`;
+    ul.appendChild(li); requestAnimationFrame(() => li.classList.add('in'));
+    if (cfg.chime && i % 2 === 0) playSound('blip');
+  }, 500 + i * 300)));
+  let finished = false;
+  const finish = () => {
+    if (finished) return; finished = true;
+    bootTimers.forEach(clearTimeout); bootTimers = [];
+    b.classList.add('out');
+    setTimeout(() => b.classList.remove('show', 'out'), 560);
+    done && done();
+  };
+  bootTimers.push(setTimeout(() => { go.classList.add('in'); chime(); }, T));
+  bootTimers.push(setTimeout(finish, T + 900));
+  b.onclick = finish;
+}
+function runSweep(){
+  sweep.on = true; sweep.start = performance.now();
+  const loop = () => { render(); if (sweep.on) requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+}
+function startSweep(fromLaunch){
+  const after = () => { if (cfg.sweep) runSweep(); say(greeting(), 5000); };
+  if (cfg.sweep && Date.now() - lastBoot > 120000){ lastBoot = Date.now(); bootSequence(after); }
+  else { chime(); after(); }
 }
 const DIAL_R = 78, DCX = 100, DCY = 108;
 function dialPoint(f){ const a = (-120 + f * 240) * Math.PI / 180; return [DCX + DIAL_R * Math.sin(a), DCY - DIAL_R * Math.cos(a)]; }
@@ -1684,6 +1812,7 @@ function applyTheme(){
   $('#copilot').style.display = cfg.copilot ? '' : 'none';
   $('#dogName').textContent = cfg.dogName;
   copilot.state = null;
+  if (typeof applyNight === 'function' && typeof nightForced !== 'undefined') applyNight();
 }
 
 /* =========================================================
@@ -1953,6 +2082,7 @@ applyTheme();
 applyTowing();
 applyNight();
 checkService();
+if (cfg.sweep) setTimeout(() => { lastBoot = Date.now(); bootSequence(() => say(greeting(), 5000)); }, 50);
 if (trip.active){ startGeo(); updateTripChip(); }
 setInterval(render, 250);
 setInterval(updateTripChip, 5000);
