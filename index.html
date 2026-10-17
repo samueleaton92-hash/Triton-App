@@ -6,6 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0b0f14">
 <title>Triton Dash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Yrsa:wght@300;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0b0f14; --panel:#141b23; --panel2:#1b2430; --line:#263241;
@@ -58,9 +60,9 @@ button:active{transform:scale(.98)}
 .strip.warmup{display:block;background:#2a2110;border:2px solid var(--warn);color:#ffe2a8}
 #banner{position:fixed;left:10px;right:10px;top:calc(env(safe-area-inset-top) + 8px);z-index:20;background:var(--alarm);color:#fff;border-radius:14px;padding:14px;display:none;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:17px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
 #banner button{background:#fff;color:#7a0d10;border:none;padding:10px 14px}
-#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 86px);transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line);padding:12px 16px;border-radius:12px;font-size:14px;max-width:92vw;display:none;z-index:30}
-nav{position:fixed;left:0;right:0;bottom:0;z-index:15;background:#0e141b;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px)}
-nav button{background:none;border:none;border-radius:10px;padding:9px 2px;font-size:13px;color:var(--muted)}
+#toast{position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom) + 86px);background:var(--panel2);border:1px solid var(--line);padding:12px 16px;border-radius:12px;font-size:14px;max-width:calc(100vw - 110px);display:none;z-index:30}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:15;background:#0e141b;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px)}
+nav button{background:none;border:none;border-radius:10px;padding:9px 1px;font-size:12px;color:var(--muted)}
 nav button.active{color:var(--text);background:var(--panel2)}
 .view{display:none}.view.active{display:block}
 .card2{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
@@ -98,6 +100,47 @@ textarea{width:100%;min-height:150px;font-family:ui-monospace,Menlo,monospace;fo
 .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:14px;line-height:1.5}
 .code{font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:16px}
 
+/* ---------- Themes ---------- */
+html[data-theme=eaton]{--bg:#092217;--panel:#043625;--panel2:#0c442e;--line:#1d5c42;--accent:#f2f1ed;--ok:#8fd6ac;--text:#f2f1ed;--muted:#a9bfb2}
+html[data-theme=eaton] body,html[data-theme=eaton] button,html[data-theme=eaton] input,html[data-theme=eaton] select{font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html[data-theme=eaton] h1,html[data-theme=eaton] h2,html[data-theme=eaton] .card h2{font-family:Yrsa,Georgia,serif;font-weight:500;letter-spacing:.2px}
+html[data-theme=eaton] h1{font-size:26px}
+html[data-theme=eaton] .tile.ok{border-color:#1d5c42}
+html[data-theme=eaton] button.primary{color:#043625}
+html[data-theme=eaton] nav{background:#061a11}
+html[data-theme=rally]{--bg:#090909;--panel:#131313;--panel2:#1e1e1e;--line:#353535;--accent:#ffd400;--text:#ffffff;--muted:#a9a9a9}
+html[data-theme=rally] .tile{border-width:3px}
+html[data-theme=rally] .tile .val,html[data-theme=rally] h1{font-style:italic;letter-spacing:-1px}
+html[data-theme=rally] button.primary{color:#111}
+html[data-theme=retro]{--bg:#14110d;--panel:#1d1915;--panel2:#27211b;--line:#3b3228;--accent:#ff9f43;--text:#f3e9d8;--muted:#a89a84}
+html[data-theme=retro] h1,html[data-theme=retro] .tile .label{font-family:Georgia,"Times New Roman",serif}
+.dial{display:none;width:100%;max-width:230px;height:auto;margin:2px auto 0}
+html[data-theme=retro] .tile .dial{display:block}
+html[data-theme=retro] .tile .val{font-size:26px !important;text-align:center}
+html[data-theme=retro] .tile canvas{display:none}
+.brand{display:none;align-items:center;gap:6px;margin-right:6px;vertical-align:middle}
+.brand svg{width:24px;height:29px}
+html[data-theme=eaton] .brand{display:inline-flex}
+
+/* ---------- Co-pilot ---------- */
+#copilot{position:fixed;right:10px;bottom:calc(env(safe-area-inset-bottom) + 70px);z-index:14;width:74px;text-align:center;cursor:pointer;user-select:none}
+#copilot svg{width:74px;height:68px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+#copilot .dogname{font-size:11px;color:var(--muted);margin-top:-2px}
+#copilot .bubble{position:absolute;right:4px;bottom:92px;background:var(--text);color:#111;font-size:13px;font-weight:600;padding:8px 11px;border-radius:14px 14px 4px 14px;box-shadow:0 6px 20px rgba(0,0,0,.4);width:max-content;max-width:210px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+#copilot .bubble.show{opacity:1;transform:none}
+#copilot.celebrate svg{animation:hop .5s ease 3}
+@keyframes hop{50%{transform:translateY(-12px) rotate(-6deg)}}
+
+/* ---------- Fun tab ---------- */
+.badges{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.badge{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:13px;opacity:.45}
+.badge b{display:block;font-size:14px;margin:2px 0}
+.badge .ic{font-size:22px}
+.badge.earned{opacity:1;border-color:var(--accent)}
+.badge small{color:var(--muted)}
+#wrapCanvas{width:100%;max-width:420px;display:block;margin:8px auto;border-radius:14px;border:1px solid var(--line)}
+#map{height:340px;border-radius:12px;overflow:hidden;background:var(--panel2)}
+
 /* ---------- Tablet (iPad) ---------- */
 @media (min-width:700px){
   body{padding-left:20px;padding-right:20px}
@@ -119,6 +162,12 @@ textarea{width:100%;min-height:150px;font-family:ui-monospace,Menlo,monospace;fo
   #view-ute,#view-log{columns:2;column-gap:14px}
   #view-ute .card2,#view-log .card2{break-inside:avoid;display:inline-block;width:100%}
   .sheet{align-items:center}
+  #copilot{width:96px;right:18px}
+  #copilot svg{width:96px;height:88px}
+  #copilot .bubble{right:6px;bottom:116px;font-size:14px}
+  .badges{grid-template-columns:repeat(3,1fr)}
+  #view-fun{columns:2;column-gap:14px}
+  #view-fun .card2{break-inside:avoid;display:inline-block;width:100%}
   .sheet .card{border-radius:18px;max-height:80vh}
 }
 /* iPad landscape and other wide screens */
@@ -139,9 +188,10 @@ textarea{width:100%;min-height:150px;font-family:ui-monospace,Menlo,monospace;fo
 
 <div id="banner"><span id="bannerText">Alarm</span><button id="silenceBtn">Silence</button></div>
 <div id="toast"></div>
+<div id="copilot" title="Tap me"><div class="bubble" id="copilotSay"></div><div id="copilotFace"></div><div class="dogname" id="dogName"></div></div>
 
 <header>
-  <h1>Triton Dash</h1>
+  <h1><span class="brand"><svg viewBox="0 0 40 48"><rect x="2.5" y="2.5" width="35" height="43" rx="6" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M20 42 C20 32 21 21 24 10" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M20 34 Q12 35 8 27 Q16 25 20 34Z M21 28 Q28 30 32 21 Q24 20 21 28Z M21 22 Q13 23 10 14 Q18 13 21 22Z M22 17 Q29 18 31 9 Q24 9 22 17Z M24 11 Q19 8 21 3 Q27 6 24 11Z" fill="currentColor"/></svg></span><span id="appTitle">Triton Dash</span></h1>
   <div class="hbtns">
     <button id="btnTow">Towing: off</button>
     <button id="btnNight">Night</button>
@@ -258,12 +308,35 @@ textarea{width:100%;min-height:150px;font-family:ui-monospace,Menlo,monospace;fo
   </div>
 </section>
 
+<!-- ===== FUN ===== -->
+<section class="view" id="view-fun">
+  <div class="card2">
+    <h2 style="margin-top:0">Triton Wrapped</h2>
+    <p>A monthly summary card to save or share. Place names come from trip purposes, so they're off by default. Turn them on only if nothing in them is private client information.</p>
+    <div class="row"><span>Month</span><input type="month" id="wrapMonth"></div>
+    <div class="row"><span>Include top places</span><input type="checkbox" id="wrapPlaces" style="width:28px;height:28px"></div>
+    <canvas id="wrapCanvas" width="1080" height="1350"></canvas>
+    <div class="btnrow"><button class="primary" id="btnWrapShare">Share / save image</button></div>
+  </div>
+  <div class="card2">
+    <h2 style="margin-top:0">Badges</h2>
+    <p>Earned for good habits, never for pushing the ute harder.</p>
+    <div class="badges" id="badgeGrid"></div>
+  </div>
+  <div class="card2">
+    <h2 style="margin-top:0">Where we've been</h2>
+    <p>Trips logged with GPS. Blue is work, amber is personal and touring. Map tiles need an internet connection.</p>
+    <div id="map"></div>
+  </div>
+</section>
+
 <nav>
   <button class="active" data-view="dash">Dash</button>
   <button data-view="drive">Drive</button>
   <button data-view="offroad">Off-road</button>
   <button data-view="log">Logbook</button>
   <button data-view="ute">Ute</button>
+  <button data-view="fun">Fun</button>
 </nav>
 
 <!-- Settings sheet -->
@@ -306,7 +379,8 @@ const DEFAULTS = {
   cooldownEgt:300,
   rollWarn:25, rollAlarm:30, pitchWarn:30, pitchAlarm:35, incFlipP:false, incFlipR:false,
   battType:'lithium', battAh:100, drawA:2.5,
-  night:'auto', sound:true
+  night:'auto', sound:true,
+  driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com'
 };
 const FIELDS = [
   ['Normal alarms'],
@@ -330,9 +404,15 @@ const FIELDS = [
   ['drawA','Fridge average draw (if sensor box has no current reading)','A'],
   ['Display and sound'],
   ['night','Night mode','select', [['auto','Auto (7pm to 6am)'],['on','Always on'],['off','Off']]],
-  ['sound','Alarm sound','check']
+  ['sound','Alarm sound','check'],
+  ['Fun'],
+  ['driverName','Driver name','text'], ['uteName','Ute name','text'], ['dogName','Co-pilot (dog) name','text'],
+  ['theme','Theme','select', [['eaton','Eaton Gardening'],['standard','Standard'],['retro','Retro dials'],['rally','Rally']]],
+  ['copilot','Show co-pilot','check'], ['sweep','Startup gauge sweep','check'], ['chime','Startup chime','check'],
+  ['wrapFooter','Wrapped card footer','text']
 ];
 let cfg = Object.assign({}, DEFAULTS, store.get('cfg', {}));
+if (cfg.dogName === 'Co-pilot') cfg.dogName = 'Picasso';
 let towing = store.get('towing', false);
 function thr(){
   if (!towing) return cfg;
@@ -429,6 +509,7 @@ function buildGrid(){
         </div><div class="sub" id="sub-tyres"></div>`;
     } else {
       el.innerHTML = `<div class="label"><span>${t.label}</span>${t.peak ? '<span>tap: reset peak</span>' : ''}</div>
+        ${SWEEP_MAX[t.id] ? dialSVG(t.id) : ''}
         <div class="val" id="val-${t.id}">--</div>
         ${t.spark ? `<canvas id="spark-${t.id}"></canvas>` : ''}
         <div class="sub" id="sub-${t.id}"></div>`;
@@ -475,11 +556,11 @@ function stripMessage(now){
     }
     if (state.egt != null && (cd.hot || state.egt > cfg.cooldownEgt)){
       if (state.egt > cfg.cooldownEgt) return { cls:'cool', text:`Turbo cool-down: let it idle until EGT is below ${cfg.cooldownEgt}°C (now ${Math.round(state.egt)}°C)` };
-      cd.doneAt = cd.doneAt || now;
+      if (!cd.doneAt){ cd.doneAt = now; cooldownDone(); }
     } else if (cd.need > 0){
       const left = Math.ceil(cd.need - (now - cd.stoppedAt) / 1000);
       if (left > 0) return { cls:'cool', text:`Turbo cool-down: idle ${left} more seconds before switching off` };
-      cd.doneAt = cd.doneAt || now;
+      if (!cd.doneAt){ cd.doneAt = now; cooldownDone(); }
     }
     if (cd.doneAt && now - cd.doneAt < 20000) return { cls:'okgo', text:'Turbo cooled down. OK to switch off.' };
   }
@@ -512,9 +593,11 @@ function render(){
       $('#sub-tyres').textContent = any ? '' : 'Tyre sensors not connected yet';
       continue;
     }
-    const v = state[t.id];
+    const sf = sweepFrac();
+    const v = sf != null ? SWEEP_MAX[t.id] * sf : state[t.id];
     const valEl = $('#val-' + t.id), subEl = $('#sub-' + t.id);
     const big = t.big ? ' big' : '';
+    if (SWEEP_MAX[t.id]) setDial(t.id, v, t.warnLine ? t.warnLine() : null);
     if (unsupported.has(t.id)){ el.className = 'tile na' + big; valEl.textContent = 'Not reported by vehicle'; subEl.textContent = ''; continue; }
     if (v == null){
       el.className = 'tile na' + big; valEl.textContent = '--';
@@ -522,7 +605,7 @@ function render(){
       if (t.spark) drawSpark(t.id, [], null);
       continue;
     }
-    const lvl = t.level(v);
+    const lvl = sf != null ? 'ok' : t.level(v);
     if (lvl === 'alarm') activeAlarms.add(t.id);
     el.className = 'tile ' + lvl + big;
     valEl.innerHTML = fmt(v, t.dp) + (t.unit ? `<span class="unit">${t.unit}</span>` : '');
@@ -534,6 +617,7 @@ function render(){
   const s = stripMessage(now), strip = $('#strip');
   if (s){ strip.className = 'strip ' + s.cls; strip.textContent = s.text; } else strip.className = 'strip';
   handleAlarms();
+  updateCopilot(s);
 }
 
 function renderDrive(T){
@@ -592,6 +676,7 @@ for (const btn of document.querySelectorAll('nav button')){
     for (const v of document.querySelectorAll('.view')) v.classList.toggle('active', v.id === 'view-' + btn.dataset.view);
     if (btn.dataset.view === 'log') renderLog();
     if (btn.dataset.view === 'ute'){ renderService(); renderFuel(); }
+    if (btn.dataset.view === 'fun') renderFun();
     window.scrollTo(0, 0);
   };
 }
@@ -686,7 +771,8 @@ function startDemo(){
     peak('egt', state.egt); peak('boost', state.boost);
   }, 250);
   keepAwake();
-  toast('Demo mode: fake data. Alarm sounds are muted in demo.');
+  startSweep();
+  setTimeout(() => toast('Demo mode: fake data. Alarm sounds are muted in demo.'), 2600);
 }
 function stopDemo(){
   if (!demo.on) return;
@@ -839,6 +925,7 @@ async function connectOBD(){
     keepAwake();
     await initElm();
     chip('obd', 'on', 'OBD live');
+    startSweep();
     pollLoop();
   } catch(e){
     chip('obd', 'off', 'OBD off');
@@ -1081,8 +1168,8 @@ function startGeo(){
     if (fix.acc > 50) return;
     if (lastFix){
       const d = haversine(lastFix, fix);
-      if (d * 1000 > Math.max(15, fix.acc)){ trip.gpsKm = (trip.gpsKm || 0) + d; lastFix = fix; store.set('activeTrip', trip); }
-    } else lastFix = fix;
+      if (d * 1000 > Math.max(15, fix.acc)){ trip.gpsKm = (trip.gpsKm || 0) + d; lastFix = fix; store.set('activeTrip', trip); addTrackPoint(fix); }
+    } else { lastFix = fix; addTrackPoint(fix); }
   }, () => {}, { enableHighAccuracy:true, maximumAge:5000 });
 }
 function stopGeo(){ if (geoWatch != null){ navigator.geolocation.clearWatch(geoWatch); geoWatch = null; } lastFix = null; }
@@ -1105,7 +1192,7 @@ function renderLog(){
     const est = trip.odoStart ? Math.round(trip.odoStart + (trip.gpsKm || 0)) : '';
     box.innerHTML = `<h2 style="margin-top:0">${trip.type === 'work' ? 'Work' : 'Personal'} trip in progress</h2>
       <p>${esc(trip.purpose || 'No purpose entered')} · started ${fmtTime(trip.start)} · ${mins} min</p>
-      <div class="stat"><div><b>${(trip.gpsKm || 0).toFixed(1)}</b><small>GPS km</small></div><div><b>${esc(trip.odoStart || '--')}</b><small>Start odo</small></div><div><b>${trip.type === 'work' ? 'Work' : 'Personal'}</b><small>Type</small></div></div>
+      <div class="stat"><div><b>${(trip.gpsKm || 0).toFixed(1)}</b><small>GPS km</small></div><div><b>${esc(trip.odoStart || '--')}</b><small>Start odo</small></div><div><b>${trip.ecoN >= 60 ? Math.round(trip.ecoGood / trip.ecoN * 100) : '--'}</b><small>Eco score</small></div></div>
       <div class="form"><input class="full" type="number" inputmode="numeric" id="trip-odo-end" placeholder="Odometer at end (km)" value="${esc(est)}"></div>
       <div class="btnrow"><button class="good" id="btnTripEnd">End trip</button><button class="danger" id="btnTripCancel">Discard</button></div>`;
     $('#btnTripEnd').onclick = endTrip;
@@ -1125,7 +1212,7 @@ function renderLog(){
   const list = $('#log-list');
   if (!trips.length){ list.innerHTML = '<p class="hint">No trips yet.</p>'; return; }
   list.innerHTML = trips.slice(0, 60).map(t => `<div class="item"><div><span class="tag ${t.type === 'work' ? 'work' : ''}">${t.type === 'work' ? 'Work' : 'Personal'}</span> ${esc(t.purpose || '')}
-      <small>${fmtDate(t.start)} ${fmtTime(t.start)} · ${tripKm(t)} km${t.odoStart ? ` · odo ${t.odoStart} to ${t.odoEnd || '?'}` : ''}</small></div>
+      <small>${fmtDate(t.start)} ${fmtTime(t.start)} · ${tripKm(t)} km${fuelCostText(tripKm(t))}${t.eco != null ? ' · eco ' + t.eco : ''}${t.odoStart ? ` · odo ${t.odoStart} to ${t.odoEnd || '?'}` : ''}</small></div>
       <button class="small danger" data-del="${t.id}">Delete</button></div>`).join('');
   for (const b of list.querySelectorAll('[data-del]')) b.onclick = () => {
     if (!confirm('Delete this trip?')) return;
@@ -1134,7 +1221,7 @@ function renderLog(){
 }
 function startTrip(type){
   const odo = parseFloat($('#trip-odo-start').value);
-  Object.assign(trip, { active:true, id:uid(), type, purpose:$('#trip-purpose').value.trim(), start:new Date().toISOString(), odoStart:isNaN(odo) ? null : odo, gpsKm:0 });
+  Object.assign(trip, { active:true, id:uid(), type, purpose:$('#trip-purpose').value.trim(), start:new Date().toISOString(), odoStart:isNaN(odo) ? null : odo, gpsKm:0, ecoN:0, ecoGood:0 });
   if (!store.get('logPeriod', '')) store.set('logPeriod', todayISO());
   store.set('activeTrip', trip); startGeo(); keepAwake(); renderLog(); updateTripChip();
   if (type === 'work' && !trip.purpose) toast('Tip: add a purpose for work trips. The ATO asks for the reason for each business journey.', 6000);
@@ -1142,18 +1229,20 @@ function startTrip(type){
 function endTrip(){
   const odo = parseFloat($('#trip-odo-end').value);
   const t = { id:trip.id, type:trip.type, purpose:trip.purpose, start:trip.start, end:new Date().toISOString(),
-    odoStart:trip.odoStart, odoEnd:isNaN(odo) ? null : odo, gpsKm:Math.round((trip.gpsKm || 0) * 10) / 10 };
+    odoStart:trip.odoStart, odoEnd:isNaN(odo) ? null : odo, gpsKm:Math.round((trip.gpsKm || 0) * 10) / 10,
+    eco:(trip.ecoN || 0) >= 60 ? Math.round(trip.ecoGood / trip.ecoN * 100) : null };
   trips.unshift(t); store.set('trips', trips);
   if (t.odoEnd){ svc.odoNow = Math.max(svc.odoNow || 0, t.odoEnd); store.set('svc', svc); }
   trip.active = false; store.set('activeTrip', trip); stopGeo(); renderLog(); updateTripChip(); checkService();
-  toast(`Trip saved: ${tripKm(t)} km`);
+  toast(`Trip saved: ${tripKm(t)} km${t.eco != null ? ' · eco score ' + t.eco : ''}`);
+  checkBadges();
 }
 function updateTripChip(){
   const c = $('#chip-trip');
   if (trip.active){ c.style.display = ''; c.className = 'chip on'; c.textContent = (trip.type === 'work' ? 'Work' : 'Personal') + ' trip ' + (trip.gpsKm || 0).toFixed(1) + ' km'; }
   else c.style.display = 'none';
 }
-$('#log-period').onchange = e => { store.set('logPeriod', e.target.value); renderLog(); };
+$('#log-period').onchange = e => { store.set('logPeriod', e.target.value); renderLog(); checkBadges(); };
 $('#btnLogExport').onclick = () => {
   const period = store.get('logPeriod', '');
   const rows = [['Start date','Start time','End date','End time','Type','Purpose','Odometer start','Odometer end','Km (odometer)','Km (GPS)']];
@@ -1210,7 +1299,8 @@ function renderService(){
   for (const b of document.querySelectorAll('[data-done]')) b.onclick = () => {
     const it = svc.items.find(i => i.id === b.dataset.done), odo = currentOdo();
     if (!odo){ toast('Enter the current odometer first'); return; }
-    it.lastKm = odo; it.lastDate = todayISO(); store.set('svc', svc); renderService(); checkService(); toast(it.name + ' marked done');
+    if (svcStatus(it).cls !== 'over' && it.lastKm != null) store.set('svcOnTime', true);
+    it.lastKm = odo; it.lastDate = todayISO(); store.set('svc', svc); checkBadges(); renderService(); checkService(); toast(it.name + ' marked done');
   };
   for (const b of document.querySelectorAll('[data-edit]')) b.onclick = () => editService(b.dataset.edit);
 }
@@ -1271,7 +1361,7 @@ $('#btnFuelAdd').onclick = () => {
   fuel.push({ id:uid(), date:$('#fuel-date').value || todayISO(), odo, litres, cost:isNaN(cost) ? null : cost, full:$('#fuel-full').checked });
   store.set('fuel', fuel);
   for (const id of ['fuel-odo','fuel-l','fuel-cost']) $('#' + id).value = '';
-  renderFuel(); checkService(); toast('Fill-up saved');
+  const pb = fuelPB(); renderFuel(); checkService(); toast('Fill-up saved'); if (pb) store.set('tankPB', true); checkBadges();
 };
 $('#btnFuelExport').onclick = () => {
   const rows = [['Date','Odometer','Litres','Cost','Price per litre','Full tank']];
@@ -1322,7 +1412,9 @@ $('#copyScan').onclick = async () => {
    BACKUP AND RESTORE
    ========================================================= */
 $('#btnBackup').onclick = () => {
-  const data = { app:'triton-dash', version:2, saved:new Date().toISOString(), cfg, towing, trips, activeTrip:trip, logPeriod:store.get('logPeriod', ''), svc, fuel, incRef:inc.ref };
+  const data = { app:'triton-dash', version:3, saved:new Date().toISOString(), cfg, towing, trips, activeTrip:trip, logPeriod:store.get('logPeriod', ''), svc, fuel, incRef:inc.ref,
+    tracks:store.get('tracks', {}), badges:store.get('badges', {}), cooldowns:store.get('cooldowns', {}), svcOnTime:store.get('svcOnTime', false), tankPB:store.get('tankPB', false) };
+  store.set('backedUp', true); setTimeout(checkBadges, 500);
   exportFile('Backup', 'triton-dash-backup-' + todayISO() + '.json', JSON.stringify(data, null, 1), 'application/json');
 };
 $('#btnRestore').onclick = () => {
@@ -1331,7 +1423,7 @@ $('#btnRestore').onclick = () => {
       try {
         const d = JSON.parse(text);
         if (d.app !== 'triton-dash') throw new Error('Not a Triton Dash backup');
-        for (const k of ['cfg','towing','trips','logPeriod','svc','fuel','incRef']) if (d[k] !== undefined) store.set(k, d[k]);
+        for (const k of ['cfg','towing','trips','logPeriod','svc','fuel','incRef','tracks','badges','cooldowns','svcOnTime','tankPB']) if (d[k] !== undefined) store.set(k, d[k]);
         if (d.activeTrip) store.set('activeTrip', d.activeTrip);
         toast('Restored. Reloading…'); setTimeout(() => location.reload(), 800);
       } catch(e){ toast('Couldn\'t read that backup: ' + e.message, 5000); }
@@ -1349,9 +1441,10 @@ function openSettings(){
     const [k, label, unit, opts] = f;
     let input;
     if (unit === 'check') input = `<input type="checkbox" id="cfg-${k}" ${cfg[k] ? 'checked' : ''} style="width:28px;height:28px">`;
+    else if (unit === 'text') input = `<input type="text" id="cfg-${k}" value="${esc(cfg[k])}" style="width:160px">`;
     else if (unit === 'select') input = `<select id="cfg-${k}">${opts.map(([v, n]) => `<option value="${v}" ${cfg[k] === v ? 'selected' : ''}>${n}</option>`).join('')}</select>`;
     else input = `<input type="number" inputmode="decimal" step="any" id="cfg-${k}" value="${cfg[k]}">`;
-    rows.insertAdjacentHTML('beforeend', `<div class="row"><span>${label}${unit && !['check','select'].includes(unit) ? ' (' + unit + ')' : ''}</span>${input}</div>`);
+    rows.insertAdjacentHTML('beforeend', `<div class="row"><span>${label}${unit && !['check','select','text'].includes(unit) ? ' (' + unit + ')' : ''}</span>${input}</div>`);
   }
   $('#settingsSheet').style.display = 'flex';
 }
@@ -1361,18 +1454,355 @@ $('#saveSettings').onclick = () => {
     if (f.length === 1) continue;
     const [k, , unit] = f, el = $('#cfg-' + k);
     if (unit === 'check') cfg[k] = el.checked;
-    else if (unit === 'select') cfg[k] = el.value;
+    else if (unit === 'select' || unit === 'text') cfg[k] = el.value.trim() || DEFAULTS[k];
     else { const v = parseFloat(el.value); if (!isNaN(v)) cfg[k] = v; }
   }
-  store.set('cfg', cfg); nightForced = null; applyNight();
+  store.set('cfg', cfg); nightForced = null; applyNight(); applyTheme();
   $('#settingsSheet').style.display = 'none'; toast('Saved');
 };
 $('#resetDefaults').onclick = () => { cfg = Object.assign({}, DEFAULTS); store.set('cfg', cfg); openSettings(); };
+
+
+/* =========================================================
+   FUN: STARTUP SWEEP, GREETING, DIALS
+   ========================================================= */
+const SWEEP_MAX = { egt:900, boost:25, cool:120, rpm:4500, speed:160, volt:16, load:100, aux:14.6, fridge:10 };
+const sweep = { on:false, start:0 };
+function sweepFrac(){
+  if (!sweep.on) return null;
+  const t = (performance.now() - sweep.start) / 1800;
+  if (t >= 1){ sweep.on = false; return null; }
+  const e = x => 1 - Math.pow(1 - x, 3);
+  return t < 0.5 ? e(t * 2) : e((1 - t) * 2);
+}
+function chime(){
+  if (!cfg.chime) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    [[660, 0], [880, 0.16], [1175, 0.32]].forEach(([f, d]) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, actx.currentTime + d);
+      g.gain.exponentialRampToValueAtTime(0.18, actx.currentTime + d + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + d + 0.35);
+      o.connect(g); g.connect(actx.destination); o.start(actx.currentTime + d); o.stop(actx.currentTime + d + 0.4);
+    });
+  } catch(e){}
+}
+function greeting(){
+  const h = new Date().getHours();
+  const g = h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
+  const ute = cfg.uteName.charAt(0).toUpperCase() + cfg.uteName.slice(1);
+  return `${g} ${cfg.driverName}. ${ute} is ready.`;
+}
+function startSweep(){
+  if (cfg.sweep){
+    sweep.on = true; sweep.start = performance.now();
+    const loop = () => { render(); if (sweep.on) requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }
+  chime();
+  say(greeting(), 5000);
+}
+const DIAL_R = 78, DCX = 100, DCY = 108;
+function dialPoint(f){ const a = (-120 + f * 240) * Math.PI / 180; return [DCX + DIAL_R * Math.sin(a), DCY - DIAL_R * Math.cos(a)]; }
+function dialArc(f0, f1){
+  const [x0, y0] = dialPoint(f0), [x1, y1] = dialPoint(f1);
+  return `M${x0.toFixed(1)} ${y0.toFixed(1)} A${DIAL_R} ${DIAL_R} 0 ${(f1 - f0) * 240 > 180 ? 1 : 0} 1 ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+}
+function dialSVG(id){
+  let ticks = '';
+  for (let i = 0; i <= 10; i++){
+    const a = (-120 + i * 24) * Math.PI / 180, r1 = i % 5 ? 64 : 58;
+    ticks += `<line x1="${(DCX + r1 * Math.sin(a)).toFixed(1)}" y1="${(DCY - r1 * Math.cos(a)).toFixed(1)}" x2="${(DCX + 70 * Math.sin(a)).toFixed(1)}" y2="${(DCY - 70 * Math.cos(a)).toFixed(1)}" stroke="var(--muted)" stroke-width="${i % 5 ? 1.5 : 2.5}"/>`;
+  }
+  const max = SWEEP_MAX[id];
+  return `<svg class="dial" viewBox="0 0 200 158"><path d="${dialArc(0, 1)}" stroke="var(--line)" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path id="dwarn-${id}" d="" stroke="var(--warn)" stroke-width="9" fill="none" opacity=".75"/>${ticks}
+    <text x="62" y="142" fill="var(--muted)" font-size="12" text-anchor="middle">0</text><text x="138" y="142" fill="var(--muted)" font-size="12" text-anchor="middle">${max}</text>
+    <line id="dneedle-${id}" x1="${DCX}" y1="${DCY}" x2="${DCX}" y2="${DCY - 66}" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" transform="rotate(-120 ${DCX} ${DCY})"/>
+    <circle cx="${DCX}" cy="${DCY}" r="7" fill="var(--accent)"/></svg>`;
+}
+function setDial(id, v, warn){
+  if (cfg.theme !== 'retro') return;
+  const max = SWEEP_MAX[id], n = document.getElementById('dneedle-' + id), w = document.getElementById('dwarn-' + id);
+  if (!n) return;
+  const f = v == null ? 0 : Math.max(0, Math.min(1, v / max));
+  n.setAttribute('transform', `rotate(${(-120 + f * 240).toFixed(1)} ${DCX} ${DCY})`);
+  if (w) w.setAttribute('d', warn ? dialArc(Math.min(0.99, warn / max), 1) : '');
+}
+function applyTheme(){
+  document.documentElement.dataset.theme = cfg.theme;
+  $('#appTitle').textContent = cfg.theme === 'eaton' ? 'Eaton Gardening' : 'Triton Dash';
+  $('#copilot').style.display = cfg.copilot ? '' : 'none';
+  $('#dogName').textContent = cfg.dogName;
+  copilot.state = null;
+}
+
+/* =========================================================
+   FUN: DOG CO-PILOT
+   ========================================================= */
+function dogSVG(mood){
+  const earL = mood === 'alert' ? 'rotate(18 22 30) translate(0 -10)' : mood === 'worried' ? 'rotate(-8 22 30) translate(0 4)' : '';
+  const earR = mood === 'alert' ? 'rotate(-18 98 30) translate(0 -10)' : mood === 'worried' ? 'rotate(8 98 30) translate(0 4)' : '';
+  const browL = mood === 'worried' ? 'M37 37 L51 30' : mood === 'alert' ? 'M37 31 L51 31' : 'M38 35 L51 35';
+  const browR = mood === 'worried' ? 'M83 37 L69 30' : mood === 'alert' ? 'M83 31 L69 31' : 'M82 35 L69 35';
+  const eyeR = mood === 'alert' ? 6 : 5;
+  const mouth = mood === 'worried' ? '<path d="M50 83 Q60 76 70 83" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>'
+    : '<path d="M47 76 Q60 87 73 76" stroke="#2a1a0e" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
+  const tongue = mood === 'happy' ? '<path d="M55 80 Q54 95 60 95 Q66 95 65 80 Z" fill="#ff7a8a" stroke="#d9566a" stroke-width="1"/>' : '';
+  const sweat = mood === 'worried' ? '<path d="M92 20 Q96 28 92 31 Q88 28 92 20 Z" fill="#7cc7ff"/>' : '';
+  return `<svg viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="22" cy="54" rx="15" ry="30" fill="#b9793a" transform="${earL}"/>
+    <ellipse cx="98" cy="54" rx="15" ry="30" fill="#b9793a" transform="${earR}"/>
+    <ellipse cx="60" cy="52" rx="38" ry="40" fill="#e3ab62"/>
+    <ellipse cx="60" cy="75" rx="23" ry="17" fill="#f2cb8f"/>
+    <path d="${browL}" stroke="#8a5a2b" stroke-width="3" stroke-linecap="round"/><path d="${browR}" stroke="#8a5a2b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="45" cy="46" r="${eyeR}" fill="#2a1a0e"/><circle cx="75" cy="46" r="${eyeR}" fill="#2a1a0e"/>
+    <circle cx="46.7" cy="44.3" r="1.7" fill="#fff"/><circle cx="76.7" cy="44.3" r="1.7" fill="#fff"/>
+    <ellipse cx="60" cy="66" rx="8.5" ry="6" fill="#2a1a0e"/><ellipse cx="57.5" cy="64" rx="2.5" ry="1.4" fill="#6b5141"/>
+    ${tongue}${mouth}${sweat}</svg>`;
+}
+const copilot = { state:null, sayT:null, lastStrip:null };
+const DOG_LINES = ['Window down please.', 'Is it lunch yet?', 'I\'ve got the left side covered.', 'Good drive so far.', 'Who\'s a good ute? You are.',
+  'Next stop: the beach?', 'I smell a servo pie.', 'Mirrors checked. Tail wagging.', 'Ten out of ten, would ride again.'];
+function say(text, ms = 4500){
+  if (!cfg.copilot) return;
+  const b = $('#copilotSay'); b.textContent = text; b.classList.add('show');
+  clearTimeout(copilot.sayT); copilot.sayT = setTimeout(() => b.classList.remove('show'), ms);
+}
+function celebrate(text){
+  const c = $('#copilot'); c.classList.remove('celebrate'); void c.offsetWidth; c.classList.add('celebrate');
+  if (text) say(text, 6000);
+}
+function updateCopilot(strip){
+  if (!cfg.copilot) return;
+  const anyWarn = !!document.querySelector('#grid .tile.warn');
+  const mood = activeAlarms.size ? 'worried' : anyWarn ? 'alert' : 'happy';
+  if (mood !== copilot.state){
+    const prev = copilot.state;
+    copilot.state = mood; $('#copilotFace').innerHTML = dogSVG(mood);
+    if (prev){
+      if (mood === 'worried') say('Pull over when it\'s safe.', 7000);
+      else if (mood === 'alert') say('Keeping an eye on that one.');
+      else if (prev === 'worried') say('Phew. All good again.');
+    }
+  }
+  const key = strip ? strip.cls : null;
+  if (key !== copilot.lastStrip){
+    if (key === 'cool') say('I\'ll wait while the turbo cools.');
+    if (key === 'okgo') say('Turbo\'s happy. Walkies?');
+    copilot.lastStrip = key;
+  }
+}
+$('#copilot').onclick = () => { celebrate(); say(DOG_LINES[Math.floor(Math.random() * DOG_LINES.length)]); };
+
+/* =========================================================
+   FUN: ECO SCORE (sampled once a second during a trip)
+   ========================================================= */
+let ecoLastSpeed = null, ecoTick = 0;
+setInterval(() => {
+  if (!trip.active || state.rpm == null || state.rpm < 300){ ecoLastSpeed = state.speed; return; }
+  const harsh = ecoLastSpeed != null && state.speed != null && state.speed - ecoLastSpeed > 10;
+  const rough = harsh || state.rpm > 3000 || (state.load || 0) > 85 || (state.boost || 0) > 16;
+  trip.ecoN = (trip.ecoN || 0) + 1;
+  if (!rough) trip.ecoGood = (trip.ecoGood || 0) + 1;
+  ecoLastSpeed = state.speed;
+  if (++ecoTick % 5 === 0) store.set('activeTrip', trip);
+}, 1000);
+
+/* =========================================================
+   FUN: GPS TRACKS AND MAP
+   ========================================================= */
+let trackLast = null;
+function addTrackPoint(fix){
+  if (!trip.active) return;
+  if (trackLast && haversine(trackLast, fix) < 0.08) return;
+  const tracks = store.get('tracks', {});
+  const pts = tracks[trip.id] || (tracks[trip.id] = []);
+  if (pts.length >= 3000) return;
+  pts.push([+fix.lat.toFixed(5), +fix.lon.toFixed(5)]);
+  trackLast = fix; store.set('tracks', tracks);
+}
+let leafletReady = null, mapObj = null, mapLayer = null;
+function loadLeaflet(){
+  if (leafletReady) return leafletReady;
+  leafletReady = new Promise((res, rej) => {
+    const css = document.createElement('link'); css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+    const js = document.createElement('script'); js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    js.onload = () => res(window.L); js.onerror = () => { leafletReady = null; rej(); }; document.head.appendChild(js);
+  });
+  return leafletReady;
+}
+async function drawMap(){
+  const el = $('#map'), tracks = store.get('tracks', {});
+  const lines = trips.filter(t => tracks[t.id] && tracks[t.id].length > 1).map(t => ({ t, pts:tracks[t.id] }));
+  if (trip.active && tracks[trip.id] && tracks[trip.id].length > 1) lines.push({ t:trip, pts:tracks[trip.id] });
+  if (!lines.length){ el.innerHTML = '<p class="hint" style="padding:16px">Trips logged with GPS will show up here.</p>'; mapObj = null; return; }
+  let L;
+  try { L = await loadLeaflet(); } catch(e){ el.innerHTML = '<p class="hint" style="padding:16px">Couldn\'t load the map. Check the internet connection.</p>'; return; }
+  if (!mapObj){
+    el.innerHTML = '';
+    mapObj = L.map(el, { zoomControl:true, attributionControl:true });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:18, attribution:'© OpenStreetMap contributors' }).addTo(mapObj);
+  }
+  if (mapLayer) mapLayer.remove();
+  mapLayer = L.featureGroup(lines.map(({ t, pts }) =>
+    L.polyline(pts, { color:t.type === 'work' ? '#4da3ff' : '#ffb020', weight:4, opacity:.85 })
+      .bindPopup(`${t.type === 'work' ? 'Work' : 'Personal'}: ${esc(t.purpose || '')}<br>${fmtDate(t.start)} · ${tripKm(t)} km`))).addTo(mapObj);
+  setTimeout(() => { mapObj.invalidateSize(); mapObj.fitBounds(mapLayer.getBounds(), { padding:[20, 20] }); }, 50);
+}
+
+/* =========================================================
+   FUN: BADGES
+   ========================================================= */
+function cooldownDone(){
+  const c = store.get('cooldowns', {}), ym = todayISO().slice(0, 7);
+  c[ym] = (c[ym] || 0) + 1; c.total = (c.total || 0) + 1; store.set('cooldowns', c);
+  checkBadges();
+}
+function fuelEconomies(){
+  const s = fuel.slice().sort((a, b) => a.odo - b.odo), out = [];
+  for (let i = 1; i < s.length; i++){
+    const km = s[i].odo - s[i - 1].odo;
+    if (km > 50 && s[i].full && s[i - 1].full) out.push({ date:s[i].date, l100:s[i].litres / km * 100 });
+  }
+  return out;
+}
+function fuelPB(){
+  const e = fuelEconomies();
+  if (e.length < 3) return false;
+  const last = e[e.length - 1].l100;
+  return e.slice(0, -1).every(x => last < x.l100);
+}
+const BADGES = [
+  { id:'first', ic:'🚙', name:'First trip logged', hint:'Log your first trip', test:() => trips.length >= 1 },
+  { id:'logbook', ic:'📒', name:'Logbook legend', hint:'Complete a 12-week logbook period', test:() => { const p = store.get('logPeriod', ''); return p && trips.length && (Date.now() - new Date(p)) / 86400000 >= 84; } },
+  { id:'cool', ic:'🧊', name:'Cool customer', hint:'20 proper turbo cool-downs', test:() => (store.get('cooldowns', {}).total || 0) >= 20 },
+  { id:'tools', ic:'🌿', name:'On the tools', hint:'50 work trips', test:() => trips.filter(t => t.type === 'work').length >= 50 },
+  { id:'service', ic:'🔧', name:'Service on time', hint:'Do a service before it\'s overdue', test:() => store.get('svcOnTime', false) },
+  { id:'tank', ic:'⛽', name:'Tank champion', hint:'Personal best fuel economy (3+ full fills)', test:() => store.get('tankPB', false) },
+  { id:'smooth', ic:'🧈', name:'Smooth operator', hint:'Eco score of 90+ on a 20 km+ trip', test:() => trips.some(t => t.eco >= 90 && tripKm(t) >= 20) },
+  { id:'road', ic:'🛣️', name:'Road tripper', hint:'A single 300 km+ personal trip', test:() => trips.some(t => t.type !== 'work' && tripKm(t) >= 300) },
+  { id:'tourer', ic:'🏕️', name:'1,000 km of touring', hint:'1,000 km of personal trips', test:() => trips.filter(t => t.type !== 'work').reduce((s, t) => s + tripKm(t), 0) >= 1000 },
+  { id:'explorer', ic:'🗺️', name:'Explorer', hint:'10 trips with GPS tracks', test:() => Object.keys(store.get('tracks', {})).length >= 10 },
+  { id:'safe', ic:'💾', name:'Safe keeper', hint:'Export a backup', test:() => store.get('backedUp', false) }
+];
+function checkBadges(){
+  const earned = store.get('badges', {});
+  const fresh = BADGES.filter(b => !earned[b.id] && b.test());
+  if (!fresh.length) return;
+  for (const b of fresh) earned[b.id] = todayISO();
+  store.set('badges', earned);
+  const b = fresh[0];
+  toast(`New badge: ${b.ic} ${b.name}`, 5000);
+  celebrate(`Woof! New badge: ${b.name}`);
+  if ($('#view-fun').classList.contains('active')) renderBadges();
+}
+function renderBadges(){
+  const earned = store.get('badges', {});
+  $('#badgeGrid').innerHTML = BADGES.map(b => `<div class="badge ${earned[b.id] ? 'earned' : ''}"><span class="ic">${b.ic}</span><b>${esc(b.name)}</b>
+    <small>${earned[b.id] ? 'Earned ' + fmtDate(earned[b.id]) : esc(b.hint)}</small></div>`).join('');
+}
+
+/* =========================================================
+   FUN: TRITON WRAPPED (monthly share card)
+   ========================================================= */
+function wrapStats(ym){
+  const ts = trips.filter(t => localISO(t.start).slice(0, 7) === ym);
+  const work = ts.filter(t => t.type === 'work'), pers = ts.filter(t => t.type !== 'work');
+  const km = ts.reduce((s, t) => s + tripKm(t), 0);
+  const longest = ts.reduce((m, t) => Math.max(m, tripKm(t)), 0);
+  const ecos = ts.filter(t => t.eco != null).map(t => t.eco);
+  const fm = fuel.filter(f => (f.date || '').slice(0, 7) === ym);
+  const econ = fuelEconomies().filter(e => (e.date || '').slice(0, 7) === ym);
+  const places = {};
+  for (const t of work){ const k = (t.purpose || '').trim(); if (k) places[k] = (places[k] || 0) + 1; }
+  return { trips:ts.length, jobs:work.length, km, workKm:work.reduce((s, t) => s + tripKm(t), 0), persKm:pers.reduce((s, t) => s + tripKm(t), 0),
+    longest, eco:ecos.length ? Math.round(ecos.reduce((a, b) => a + b, 0) / ecos.length) : null,
+    fuelCost:fm.reduce((s, f) => s + (f.cost || 0), 0), best:econ.length ? Math.min(...econ.map(e => e.l100)) : null,
+    cooldowns:store.get('cooldowns', {})[ym] || 0,
+    top:Object.entries(places).sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => x[0]) };
+}
+function loadImg(src){ return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
+async function drawWrapped(){
+  try { await document.fonts.ready; } catch(e){}
+  const ym = $('#wrapMonth').value || todayISO().slice(0, 7);
+  const st = wrapStats(ym), c = $('#wrapCanvas'), x = c.getContext('2d'), W = 1080, H = 1350;
+  const css = getComputedStyle(document.documentElement);
+  const col = n => css.getPropertyValue(n).trim();
+  const bg = col('--bg'), panel = col('--panel2'), accent = col('--accent'), text = col('--text'), muted = col('--muted');
+  const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, panel); g.addColorStop(1, bg);
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = accent; x.fillRect(0, 0, W, 14);
+  const month = new Date(ym + '-15').toLocaleDateString('en-AU', { month:'long', year:'numeric' });
+  const font = (w, sz) => `${w} ${sz}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  x.fillStyle = muted; x.font = font(600, 40); x.fillText(month.toUpperCase(), 80, 130);
+  const headFont = cfg.theme === 'eaton' ? sz => `500 ${sz}px Yrsa, Georgia, serif` : sz => font(800, sz);
+  x.fillStyle = text; x.font = headFont(104);
+  const title = cfg.uteName.charAt(0).toUpperCase() + cfg.uteName.slice(1);
+  x.fillText(title.length > 14 ? 'Triton' : title, 80, 240);
+  x.fillStyle = accent; x.fillText('Wrapped', 80, 345);
+  if (cfg.theme === 'eaton'){ x.fillStyle = muted; x.font = '300 38px Yrsa, Georgia, serif'; x.fillText('Local Gardening You Can Rely On.', 80, 392); }
+  const boxes = [
+    [Math.round(st.km).toLocaleString('en-AU'), 'km driven'],
+    [String(st.jobs), st.jobs === 1 ? 'job visited' : 'jobs visited'],
+    [st.best != null ? st.best.toFixed(1) : '--', 'best L/100 km'],
+    [st.longest ? Math.round(st.longest).toLocaleString('en-AU') : '--', 'km longest trip'],
+    [st.eco != null ? String(st.eco) : '--', 'avg eco score'],
+    [String(st.cooldowns), 'turbo cool-downs']
+  ];
+  boxes.forEach(([v, l], i) => {
+    const bx = 80 + (i % 2) * 470, by = 410 + Math.floor(i / 2) * 210;
+    x.fillStyle = 'rgba(255,255,255,0.06)'; x.beginPath(); x.roundRect ? x.roundRect(bx, by, 450, 185, 28) : x.rect(bx, by, 450, 185); x.fill();
+    x.fillStyle = text; x.font = font(800, 84); x.fillText(v, bx + 36, by + 108);
+    x.fillStyle = muted; x.font = font(500, 34); x.fillText(l, bx + 36, by + 155);
+  });
+  let y = 1080;
+  if ($('#wrapPlaces').checked && st.top.length){
+    x.fillStyle = muted; x.font = font(600, 32); x.fillText('TOP STOPS', 80, y);
+    x.fillStyle = text; x.font = font(600, 38);
+    st.top.forEach((p, i) => { const t = p.length > 34 ? p.slice(0, 33) + '…' : p; x.fillText(`${i + 1}. ${t}`, 80, y + 52 + i * 50); });
+  } else {
+    x.fillStyle = text; x.font = font(600, 40);
+    x.fillText(`${Math.round(st.workKm).toLocaleString('en-AU')} km for work · ${Math.round(st.persKm).toLocaleString('en-AU')} km for fun`, 80, y + 20);
+    if (st.fuelCost){ x.fillStyle = muted; x.font = font(500, 34); x.fillText(`$${Math.round(st.fuelCost).toLocaleString('en-AU')} of diesel`, 80, y + 75); }
+  }
+  try {
+    const img = await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(dogSVG('happy')));
+    x.drawImage(img, W - 330, 1050, 250, 229);
+  } catch(e){}
+  x.fillStyle = muted; x.font = font(600, 30);
+  x.fillText(`${cfg.dogName}'s rating: 10/10, would ride again`, 80, 1300);
+  x.textAlign = 'right'; x.fillStyle = accent; x.font = font(700, 30); x.fillText(cfg.wrapFooter || '', W - 80, 1300); x.textAlign = 'left';
+}
+$('#wrapMonth').onchange = drawWrapped;
+$('#wrapPlaces').onchange = drawWrapped;
+$('#btnWrapShare').onclick = () => {
+  $('#wrapCanvas').toBlob(async blob => {
+    const name = 'triton-wrapped-' + ($('#wrapMonth').value || todayISO().slice(0, 7)) + '.png';
+    try {
+      const file = new File([blob], name, { type:'image/png' });
+      if (navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file], title:'Triton Wrapped' }); return; }
+    } catch(e){ if (e.name === 'AbortError') return; }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    toast('Image saved. If nothing happened, press and hold the image to save it.');
+  }, 'image/png');
+};
+function renderFun(){
+  if (!$('#wrapMonth').value) $('#wrapMonth').value = todayISO().slice(0, 7);
+  drawWrapped(); renderBadges(); drawMap();
+}
+
+
+function fuelCostText(km){ const st = fuelStats(); return st && km ? ` · fuel ≈ $${(km * st.cpk).toFixed(2)}` : ''; }
 
 /* =========================================================
    START
    ========================================================= */
 buildGrid();
+applyTheme();
 applyTowing();
 applyNight();
 checkService();
@@ -1380,6 +1810,7 @@ if (trip.active){ startGeo(); updateTripChip(); }
 setInterval(render, 250);
 setInterval(updateTripChip, 5000);
 render();
+checkBadges();
 </script>
 </body>
 </html>
