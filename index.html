@@ -21,9 +21,14 @@ body{padding:calc(env(safe-area-inset-top) + 10px) 12px calc(env(safe-area-inset
 header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 h1{font-size:20px;margin:0;letter-spacing:.3px}
 h2{font-size:17px;margin:18px 0 8px}
-.hbtns{display:flex;gap:6px}
-.hbtns button{padding:8px 11px;font-size:13px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.hbtns{display:flex;gap:6px;align-items:center}
+.ib{width:42px;height:42px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:12px}
+.ib.active{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+header{flex-wrap:nowrap}
+h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+@media (max-width:420px){h1{font-size:17px;letter-spacing:0}h1 .brand{display:none!important}.ib{width:38px;height:38px}.hbtns{gap:4px}#copilot,#copilot svg{width:40px!important;height:37px!important}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;min-height:24px}
+.chip{cursor:pointer}
 .chip{font-size:12px;padding:4px 9px;border-radius:999px;background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
 .chip.on{color:#06210f;background:var(--ok);border-color:var(--ok)}
 .chip.busy{color:#2a1b00;background:var(--warn);border-color:var(--warn)}
@@ -66,6 +71,14 @@ nav button{background:none;border:none;border-radius:10px;padding:9px 1px;font-s
 nav button.active{color:var(--text);background:var(--panel2)}
 .view{display:none}.view.active{display:block}
 .card2{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.fold summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary h2{margin:0}
+.fold summary::after{content:'';width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:0 4px 4px auto;transition:transform .2s;flex:none}
+.fold[open] summary::after{transform:rotate(-135deg);margin-bottom:-2px}
+.fold[open] summary{margin-bottom:10px}
+.sumnote{font-size:13px;color:var(--muted);margin-left:auto}
+.sumnote.over{color:var(--alarm);font-weight:700}
 .card2 p,.hint{color:var(--muted);font-size:14px;line-height:1.45;margin:6px 0 10px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
 .row:last-child{border-bottom:none}
@@ -95,6 +108,8 @@ input,select{font:inherit;font-size:16px;padding:9px;border-radius:9px;border:1p
 .sheet .card{background:var(--panel);border:1px solid var(--line);border-radius:18px 18px 0 0;width:100%;max-width:640px;max-height:88vh;overflow:auto;padding:18px 16px calc(env(safe-area-inset-bottom) + 18px)}
 .card h2{margin:0 0 6px}
 .card p{color:var(--muted);font-size:14px;line-height:1.45;margin:6px 0 12px}
+.setgrp{border-bottom:1px solid var(--line);padding:12px 0}
+.setgrp[open] summary{margin-bottom:4px}
 .card .group{margin:16px 0 2px;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--accent)}
 textarea{width:100%;min-height:150px;font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}
 .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:14px;line-height:1.5}
@@ -129,10 +144,10 @@ html[data-gauge=analog] .drive .tile{justify-content:center}
 html[data-theme=eaton] .brand{display:inline-flex}
 
 /* ---------- Co-pilot ---------- */
-#copilot{position:fixed;right:10px;bottom:calc(env(safe-area-inset-bottom) + 70px);z-index:14;width:74px;text-align:center;cursor:pointer;user-select:none}
-#copilot svg{width:74px;height:68px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
-#copilot .dogname{font-size:11px;color:var(--muted);margin-top:-2px}
-#copilot .bubble{position:absolute;right:4px;bottom:92px;background:var(--text);color:#111;font-size:13px;font-weight:600;padding:8px 11px;border-radius:14px 14px 4px 14px;box-shadow:0 6px 20px rgba(0,0,0,.4);width:max-content;max-width:210px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+#copilot{position:relative;z-index:16;width:46px;height:42px;cursor:pointer;user-select:none;margin-right:2px}
+#copilot svg{width:46px;height:42px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
+#copilot .dogname{display:none}
+#copilot .bubble{position:absolute;right:-4px;top:48px;background:var(--text);color:#111;font-size:13px;font-weight:600;padding:8px 11px;border-radius:14px 4px 14px 14px;box-shadow:0 6px 20px rgba(0,0,0,.4);width:max-content;max-width:210px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
 #copilot .bubble.show{opacity:1;transform:none}
 #copilot.celebrate svg{animation:hop .5s ease 3}
 @keyframes hop{50%{transform:translateY(-12px) rotate(-6deg)}}
@@ -168,9 +183,9 @@ html[data-theme=eaton] .brand{display:inline-flex}
   #view-ute,#view-log{columns:2;column-gap:14px}
   #view-ute .card2,#view-log .card2{break-inside:avoid;display:inline-block;width:100%}
   .sheet{align-items:center}
-  #copilot{width:96px;right:18px}
-  #copilot svg{width:96px;height:88px}
-  #copilot .bubble{right:6px;bottom:116px;font-size:14px}
+  #copilot{width:56px;height:50px}
+  #copilot svg{width:56px;height:50px}
+  #copilot .bubble{right:-4px;top:56px;font-size:14px}
   .badges{grid-template-columns:repeat(3,1fr)}
   #view-fun{columns:2;column-gap:14px}
   #view-fun .card2{break-inside:avoid;display:inline-block;width:100%}
@@ -194,20 +209,22 @@ html[data-theme=eaton] .brand{display:inline-flex}
 
 <div id="banner"><span id="bannerText">Alarm</span><button id="silenceBtn">Silence</button></div>
 <div id="toast"></div>
-<div id="copilot" title="Tap me"><div class="bubble" id="copilotSay"></div><div id="copilotFace"></div><div class="dogname" id="dogName"></div></div>
 
 <header>
   <h1><span class="brand"><svg viewBox="0 0 40 48"><rect x="2.5" y="2.5" width="35" height="43" rx="6" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M20 42 C20 32 21 21 24 10" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M20 34 Q12 35 8 27 Q16 25 20 34Z M21 28 Q28 30 32 21 Q24 20 21 28Z M21 22 Q13 23 10 14 Q18 13 21 22Z M22 17 Q29 18 31 9 Q24 9 22 17Z M24 11 Q19 8 21 3 Q27 6 24 11Z" fill="currentColor"/></svg></span><span id="appTitle">Triton Dash</span></h1>
   <div class="hbtns">
-    <button id="btnTow">Towing: off</button>
-    <button id="btnNight">Night</button>
-    <button id="btnSettings">Settings</button>
+    <div id="copilot" title="Tap me"><div id="copilotFace"></div><div class="bubble" id="copilotSay"></div><div class="dogname" id="dogName"></div></div>
+    <button class="ib" id="btnTow" aria-label="Towing mode"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15V9h9v6M11 11h4l3 4v0"/><path d="M2 15h17"/><circle cx="6" cy="17" r="2"/><circle cx="16" cy="17" r="2"/><path d="M19 15h2l1 1"/></svg></button>
+    <button class="ib" id="btnNight" aria-label="Night mode"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    <button class="ib" id="btnSettings" aria-label="Settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   </div>
 </header>
 <div class="chips">
-  <span class="chip" id="chip-obd">OBD off</span>
-  <span class="chip" id="chip-sensor">Sensor box off</span>
-  <span class="chip" id="chip-demo">Demo off</span>
+  <span class="chip" id="chip-conn">Not connected</span>
+  <span class="chip" id="chip-obd" style="display:none">OBD off</span>
+  <span class="chip" id="chip-sensor" style="display:none">Sensor box off</span>
+  <span class="chip" id="chip-demo" style="display:none">Demo off</span>
+  <span class="chip busy" id="chip-tow" style="display:none">Towing mode</span>
   <span class="chip" id="chip-trip" style="display:none"></span>
   <span class="chip bad" id="chip-service" style="display:none">Service due</span>
 </div>
@@ -217,10 +234,14 @@ html[data-theme=eaton] .brand{display:inline-flex}
 <section class="view active" id="view-dash">
   <div class="controls">
     <button class="primary" id="btnObd">Connect OBD</button>
-    <button id="btnSensor">Sensor box</button>
+    <button id="btnSensor">Add sensor box</button>
+  </div>
+  <div class="card2" id="welcome">
+    <h2 style="margin-top:0">Ready when you are</h2>
+    <p>Plug the OBD adapter in under the dash, start the engine, then tap Connect OBD. Gauges appear once data comes through.</p>
+    <p class="hint">Want a look first? Demo mode is in Settings.</p>
   </div>
   <div class="grid" id="grid"></div>
-  <div class="foot">Read-only: this app only reads data. It never clears codes or writes to the engine computer.<br>Keep watching the factory temperature gauge as your backup.</div>
 </section>
 
 <!-- ===== DRIVE ===== -->
@@ -276,15 +297,15 @@ html[data-theme=eaton] .brand{display:inline-flex}
     <div class="list" id="codes-out"></div>
   </div>
 
-  <div class="card2">
-    <h2 style="margin-top:0">Service reminders</h2>
+  <details class="card2 fold">
+    <summary><h2>Service reminders</h2><span class="sumnote" id="sum-svc"></span></summary>
     <div class="row"><span>Current odometer (km)</span><span><input type="number" inputmode="numeric" id="odo-now" style="width:120px;text-align:right"> <button class="small" id="btnOdoSave">Save</button></span></div>
     <div class="list" id="svc-list"></div>
     <p class="hint">Intervals are starting points. Check Sam's service book, especially for the timing belt, and edit them to match.</p>
-  </div>
+  </details>
 
-  <div class="card2">
-    <h2 style="margin-top:0">Fuel log</h2>
+  <details class="card2 fold">
+    <summary><h2>Fuel log</h2><span class="sumnote" id="sum-fuel"></span></summary>
     <div class="stat" id="fuel-stats"></div>
     <div class="form">
       <input type="date" id="fuel-date">
@@ -295,22 +316,22 @@ html[data-theme=eaton] .brand{display:inline-flex}
     </div>
     <div class="btnrow"><button class="primary" id="btnFuelAdd">Add fill-up</button><button id="btnFuelExport">Export (CSV)</button></div>
     <div class="list" id="fuel-list"></div>
-  </div>
+  </details>
 
-  <div class="card2">
-    <h2 style="margin-top:0">Diagnostics scan</h2>
+  <details class="card2 fold">
+    <summary><h2>Diagnostics scan</h2><span class="sumnote" id="sum-diag"></span></summary>
     <p>With the engine running and OBD connected, this lists every reading the Triton offers. Copy it and send it to Claude.</p>
     <div class="btnrow"><button id="scanBtn">Scan supported readings</button></div>
     <p id="scanStatus"></p>
     <textarea id="scanOut" readonly placeholder="Results will appear here"></textarea>
     <div class="btnrow"><button id="copyScan">Copy</button></div>
-  </div>
+  </details>
 
-  <div class="card2">
-    <h2 style="margin-top:0">Backup</h2>
+  <details class="card2 fold">
+    <summary><h2>Backup</h2><span class="sumnote" id="sum-backup"></span></summary>
     <p>Everything is saved on this phone only. If Bluefy's data gets cleared, the logbook goes with it. Export a backup weekly and keep it in Notes or email it to yourself.</p>
     <div class="btnrow"><button id="btnBackup">Export backup</button><button id="btnRestore">Restore backup</button></div>
-  </div>
+  </details>
 </section>
 
 <!-- ===== FUN ===== -->
@@ -351,6 +372,7 @@ html[data-theme=eaton] .brand{display:inline-flex}
   <p>Warning turns a tile amber. Alarm turns it red and beeps. Saved on this device.</p>
   <div id="settingsRows"></div>
   <div class="btnrow"><button id="resetDefaults">Reset defaults</button><button class="primary" id="saveSettings">Save</button></div>
+  <p class="hint" style="margin-top:14px">Read-only: this app only reads data from the ute. It never clears codes or writes to the engine computer. Keep watching the factory temperature gauge as your backup.</p>
 </div></div>
 
 <!-- Text sheet (export / restore) -->
@@ -527,7 +549,7 @@ function buildGrid(){
             `<div class="tyre" id="ty-${k}"${k[0]==='t' ? ' data-trailer="1"' : ''}><small>${n}</small><span>--</span></div>`).join('')}
         </div><div class="sub" id="sub-tyres"></div>`;
     } else {
-      el.innerHTML = `<div class="label"><span>${t.label}</span>${t.peak ? '<span>tap: reset peak</span>' : ''}</div>
+      el.innerHTML = `<div class="label"><span>${t.label}</span></div>
         ${SWEEP_MAX[t.id] ? dialSVG(t.id, SWEEP_MAX[t.id], t.unit) : ''}
         <div class="val" id="val-${t.id}">--</div>
         ${t.spark ? `<canvas id="spark-${t.id}"></canvas>` : ''}
@@ -627,8 +649,9 @@ function render(){
         if (v != null) any = true;
         if (low && (!trailer || towing)) activeAlarms.add('tyres');
       }
+      el.style.display = any ? '' : 'none';
       el.className = 'tile' + (activeAlarms.has('tyres') ? ' alarm' : any ? ' ok' : ' na');
-      $('#sub-tyres').textContent = any ? '' : 'Tyre sensors not connected yet';
+      $('#sub-tyres').textContent = '';
       continue;
     }
     const sf = sweepFrac();
@@ -636,7 +659,9 @@ function render(){
     const valEl = $('#val-' + t.id), subEl = $('#sub-' + t.id);
     const big = t.big ? ' big' : '';
     if (SWEEP_MAX[t.id]) setDial(t.id, v, SWEEP_MAX[t.id], t.warnLine ? t.warnLine() : null, t.alarmLine ? t.alarmLine() : null);
-    if (unsupported.has(t.id)){ el.className = 'tile na' + big; valEl.textContent = 'Not reported by vehicle'; subEl.textContent = ''; continue; }
+    const hide = sf == null && (unsupported.has(t.id) || (t.noData && !sensor.connected && !demo.on));
+    el.style.display = hide ? 'none' : '';
+    if (hide) continue;
     if (v == null){
       el.className = 'tile na' + big; valEl.textContent = '--';
       subEl.textContent = t.noData && !sensor.connected && !demo.on ? t.noData : '';
@@ -647,7 +672,7 @@ function render(){
     if (lvl === 'alarm') activeAlarms.add(t.id);
     el.className = 'tile ' + lvl + big;
     valEl.innerHTML = fmt(v, t.dp) + (t.unit ? `<span class="unit">${t.unit}</span>` : '');
-    subEl.textContent = t.sub ? t.sub() : t.peak && peaks[t.id] != null ? `Peak ${fmt(peaks[t.id], t.dp)}${t.unit}` : '';
+    subEl.textContent = t.sub ? t.sub() : t.peak && peaks[t.id] != null ? `Peak ${fmt(peaks[t.id], t.dp)}${t.unit} · tap to reset` : '';
     if (t.spark) drawSpark(t.id, hist[t.id], t.warnLine());
   }
   renderDrive(T);
@@ -753,6 +778,19 @@ function chip(id, mode, text){
   const c = $('#chip-' + id);
   c.className = 'chip' + (mode === 'on' ? ' on' : mode === 'busy' ? ' busy' : mode === 'bad' ? ' bad' : '');
   c.textContent = text;
+  if (['obd','sensor','demo','tow'].includes(id)) c.style.display = mode === 'off' ? 'none' : '';
+  updateConnUI();
+}
+function updateConnUI(){
+  const o = typeof obd !== 'undefined' && obd.connected, se = typeof sensor !== 'undefined' && sensor.connected, d = typeof demo !== 'undefined' && demo.on;
+  const busy = ['chip-obd','chip-sensor'].some(id => document.getElementById(id).classList.contains('busy'));
+  const cc = document.getElementById('chip-conn'); if (cc) cc.style.display = o || se || d || busy ? 'none' : '';
+  const bo = document.getElementById('btnObd'), bs = document.getElementById('btnSensor');
+  if (bo) bo.style.display = o ? 'none' : '';
+  if (bs) bs.style.display = se ? 'none' : '';
+  const ctr = document.querySelector('#view-dash .controls'); if (ctr) ctr.style.display = o && se ? 'none' : '';
+  const w = document.getElementById('welcome'), g = document.getElementById('grid');
+  if (w && g){ const idle = !o && !se && !d; w.style.display = idle ? '' : 'none'; g.style.display = idle ? 'none' : ''; }
 }
 for (const btn of document.querySelectorAll('nav button')){
   btn.onclick = () => {
@@ -768,8 +806,8 @@ for (const s of document.querySelectorAll('.sheet')) s.addEventListener('click',
 
 /* Towing toggle */
 function applyTowing(){
-  $('#btnTow').textContent = 'Towing: ' + (towing ? 'ON' : 'off');
-  $('#btnTow').className = towing ? 'good' : '';
+  $('#btnTow').classList.toggle('active', towing);
+  chip('tow', towing ? 'busy' : 'off', 'Towing mode');
 }
 $('#btnTow').onclick = () => { towing = !towing; store.set('towing', towing); applyTowing(); toast(towing ? 'Towing mode on: stricter alarms and trailer tyres' : 'Towing mode off'); };
 
@@ -780,7 +818,7 @@ function applyNight(){
   const auto = h >= 19 || h < 6;
   const on = nightForced != null ? nightForced : cfg.night === 'on' || (cfg.night === 'auto' && auto);
   document.documentElement.classList.toggle('night', on);
-  $('#btnNight').textContent = on ? 'Day' : 'Night';
+  $('#btnNight').classList.toggle('active', on);
 }
 $('#btnNight').onclick = () => { nightForced = !document.documentElement.classList.contains('night'); applyNight(); };
 setInterval(applyNight, 60000);
@@ -836,7 +874,7 @@ const demo = { on:false, timer:null, phase:0 };
 function startDemo(){
   if (obd.connected){ toast('Disconnect OBD to use demo mode'); return; }
   demo.on = true; demo.phase = 0; unsupported.clear();
-  chip('demo', 'on', 'Demo on'); $('#btnDemo').textContent = 'Stop demo';
+  chip('demo', 'on', 'Demo · tap to stop'); $('#btnDemo').textContent = 'Stop demo';
   demo.timer = setInterval(() => {
     demo.phase += 0.04;
     const climb = Math.pow((Math.sin(demo.phase * 0.35) + 1) / 2, 1.4);
@@ -867,6 +905,10 @@ function stopDemo(){
 }
 $('#btnDemo').onclick = () => { $('#settingsSheet').style.display = 'none'; demo.on ? stopDemo() : startDemo(); };
 $('#chip-demo').onclick = () => { if (demo.on){ stopDemo(); toast('Demo stopped'); } };
+$('#chip-conn').onclick = () => connectOBD();
+$('#chip-obd').onclick = () => { if (obd.connected && confirm('Disconnect the OBD adapter?')) { try { obd.dev.gatt.disconnect(); } catch(e){} } };
+$('#chip-sensor').onclick = () => { if (sensor.connected && confirm('Disconnect the sensor box?')) { try { sensor.dev.gatt.disconnect(); } catch(e){} } };
+$('#chip-tow').onclick = () => $('#btnTow').click();
 
 /* =========================================================
    OBD (ELM327 over Bluetooth LE)
@@ -984,7 +1026,7 @@ async function connectOBD(){
     chip('obd', 'busy', 'Connecting…');
     dev.addEventListener('gattserverdisconnected', () => {
       obd.connected = false; obd.polling = false;
-      chip('obd', 'off', 'OBD off'); $('#btnObd').textContent = 'Connect OBD';
+      chip('obd', 'off', 'OBD off');
       for (const k of ['boost','rpm','speed','cool','load','volt']) state[k] = null;
       toast('OBD adapter disconnected');
     });
@@ -1007,7 +1049,6 @@ async function connectOBD(){
     await rx.startNotifications();
     stopDemo();
     obd.connected = true;
-    $('#btnObd').textContent = 'Disconnect OBD';
     keepAwake();
     await initElm();
     chip('obd', 'on', 'OBD live');
@@ -1142,7 +1183,7 @@ async function connectSensor(){
     dev.addEventListener('gattserverdisconnected', () => {
       sensor.connected = false;
       for (const k of ['egt','aux','fridge','amps']) state[k] = null;
-      chip('sensor', 'off', 'Sensor box off'); $('#btnSensor').textContent = 'Sensor box';
+      chip('sensor', 'off', 'Sensor box off');
     });
     const server = await dev.gatt.connect();
     const ch = await (await server.getPrimaryService(SB_SVC)).getCharacteristic(SB_CHR);
@@ -1159,7 +1200,7 @@ async function connectSensor(){
     await ch.startNotifications();
     stopDemo();
     sensor.dev = dev; sensor.connected = true;
-    chip('sensor', 'on', 'Sensor box live'); $('#btnSensor').textContent = 'Disconnect sensor';
+    chip('sensor', 'on', 'Sensor box live');
   } catch(e){
     chip('sensor', 'off', 'Sensor box off');
     if (e.name !== 'NotFoundError') toast('Sensor box: ' + e.message, 6000);
@@ -1405,6 +1446,8 @@ function editService(id){
 }
 function checkService(){
   const due = svc.items.filter(it => svcStatus(it).cls === 'over');
+  const soon = svc.items.filter(it => svcStatus(it).cls === 'due');
+  const sn = $('#sum-svc'); if (sn){ sn.textContent = due.length ? due.length + ' overdue' : soon.length ? soon.length + ' due soon' : 'All good'; sn.className = 'sumnote' + (due.length ? ' over' : ''); }
   const c = $('#chip-service');
   c.style.display = due.length ? '' : 'none';
   c.textContent = due.length === 1 ? 'Service due: ' + due[0].name.split(' (')[0] : `${due.length} services due`;
@@ -1431,6 +1474,7 @@ function fuelStats(){
 function renderFuel(){
   $('#fuel-date').value = $('#fuel-date').value || todayISO();
   const st = fuelStats();
+  $('#sum-fuel').textContent = st ? st.l100.toFixed(1) + ' L/100 km' : fuel.length + ' fill-ups';
   $('#fuel-stats').innerHTML = `<div><b>${st ? st.l100.toFixed(1) : '--'}</b><small>L/100 km</small></div>
     <div><b>${st ? '$' + st.cpk.toFixed(2) : '--'}</b><small>Fuel per km</small></div>
     <div><b>${st ? Math.round(st.km).toLocaleString('en-AU') : '--'}</b><small>km tracked</small></div>`;
@@ -1525,15 +1569,19 @@ $('#btnRestore').onclick = () => {
    ========================================================= */
 function openSettings(){
   const rows = $('#settingsRows'); rows.innerHTML = '';
+  let grp = null, gi = 0;
   for (const f of FIELDS){
-    if (f.length === 1){ rows.insertAdjacentHTML('beforeend', `<div class="group">${f[0]}</div>`); continue; }
+    if (f.length === 1){
+      grp = document.createElement('details'); grp.className = 'fold setgrp'; if (gi++ === 0) grp.open = true;
+      grp.innerHTML = `<summary><span class="group" style="margin:0">${f[0]}</span></summary>`; rows.appendChild(grp); continue;
+    }
     const [k, label, unit, opts] = f;
     let input;
     if (unit === 'check') input = `<input type="checkbox" id="cfg-${k}" ${cfg[k] ? 'checked' : ''} style="width:28px;height:28px">`;
     else if (unit === 'text') input = `<input type="text" id="cfg-${k}" value="${esc(cfg[k])}" style="width:160px">`;
     else if (unit === 'select') input = `<select id="cfg-${k}">${opts.map(([v, n]) => `<option value="${v}" ${cfg[k] === v ? 'selected' : ''}>${n}</option>`).join('')}</select>`;
     else input = `<input type="number" inputmode="decimal" step="any" id="cfg-${k}" value="${cfg[k]}">`;
-    rows.insertAdjacentHTML('beforeend', `<div class="row"><span>${label}${unit && !['check','select','text'].includes(unit) ? ' (' + unit + ')' : ''}</span>${input}</div>`);
+    (grp || rows).insertAdjacentHTML('beforeend', `<div class="row"><span>${label}${unit && !['check','select','text'].includes(unit) ? ' (' + unit + ')' : ''}</span>${input}</div>`);
   }
   $('#settingsSheet').style.display = 'flex';
 }
