@@ -29,6 +29,7 @@ h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media (max-width:420px){h1{font-size:17px;letter-spacing:0}h1 .brand{display:none!important}.ib{width:38px;height:38px}.hbtns{gap:4px}#copilot,#copilot svg{width:40px!important;height:37px!important}}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;min-height:24px}
 .chip{cursor:pointer}
+input[type=checkbox]{accent-color:var(--accent)}
 .chip{font-size:12px;padding:4px 9px;border-radius:999px;background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
 .chip.on{color:#06210f;background:var(--ok);border-color:var(--ok)}
 .chip.busy{color:#2a1b00;background:var(--warn);border-color:var(--warn)}
@@ -407,10 +408,17 @@ const DEFAULTS = {
   cooldownEgt:300,
   rollWarn:25, rollAlarm:30, pitchWarn:30, pitchAlarm:35, incFlipP:false, incFlipR:false,
   battType:'lithium', battAh:100, drawA:2.5,
+  show_egt:true, show_boost:true, show_cool:true, show_rpm:true, show_speed:true, show_volt:true, show_load:true,
+  show_aux:false, show_fridge:false, show_tyres:true, show_doors:true,
   night:'auto', sound:true,
   driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com'
 };
 const FIELDS = [
+  ['Show on dash'],
+  ['show_egt','Exhaust temp (EGT)','check'], ['show_boost','Boost','check'], ['show_cool','Coolant','check'],
+  ['show_rpm','RPM','check'], ['show_speed','Speed','check'], ['show_volt','Charging voltage','check'],
+  ['show_load','Engine load','check'], ['show_aux','Second battery','check'], ['show_fridge','Fridge','check'],
+  ['show_tyres','Tyres','check'], ['show_doors','Doors and lids','check'],
   ['Normal alarms'],
   ['egtWarn','EGT warning','°C'], ['egtAlarm','EGT alarm','°C'],
   ['coolWarn','Coolant warning','°C'], ['coolAlarm','Coolant alarm','°C'],
@@ -426,7 +434,7 @@ const FIELDS = [
   ['rollWarn','Side tilt warning','°'], ['rollAlarm','Side tilt alarm','°'],
   ['pitchWarn','Front tilt warning','°'], ['pitchAlarm','Front tilt alarm','°'],
   ['incFlipR','Flip side tilt direction','check'], ['incFlipP','Flip front tilt direction','check'],
-  ['Second battery and fridge'],
+  ['Second battery and fridge (when fitted)'],
   ['battType','Battery type','select', [['lithium','Lithium (LiFePO4)'],['agm','AGM']]],
   ['battAh','Battery capacity','Ah'], ['auxLow','Second battery low','V'],
   ['drawA','Fridge average draw (if sensor box has no current reading)','A'],
@@ -620,6 +628,7 @@ function render(){
   const T = thr();
   for (const t of TILES){
     const el = $('#tile-' + t.id);
+    if (cfg['show_' + t.id] === false){ el.style.display = 'none'; continue; }
     if (t.doors){
       const d = state.doors;
       el.style.display = d || state.lightsOn != null ? '' : 'none';
@@ -686,7 +695,7 @@ function render(){
 const driveDialKey = {};
 function renderDrive(T){
   const sf = sweepFrac();
-  const useEgt = (sf != null ? true : state.egt != null);
+  const useEgt = cfg.show_egt !== false && (sf != null ? true : state.egt != null);
   const set = (n, label, v, dp, unit, lvl, key, warn, alarm) => {
     if (sf != null && key){ v = SWEEP_MAX[key] * sf; lvl = 'ok'; }
     if (label) $('#dv-' + n + '-l').textContent = label;
@@ -1170,7 +1179,8 @@ $('#btnCodes').onclick = readCodes;
    SENSOR BOX (ESP32: EGT, second battery, fridge, current)
    ========================================================= */
 // Firmware (phase 3) will advertise this service and send text like
-// "egt=652.5;aux=13.21;fridge=3.4;amps=2.3;d_fl=0;d_fr=0;d_rl=0;d_rr=0;d_tail=1;d_drawer=0;d_box=0;lights=0"
+// "egt=652.5;aux=13.21;fridge=3.4;amps=2.3;d_fl=0;d_fr=0;d_rl=0;d_rr=0;d_tail=1;d_drawer=0;d_box=0;lights=0;t_fl=36.2;t_fr=36.0;t_rl=41.8;t_rr=42.1"
+// Tyres (psi) come from BLE TPMS valve caps that the ESP32 listens for and passes on.
 const SB_SVC = 'e9a40001-6c2d-4c3a-9a51-6d2f0e0b7a10';
 const SB_CHR = 'e9a40002-6c2d-4c3a-9a51-6d2f0e0b7a10';
 const sensor = { dev:null, connected:false };
@@ -1183,6 +1193,7 @@ async function connectSensor(){
     dev.addEventListener('gattserverdisconnected', () => {
       sensor.connected = false;
       for (const k of ['egt','aux','fridge','amps']) state[k] = null;
+      for (const k in state.tyres) state.tyres[k] = null;
       chip('sensor', 'off', 'Sensor box off');
     });
     const server = await dev.gatt.connect();
@@ -1195,6 +1206,7 @@ async function connectSensor(){
         if (['aux','fridge','amps'].includes(key)) state[key] = n;
         if (key.startsWith('d_') && DOOR_NAMES[key.slice(2)]){ state.doors = state.doors || {}; state.doors[key.slice(2)] = n > 0; }
         if (key === 'lights') state.lightsOn = n > 0;
+        if (key.startsWith('t_') && key.slice(2) in state.tyres) state.tyres[key.slice(2)] = n;
       }
     });
     await ch.startNotifications();
