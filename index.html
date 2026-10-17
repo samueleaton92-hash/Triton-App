@@ -79,6 +79,16 @@ nav button.active{color:var(--text);background:var(--panel2)}
 .chk .x{background:none;border:none;color:var(--muted);font-size:18px;padding:4px 8px}
 .btnlink{display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 10px;text-decoration:none;flex:1}
 .btnlink[aria-disabled=true]{opacity:.45;pointer-events:none}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.qb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 4px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:12px;font-weight:600}
+.qb svg{width:22px;height:22px}
+.qb.help{color:var(--alarm);border-color:var(--alarm)}
+html[data-theme=hud] .qb{border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px}
+html[data-theme=rally] .qb{border-radius:4px;font-style:italic}
+.coords{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;font-weight:700;text-align:center;padding:12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);margin:8px 0;user-select:all;-webkit-user-select:all}
+.helpbtns{display:grid;gap:8px}
+.helpbtns a,.helpbtns button{display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:16px;padding:14px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.helpbtns .sos{background:var(--alarm);border-color:var(--alarm);color:#fff;font-size:18px}
 .fold summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
 .fold summary::-webkit-details-marker{display:none}
 .fold summary h2{margin:0}
@@ -386,6 +396,13 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <button class="primary" id="btnObd">Connect OBD</button>
     <button id="btnSensor">Add sensor box</button>
   </div>
+  <div class="quick" id="quick">
+    <a class="qb" href="https://maps.apple.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg><span>Maps</span></a>
+    <a class="qb" href="spotify://"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>Spotify</span></a>
+    <a class="qb" href="https://www.fuelcheck.nsw.gov.au/app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M2 21h13M6 8h5"/><path d="M14 10h2a2 2 0 0 1 2 2v4a1.5 1.5 0 0 0 3 0V8l-3-3"/></svg><span>Diesel</span></a>
+    <a class="qb" href="https://www.bom.gov.au/products/IDR713.loop.shtml" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 17A4.5 4.5 0 0 0 16 8.3 6 6 0 0 0 4.5 10 4 4 0 0 0 6 17.8"/><path d="M8 19v2M12 17v3M16 19v2"/></svg><span>Radar</span></a>
+    <button class="qb help" id="btnHelp" type="button"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>Help</span></button>
+  </div>
   <div class="card2" id="welcome">
     <h2 style="margin-top:0">Ready when you are</h2>
     <p>Plug the OBD adapter in under the dash, start the engine, then tap Connect OBD. Gauges appear once data comes through.</p>
@@ -528,6 +545,22 @@ html.day .sheet{background:rgba(9,34,23,.35)}
   <button data-view="fun">Fun</button>
 </nav>
 
+<!-- Help sheet -->
+<div class="sheet" id="helpSheet"><div class="card">
+  <h2>Help</h2>
+  <p>Your location, ready to read out. Emergency services and tow trucks ask for this first.</p>
+  <div class="coords" id="helpCoords">Finding you…</div>
+  <p class="hint" id="helpAcc" style="text-align:center;margin-top:0"></p>
+  <div class="helpbtns">
+    <a class="sos" href="tel:000">Call 000</a>
+    <a id="helpText" href="#">Text my location</a>
+    <button id="helpShare" type="button">Share my location</button>
+    <a id="helpTow" target="_blank" rel="noopener" href="#">Find a tow truck nearby</a>
+    <a id="helpMech" target="_blank" rel="noopener" href="#">Find a mechanic nearby</a>
+  </div>
+  <p class="hint" style="margin-top:12px">No signal? A call to 000 from a mobile uses any network that is in range, not just yours. Set the person to text in Settings, under Help.</p>
+</div></div>
+
 <!-- Trip sort sheet -->
 <div class="sheet" id="sortSheet"><div class="card">
   <h2>Trip finished</h2>
@@ -585,8 +618,8 @@ const DEFAULTS = {
   battType:'lithium', battAh:100, drawA:2.5,
   show_egt:true, show_boost:true, show_cool:true, show_rpm:true, show_speed:true, show_volt:true, show_load:true,
   show_aux:false, show_fridge:false, show_tyres:true, show_doors:true,
-  night:'auto', dayLook:'light', sound:true, voice:true, autoTrip:true, autoPark:true,
-  driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com'
+  night:'auto', dayLook:'light', sound:true, voice:true, welcomeVoice:true, voicePick:'female', autoTrip:true, autoPark:true,
+  driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com', helpName:'Becky', helpPhone:'', quickLaunch:true
 };
 const FIELDS = [
   ['Show on dash'],
@@ -616,14 +649,19 @@ const FIELDS = [
   ['Display and sound'],
   ['night','Night mode','select', [['auto','Auto (7pm to 6am)'],['on','Always on'],['off','Off']]],
   ['dayLook','Daytime look','select', [['light','Light'],['dark','Dark']]],
-  ['sound','Alarm sound','check'], ['voice','Spoken alarms','check'],
+  ['sound','Alarm sound','check'], ['voice','Spoken alarms','check'], ['welcomeVoice','Spoken welcome on startup','check'],
+  ['voicePick','Assistant voice','select', [['female','Woman (Australian if available)'],['male','Man (Australian if available)']]],
   ['autoTrip','Log trips automatically when the engine link connects','check'], ['autoPark','Save parked spot when a trip ends','check'],
   ['Fun'],
   ['driverName','Driver name','text'], ['uteName','Ute name','text'], ['dogName','Co-pilot (dog) name','text'],
   ['theme','Theme','select', [['eaton','Eaton Gardening'],['hud','Systems (futuristic)'],['rally','Rally livery'],['standard','Standard'],['retro','Retro dials']]],
   ['gaugeStyle','Gauge style','select', [['digital','Digital numbers'],['analog','Analog dials']]],
   ['copilot','Show co-pilot','check'], ['sweep','Startup sequence','check'], ['chime','Startup sounds','check'],
-  ['wrapFooter','Wrapped card footer','text']
+  ['wrapFooter','Wrapped card footer','text'],
+  ['Help'],
+  ['helpName','Text my location to (name)','text'], ['helpPhone','Their mobile number','text'],
+  ['Dash'],
+  ['quickLaunch','Show quick launch buttons','check']
 ];
 let cfg = Object.assign({}, DEFAULTS, store.get('cfg', {}));
 if (cfg.dogName === 'Co-pilot') cfg.dogName = 'Picasso';
@@ -947,13 +985,27 @@ const VOICE = { egt:'Exhaust temperature high. Ease off.', cool:'Coolant hot. Ea
   roll:'Side tilt alarm. Careful.', pitch:'Steep angle alarm. Careful.', boost:'Boost high. Ease off.' };
 const spokenAt = {};
 let voiceReady = false;
+const FEMALE = /karen|catherine|matilda|samantha|serena|moira|tessa|kate|stephanie|martha|fiona|victoria|allison|ava|susan|zoe|nicky|female/i;
+const MALE = /\b(lee|gordon|daniel|arthur|oliver|aaron|fred|tom|alex|rishi|male)\b/i;
+function pickVoice(){
+  const vs = ('speechSynthesis' in window ? speechSynthesis.getVoices() : []).filter(v => /^en/i.test(v.lang));
+  if (!vs.length) return null;
+  const want = cfg.voicePick === 'male' ? MALE : FEMALE, avoid = cfg.voicePick === 'male' ? FEMALE : MALE;
+  const score = v => (want.test(v.name) ? 4 : 0) + (/en-AU/i.test(v.lang) ? 2 : 0) + (/premium|enhanced|natural/i.test(v.name) ? 1 : 0) - (avoid.test(v.name) && !want.test(v.name) ? 5 : 0);
+  return vs.slice().sort((a, b) => score(b) - score(a))[0];
+}
+if ('speechSynthesis' in window){ try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } catch(e){} }
+function welcomeLine(){
+  const ute = (cfg.uteName || 'the Triton').trim();
+  return `Welcome back to ${ute}, ${cfg.driverName || ''}.`.replace(' ,', ',');
+}
 function speak(text, force){
   if (!('speechSynthesis' in window) || (!cfg.voice && !force)) return;
   try {
     const u = new SpeechSynthesisUtterance(text);
-    const v = speechSynthesis.getVoices().find(v => /en-AU/i.test(v.lang)) || speechSynthesis.getVoices().find(v => /^en/i.test(v.lang));
-    if (v) u.voice = v;
-    u.rate = 1.02; u.pitch = 1; u.volume = 1;
+    const v = pickVoice();
+    if (v){ u.voice = v; u.lang = v.lang; } else u.lang = 'en-AU';
+    u.rate = 1.0; u.pitch = 1.05; u.volume = 1;
     speechSynthesis.cancel(); speechSynthesis.speak(u);
   } catch(e){}
 }
@@ -977,7 +1029,7 @@ function handleAlarms(){
   }
 }
 $('#btnTestSound').onclick = () => { playSound('chime'); setTimeout(() => playSound('beep'), 1100); toast('You should hear the startup chime, then the alarm beep. Nothing? Check the volume buttons.'); };
-$('#btnTestVoice').onclick = () => { unlockVoice(); speak('Exhaust temperature high. Ease off.', true); toast('You should hear a spoken alarm. Nothing? Check the volume and that the phone is not on silent for speech.'); };
+$('#btnTestVoice').onclick = () => { unlockVoice(); speak(welcomeLine() + ' Exhaust temperature high. Ease off.', true); toast('You should hear a spoken alarm. Nothing? Check the volume and that the phone is not on silent for speech.'); };
 $('#silenceBtn').onclick = () => { try { speechSynthesis.cancel(); } catch(e){} silencedUntil = Date.now() + 60000; toast('Alarm sound silenced for 60 seconds'); };
 
 /* =========================================================
@@ -1276,7 +1328,7 @@ async function connectOBD(){
     pollLoop();
   } catch(e){
     chip('obd', 'off', 'OBD off');
-    if (e.name !== 'NotFoundError') toast('OBD: ' + e.message, 6000);
+    if (e.name !== 'NotFoundError') toast(e && e.message ? 'Engine link: ' + e.message : 'No OBD adapter connected. Plug it in, turn the key on, and try again.', 6000);
   }
 }
 $('#btnObd').onclick = connectOBD;
@@ -1426,7 +1478,7 @@ async function connectSensor(){
     chip('sensor', 'on', 'Sensor box live');
   } catch(e){
     chip('sensor', 'off', 'Sensor box off');
-    if (e.name !== 'NotFoundError') toast('Sensor box: ' + e.message, 6000);
+    if (e.name !== 'NotFoundError') toast(e && e.message ? 'Sensor box: ' + e.message : 'No sensor box found. That is expected until the box is built and fitted.', 6000);
   }
 }
 $('#btnSensor').onclick = connectSensor;
@@ -1690,6 +1742,39 @@ function markParked(quiet){
 $('#btnPark').onclick = () => markParked(false);
 $('#parkCard').addEventListener('toggle', e => { if (e.target.open) renderPark(); });
 renderPark();
+
+/* ---- Help sheet ---- */
+let helpFix = null;
+function helpLinks(){
+  const has = !!helpFix, ll = has ? `${helpFix.lat.toFixed(5)},${helpFix.lon.toFixed(5)}` : '';
+  const msg = has ? `${cfg.driverName} here. This is where I am: https://maps.apple.com/?ll=${ll}&q=${encodeURIComponent(cfg.driverName + ' is here')} (${ll})` : '';
+  const phone = (cfg.helpPhone || '').replace(/[^0-9+]/g, '');
+  const t = $('#helpText');
+  t.textContent = `Text my location to ${cfg.helpName || 'someone'}`;
+  t.href = has ? `sms:${phone}&body=${encodeURIComponent(msg)}` : '#';
+  $('#helpTow').href = has ? `https://maps.apple.com/?q=tow%20truck&sll=${ll}` : 'https://maps.apple.com/?q=tow%20truck';
+  $('#helpMech').href = has ? `https://maps.apple.com/?q=mechanic&sll=${ll}` : 'https://maps.apple.com/?q=mechanic';
+  $('#helpShare').onclick = async () => {
+    if (!has){ toast('Still finding your location'); return; }
+    if (navigator.share){ try { await navigator.share({ title:'My location', text:msg }); } catch(e){} }
+    else { try { await navigator.clipboard.writeText(msg); toast('Location copied. Paste it into a message.'); } catch(e){ toast('Hold on the coordinates to copy them'); } }
+  };
+}
+function openHelp(){
+  $('#helpSheet').style.display = 'flex';
+  helpLinks();
+  if (!navigator.geolocation){ $('#helpCoords').textContent = 'Location not available'; return; }
+  $('#helpCoords').textContent = 'Finding you…'; $('#helpAcc').textContent = '';
+  navigator.geolocation.getCurrentPosition(p => {
+    helpFix = { lat:p.coords.latitude, lon:p.coords.longitude, acc:p.coords.accuracy };
+    $('#helpCoords').textContent = `${helpFix.lat.toFixed(5)}, ${helpFix.lon.toFixed(5)}`;
+    $('#helpAcc').textContent = `Accurate to about ${Math.round(helpFix.acc)} m`;
+    helpLinks();
+  }, () => { $('#helpCoords').textContent = 'Could not get location'; $('#helpAcc').textContent = 'Check location is allowed for Bluefy in iPhone Settings.'; },
+  { enableHighAccuracy:true, timeout:20000, maximumAge:30000 });
+}
+$('#btnHelp').onclick = openHelp;
+$('#helpText').addEventListener('click', e => { if (!helpFix){ e.preventDefault(); toast('Still finding your location'); } else if (!cfg.helpPhone) toast('Tip: add their number in Settings, under Help'); });
 
 function updateTripChip(){
   const c = $('#chip-trip');
@@ -2003,7 +2088,7 @@ function bootSequence(done){
   };
   bootTimers.push(setTimeout(completeNow, T));
   b.onclick = e => { if (!complete) completeNow(); };
-  enter.onclick = e => { e.stopPropagation(); finish(); };
+  enter.onclick = e => { e.stopPropagation(); unlockVoice(); if (cfg.welcomeVoice) speak(welcomeLine(), true); finish(); };
 }
 function runSweep(){
   sweep.on = true; sweep.start = performance.now();
@@ -2059,6 +2144,7 @@ function applyTheme(){
   $('#copilot').style.display = cfg.copilot ? '' : 'none';
   $('#dogName').textContent = cfg.dogName;
   copilot.state = null;
+  const q = document.getElementById('quick'); if (q) q.style.display = cfg.quickLaunch === false ? 'none' : '';
   if (typeof applyNight === 'function' && typeof nightForced !== 'undefined') applyNight();
 }
 
