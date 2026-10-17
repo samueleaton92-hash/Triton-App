@@ -72,6 +72,13 @@ nav button{background:none;border:none;border-radius:10px;padding:9px 1px;font-s
 nav button.active{color:var(--text);background:var(--panel2)}
 .view{display:none}.view.active{display:block}
 .card2{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.chk{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.chk input{width:26px;height:26px;flex:none}
+.chk span{flex:1}
+.chk.done span{color:var(--muted);text-decoration:line-through}
+.chk .x{background:none;border:none;color:var(--muted);font-size:18px;padding:4px 8px}
+.btnlink{display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 10px;text-decoration:none;flex:1}
+.btnlink[aria-disabled=true]{opacity:.45;pointer-events:none}
 .fold summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
 .fold summary::-webkit-details-marker{display:none}
 .fold summary h2{margin:0}
@@ -103,7 +110,7 @@ input,select{font:inherit;font-size:16px;padding:9px;border-radius:9px;border:1p
 .drive .tile .val{font-size:96px}
 .incl{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .incl .tile{align-items:center;text-align:center}
-.incl svg{width:100%;max-width:160px;height:110px}
+.incl svg{width:100%;max-width:190px;height:116px;overflow:visible}
 .incl .val{font-size:52px}
 .sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:25;align-items:flex-end;justify-content:center}
 .sheet .card{background:var(--panel);border:1px solid var(--line);border-radius:18px 18px 0 0;width:100%;max-width:640px;max-height:88vh;overflow:auto;padding:18px 16px calc(env(safe-area-inset-bottom) + 18px)}
@@ -124,10 +131,6 @@ html[data-theme=eaton] h1{font-size:26px}
 html[data-theme=eaton] .tile.ok{border-color:#1d5c42}
 html[data-theme=eaton] button.primary{color:#043625}
 html[data-theme=eaton] nav{background:#061a11}
-html[data-theme=rally]{--bg:#090909;--panel:#131313;--panel2:#1e1e1e;--line:#353535;--accent:#ffd400;--text:#ffffff;--muted:#a9a9a9}
-html[data-theme=rally] .tile{border-width:3px}
-html[data-theme=rally] .tile .val,html[data-theme=rally] h1{font-style:italic;letter-spacing:-1px}
-html[data-theme=rally] button.primary{color:#111}
 html[data-theme=retro]{--bg:#14110d;--panel:#1d1915;--panel2:#27211b;--line:#3b3228;--accent:#ff9f43;--text:#f3e9d8;--muted:#a89a84}
 html[data-theme=retro] h1,html[data-theme=retro] .tile .label{font-family:Georgia,"Times New Roman",serif}
 .dial{display:none;width:100%;max-width:230px;height:auto;margin:2px auto 0}
@@ -176,7 +179,7 @@ html[data-theme=eaton] .brand{display:inline-flex}
   .tile.big .val{font-size:76px}
   .tile canvas{height:56px}
   .tyre{font-size:26px}
-  .incl svg{max-width:260px;height:170px}
+  .incl svg{max-width:300px;height:180px}
   .incl .val{font-size:72px}
   .drive .tile .val{font-size:140px}
   .drive .tile{min-height:220px}
@@ -205,6 +208,72 @@ html[data-theme=eaton] .brand{display:inline-flex}
   .drive .tile .label{justify-content:center}
 }
 
+
+/* ===== Systems theme: the whole dash in the startup look ===== */
+html[data-theme=hud]{--bg:#03110b;--panel:rgba(12,58,39,.38);--panel2:rgba(143,214,172,.08);--line:rgba(143,214,172,.26);--text:#e9f5ee;--muted:#86a796;--accent:#8fd6ac;--ok:#8fd6ac;--warn:#ffcf70;--alarm:#ff6b6b;
+  background:radial-gradient(120% 70% at 50% 0%,#0c3a27 0%,#061a11 50%,#020a06 100%) fixed #020a06}
+html[data-theme=hud] body{background:transparent;font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html[data-theme=hud] body::before{content:"";position:fixed;left:-50%;right:-50%;bottom:-8%;height:52%;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(143,214,172,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(143,214,172,.08) 1px,transparent 1px);background-size:38px 38px;
+  transform:perspective(520px) rotateX(64deg);transform-origin:bottom;animation:hudGrid 6s linear infinite;
+  -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 85%);mask-image:linear-gradient(to top,#000 0%,transparent 85%)}
+html[data-theme=hud] body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:14;background:repeating-linear-gradient(to bottom,rgba(143,214,172,.025) 0 1px,transparent 1px 3px)}
+html[data-theme=hud] h1{font-weight:800;font-size:18px;letter-spacing:.42em;text-transform:uppercase;text-shadow:0 0 14px rgba(143,214,172,.45)}
+html[data-theme=hud] .brand{display:inline-flex;color:var(--accent);filter:drop-shadow(0 0 6px rgba(143,214,172,.6))}
+html[data-theme=hud] .tile{position:relative;border:1px solid var(--line);border-radius:6px;background:linear-gradient(180deg,rgba(143,214,172,.08),rgba(143,214,172,.015));box-shadow:inset 0 0 26px rgba(143,214,172,.05);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+html[data-theme=hud] .tile::before{content:"";position:absolute;inset:-1px;border-radius:6px;pointer-events:none;
+  background:linear-gradient(var(--accent),var(--accent)) top left/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) top left/2px 16px no-repeat,
+  linear-gradient(var(--accent),var(--accent)) top right/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) top right/2px 16px no-repeat,
+  linear-gradient(var(--accent),var(--accent)) bottom left/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) bottom left/2px 16px no-repeat,
+  linear-gradient(var(--accent),var(--accent)) bottom right/16px 2px no-repeat,linear-gradient(var(--accent),var(--accent)) bottom right/2px 16px no-repeat;opacity:.85}
+html[data-theme=hud] .tile.warn::before{--accent:var(--warn)} html[data-theme=hud] .tile.alarm::before{--accent:var(--alarm)}
+html[data-theme=hud] .tile .label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;letter-spacing:.18em}
+html[data-theme=hud] .tile .val{font-weight:600;text-shadow:0 0 16px rgba(143,214,172,.45)}
+html[data-theme=hud] .tile .sub{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.04em}
+html[data-theme=hud] .tile.ok{border-color:var(--line)}
+html[data-theme=hud] .tile.warn{border-color:rgba(255,207,112,.6);background:linear-gradient(180deg,rgba(255,207,112,.12),rgba(255,207,112,.03))}
+html[data-theme=hud] .tile.warn .val{color:var(--warn);text-shadow:0 0 16px rgba(255,207,112,.5)}
+html[data-theme=hud] .tile.alarm{border-color:var(--alarm);background:rgba(255,107,107,.12);animation:hudAlarm 1s infinite}
+html[data-theme=hud] .tile.alarm .val{color:var(--alarm);text-shadow:0 0 18px rgba(255,107,107,.7)}
+@keyframes hudAlarm{50%{background:rgba(255,107,107,.28);box-shadow:0 0 24px rgba(255,107,107,.45)}}
+html[data-theme=hud] .tyre{border-radius:4px;background:rgba(143,214,172,.06)}
+html[data-theme=hud] .tyre.alarm{background:rgba(255,107,107,.15)}
+html[data-theme=hud] .strip{border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;letter-spacing:.02em}
+html[data-theme=hud] .strip.cool,html[data-theme=hud] .strip.okgo{background:rgba(143,214,172,.08);color:var(--text);border:1px solid var(--accent);box-shadow:0 0 14px rgba(143,214,172,.2)}
+html[data-theme=hud] .strip.warmup{background:rgba(255,207,112,.08);color:#ffe2a8;border:1px solid var(--warn)}
+html[data-theme=hud] button{border-radius:6px;background:rgba(143,214,172,.06);letter-spacing:.04em}
+html[data-theme=hud] button.primary{background:rgba(143,214,172,.16);color:var(--accent);border-color:var(--accent);box-shadow:0 0 14px rgba(143,214,172,.25)}
+html[data-theme=hud] .ib.active{background:rgba(143,214,172,.2);color:var(--accent);box-shadow:0 0 12px rgba(143,214,172,.35)}
+html[data-theme=hud] .chip{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;font-size:11px;border-radius:4px;background:rgba(143,214,172,.06)}
+html[data-theme=hud] .chip.on{background:rgba(143,214,172,.18);color:var(--accent)}
+html[data-theme=hud] .card2,html[data-theme=hud] .sheet .card{background:rgba(6,26,17,.92);border-radius:8px}
+html[data-theme=hud] .card2 h2,html[data-theme=hud] .card h2{letter-spacing:.12em;text-transform:uppercase;font-size:14px}
+html[data-theme=hud] nav{background:rgba(3,17,11,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+html[data-theme=hud] nav button{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+html[data-theme=hud] nav button.active{color:var(--accent);background:rgba(143,214,172,.1);box-shadow:inset 0 -2px 0 var(--accent)}
+html[data-theme=hud] .dial{filter:drop-shadow(0 0 6px rgba(143,214,172,.35))}
+html[data-theme=hud] input,html[data-theme=hud] select{border-radius:4px}
+
+/* ===== Rally theme: Eaton works-team livery ===== */
+html[data-theme=rally]{--s1:#0b3d2a;--s2:#e0a91b;--s3:#3f8f5f;
+  --bg:#f4f4f1;--panel:#ffffff;--panel2:#ecece7;--line:#d6d6cf;--text:#111111;--muted:#5d5d58;--accent:#0b3d2a;--ok:#1f8a4c;--warn:#c77700;--alarm:#d7262e}
+html[data-theme=rally]:not(.day){--bg:#121212;--panel:#1b1b1b;--panel2:#252525;--line:#343434;--text:#ffffff;--muted:#a9a9a9;--accent:#e0a91b;--ok:#5fd08e;--warn:#ffb020;--alarm:#ff4d4f}
+html[data-theme=rally] body{font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html[data-theme=rally] header{padding-bottom:14px;background:linear-gradient(to bottom,var(--s1) 0 4px,var(--s2) 4px 7px,var(--s3) 7px 10px) bottom/100% 10px no-repeat}
+html[data-theme=rally] h1{font-style:italic;font-weight:800;letter-spacing:-.5px;text-transform:uppercase}
+html[data-theme=rally] .tile{border-radius:4px;border-width:2px;padding-top:20px;background:linear-gradient(to bottom,var(--s1) 0 5px,var(--s2) 5px 8px,var(--s3) 8px 11px) top/100% 11px no-repeat,var(--panel)}
+html[data-theme=rally] .tile .label span:first-child{background:var(--text);color:var(--panel);padding:2px 8px;border-radius:3px;font-style:italic;font-weight:800;letter-spacing:.06em;font-size:11.5px}
+html[data-theme=rally] .tile .val{font-style:italic;font-weight:800;letter-spacing:-1.5px}
+html[data-theme=rally] .tile.ok{border-color:var(--line)}
+html[data-theme=rally] button{border-radius:4px}
+html[data-theme=rally] button.primary{background:var(--s1);border-color:var(--s1);color:#fff;font-style:italic;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+html[data-theme=rally]:not(.day) button.primary{background:var(--s2);border-color:var(--s2);color:#111}
+html[data-theme=rally] .ib.active{background:var(--s2);border-color:var(--s2);color:#111}
+html[data-theme=rally] .card2,html[data-theme=rally] .sheet .card{border-radius:6px}
+html[data-theme=rally] nav{border-top:0;padding-top:16px;background:linear-gradient(to bottom,var(--s1) 0 4px,var(--s2) 4px 7px,var(--s3) 7px 10px,#111 10px)}
+html[data-theme=rally] nav button{color:#bdbdb6;font-style:italic;font-weight:700}
+html[data-theme=rally] nav button.active{background:var(--s2);color:#111}
+
 /* ===== Daytime light look ===== */
 html.day[data-theme=eaton]{--bg:#f2f1ed;--panel:#ffffff;--panel2:#e9ece5;--line:#cfd6cc;--text:#092217;--muted:#536a5d;--accent:#043625;--ok:#1f8a4c;--warn:#b86e00;--alarm:#d32f2f}
 html.day[data-theme=standard]{--bg:#eef2f6;--panel:#ffffff;--panel2:#e6ebf1;--line:#cdd6e0;--text:#0d1620;--muted:#5a6878;--accent:#1769c2;--ok:#1d8a4a;--warn:#b86e00;--alarm:#d32f2f}
@@ -232,6 +301,7 @@ html.day .sheet{background:rgba(9,34,23,.35)}
 #boot.out{opacity:0}
 #boot .grid{position:absolute;inset:-50%;background-image:linear-gradient(rgba(143,214,172,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(143,214,172,.07) 1px,transparent 1px);background-size:34px 34px;transform:perspective(500px) rotateX(62deg) translateY(30%);animation:bootGrid 3s linear infinite;mask-image:linear-gradient(to top,#000 10%,transparent 70%);-webkit-mask-image:linear-gradient(to top,#000 10%,transparent 70%)}
 @keyframes bootGrid{to{background-position:0 34px}}
+@keyframes hudGrid{to{background-position:0 38px}}
 #boot .scan{position:absolute;left:0;right:0;height:120px;top:-120px;background:linear-gradient(to bottom,transparent,rgba(143,214,172,.16),transparent);animation:bootScan 1.6s cubic-bezier(.5,0,.5,1) .2s 2}
 @keyframes bootScan{to{top:100%}}
 #boot .core{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;width:min(360px,86vw)}
@@ -262,6 +332,9 @@ html.day .sheet{background:rgba(9,34,23,.35)}
 #boot .go{font-size:15px;font-weight:800;letter-spacing:.4em;margin-right:-.4em;color:var(--glow);opacity:0;height:20px}
 #boot .go.in{animation:bootGo .7s ease forwards}
 @keyframes bootGo{0%{opacity:0;transform:scale(.9)}40%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+#boot .enter{opacity:0;pointer-events:none;margin-top:4px;min-width:180px;padding:14px 28px;border-radius:999px;border:1px solid var(--glow);background:rgba(143,214,172,.12);color:var(--glow);font:800 15px/1 Manrope,-apple-system,sans-serif;letter-spacing:.42em;text-indent:.42em;box-shadow:0 0 18px rgba(143,214,172,.35),inset 0 0 12px rgba(143,214,172,.15);transition:opacity .4s,transform .4s;transform:translateY(6px)}
+#boot .enter.in{opacity:1;pointer-events:auto;transform:none;animation:bootBreath 2.2s ease-in-out .4s infinite}
+@keyframes bootBreath{50%{box-shadow:0 0 30px rgba(143,214,172,.6),inset 0 0 16px rgba(143,214,172,.25)}}
 #boot .skip{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 18px);font-size:11px;letter-spacing:.2em;color:#6f8a7b;text-transform:uppercase}
 @media (prefers-reduced-motion:reduce){#boot *{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
@@ -283,8 +356,9 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <ul class="checks" id="bootChecks"></ul>
     <div class="bar"><i id="bootBar"></i></div>
     <div class="go" id="bootGo">ALL SYSTEMS GO</div>
+    <button class="enter" id="bootEnter" type="button">ENTER</button>
   </div>
-  <div class="skip">Tap to skip</div>
+  <div class="skip" id="bootSkip">Tap to skip</div>
 </div>
 <header>
   <h1><span class="brand"><svg viewBox="0 0 40 48"><rect x="2.5" y="2.5" width="35" height="43" rx="6" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M20 42 C20 32 21 21 24 10" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M20 34 Q12 35 8 27 Q16 25 20 34Z M21 28 Q28 30 32 21 Q24 20 21 28Z M21 22 Q13 23 10 14 Q18 13 21 22Z M22 17 Q29 18 31 9 Q24 9 22 17Z M24 11 Q19 8 21 3 Q27 6 24 11Z" fill="currentColor"/></svg></span><span id="appTitle">Triton Dash</span></h1>
@@ -338,17 +412,30 @@ html.day .sheet{background:rgba(9,34,23,.35)}
   <div class="incl">
     <div class="tile" id="inc-roll">
       <div class="label"><span>Side tilt (roll)</span></div>
-      <svg viewBox="-80 -55 160 110"><g id="inc-roll-g"><rect x="-55" y="-30" width="110" height="38" rx="8" fill="#2b3a4c"/><rect x="-38" y="-48" width="76" height="22" rx="6" fill="#3a4d63"/><rect x="-58" y="6" width="22" height="20" rx="4" fill="#111"/><rect x="36" y="6" width="22" height="20" rx="4" fill="#111"/></g><line x1="-75" y1="27" x2="75" y2="27" stroke="#4da3ff" stroke-dasharray="4 4"/></svg>
+      <svg viewBox="-92 -64 184 100" aria-hidden="true"><g id="inc-roll-g"><rect x="-46" y="-57" width="92" height="9" rx="2" fill="#2f3438"/><rect x="-46" y="-52" width="92" height="2" fill="#4a5157"/><rect x="-44" y="-47" width="88" height="30" rx="7" fill="#f4f6f7" stroke="#8e969d" stroke-width="1.3"/><rect x="-34" y="-42" width="68" height="15" rx="3" fill="#26323b"/><rect x="-53" y="-34" width="8" height="6" rx="1.5" fill="#2f3438"/><rect x="45" y="-34" width="8" height="6" rx="1.5" fill="#2f3438"/><rect x="-58" y="4" width="20" height="23" rx="4" fill="#1c1d1f"/><rect x="38" y="4" width="20" height="23" rx="4" fill="#1c1d1f"/><rect x="-55" y="-19" width="110" height="27" rx="4" fill="#f4f6f7" stroke="#8e969d" stroke-width="1.3"/><rect x="-55" y="-21" width="110" height="3.5" rx="1" fill="#222"/><path d="M-50 -20 L-43 -38 L43 -38 L50 -20" stroke="#2b2e31" stroke-width="2.8" fill="none" stroke-linejoin="round"/><rect x="-53" y="-15" width="7" height="15" rx="1.5" fill="#d7262e"/><rect x="46" y="-15" width="7" height="15" rx="1.5" fill="#d7262e"/><rect x="-7" y="-14" width="14" height="3" rx="1.5" fill="#8e969d"/><rect x="-57" y="7" width="114" height="7" rx="2" fill="#2f3438"/></g><line x1="-88" y1="27" x2="88" y2="27" stroke="var(--accent)" stroke-dasharray="4 4"/></svg>
       <div class="val" id="inc-roll-v">--</div><div class="sub" id="inc-roll-s"></div>
     </div>
     <div class="tile" id="inc-pitch">
       <div class="label"><span>Front tilt (pitch)</span></div>
-      <svg viewBox="-80 -55 160 110"><g id="inc-pitch-g"><rect x="-70" y="-20" width="140" height="28" rx="6" fill="#2b3a4c"/><path d="M-20 -20 L-10 -42 L40 -42 L48 -20 Z" fill="#3a4d63"/><circle cx="-45" cy="12" r="13" fill="#111"/><circle cx="45" cy="12" r="13" fill="#111"/></g><line x1="-75" y1="26" x2="75" y2="26" stroke="#4da3ff" stroke-dasharray="4 4"/></svg>
+      <svg viewBox="-92 -64 184 100" aria-hidden="true"><g id="inc-pitch-g"><rect x="-14" y="-51" width="42" height="8" rx="2" fill="#2f3438"/><rect x="-14" y="-47" width="42" height="2" fill="#4a5157"/><rect x="-8" y="-43" width="3" height="3" fill="#2f3438"/><rect x="20" y="-43" width="3" height="3" fill="#2f3438"/><path d="M-78 10 L-78 -12 L-12 -12 L-10 -37 Q-9 -41 -4 -41 L18 -41 Q22 -41 25 -38 L40 -18 L69 -13 Q76 -12 77 -6 L78 8 L59 10 A15 15 0 0 0 29 10 L-29 10 A15 15 0 0 0 -59 10 Z" fill="#f4f6f7" stroke="#8e969d" stroke-width="1.3" stroke-linejoin="round"/><path d="M-7 -37 L3 -37 L3 -21 L-8 -21 Z" fill="#26323b"/><path d="M6 -37 L19 -37 L32 -21 L6 -21 Z" fill="#26323b"/><path d="M4.5 -38 L4.5 8 M-9 -21 L-9 8 M33 -19 L33 8" stroke="#c3c9ce" stroke-width="1"/><rect x="31" y="-25" width="5" height="4" rx="1" fill="#2f3438"/><rect x="9" y="-15" width="20" height="10" rx="1.5" fill="#043625"/><path d="M15 -7 Q19 -10 23 -13 M18 -9 Q16 -12 17 -14 M20 -11 Q23 -11 24 -9" stroke="#f2f1ed" stroke-width="1" fill="none" stroke-linecap="round"/><rect x="-78" y="-15" width="66" height="3.5" rx="1" fill="#222"/><path d="M-14 -13 L-14 -29 Q-14 -32 -17 -32 L-27 -32 L-37 -13" stroke="#2b2e31" stroke-width="2.6" fill="none" stroke-linejoin="round"/><rect x="-79" y="-10" width="3" height="9" rx="1" fill="#d7262e"/><path d="M68 -12 L76 -10 L76 -6 L68 -7 Z" fill="#e8eef2" stroke="#8e969d" stroke-width=".8"/><rect x="74" y="-4" width="4" height="7" rx="1" fill="#2f3438"/><path d="M-61 10 A17 17 0 0 1 -27 10 M27 10 A17 17 0 0 1 61 10" stroke="#2f3438" stroke-width="3" fill="none"/><circle cx="-44" cy="13" r="13" fill="#1c1d1f"/><circle cx="-44" cy="13" r="7.5" fill="#c9ced3" stroke="#8e969d" stroke-width="1"/><circle cx="-44" cy="13" r="2.4" fill="#6c747b"/><circle cx="44" cy="13" r="13" fill="#1c1d1f"/><circle cx="44" cy="13" r="7.5" fill="#c9ced3" stroke="#8e969d" stroke-width="1"/><circle cx="44" cy="13" r="2.4" fill="#6c747b"/></g><line x1="-88" y1="26" x2="88" y2="26" stroke="var(--accent)" stroke-dasharray="4 4"/></svg>
       <div class="val" id="inc-pitch-v">--</div><div class="sub" id="inc-pitch-s"></div>
     </div>
   </div>
   <div class="card2"><div class="row"><span>Max this session</span><span id="inc-max">--</span></div>
   <div class="btnrow"><button class="small" id="btnIncReset">Reset max</button></div></div>
+
+  <details class="card2 fold" id="checkCard">
+    <summary><h2>Before you head out</h2><span class="sumnote" id="sum-check"></span></summary>
+    <div class="list" id="checkList"></div>
+    <div class="form" style="margin-top:8px"><input class="full" id="checkNew" placeholder="Add your own item"></div>
+    <div class="btnrow"><button class="small" id="btnCheckAdd">Add item</button><button class="small" id="btnCheckReset">Untick all</button></div>
+  </details>
+
+  <details class="card2 fold" id="parkCard">
+    <summary><h2>Parked here</h2><span class="sumnote" id="sum-park"></span></summary>
+    <p id="parkInfo" class="hint">No parked spot saved yet.</p>
+    <div class="btnrow"><button class="primary" id="btnPark">Mark parked spot</button><a class="btnlink" id="parkNav" target="_blank" rel="noopener">Walk back to the ute</a></div>
+  </details>
 </section>
 
 <!-- ===== LOGBOOK ===== -->
@@ -441,10 +528,23 @@ html.day .sheet{background:rgba(9,34,23,.35)}
   <button data-view="fun">Fun</button>
 </nav>
 
+<!-- Trip sort sheet -->
+<div class="sheet" id="sortSheet"><div class="card">
+  <h2>Trip finished</h2>
+  <p id="sort-summary"></p>
+  <div class="form">
+    <input class="full" id="sort-purpose" placeholder="Purpose, e.g. Jamesons plant check, Cremorne">
+    <input class="full" type="number" inputmode="numeric" id="sort-odo" placeholder="Odometer now (km)">
+  </div>
+  <p class="hint">The odometer is filled in from GPS as a guess. Check it against the dash: the logbook needs the real reading.</p>
+  <div class="btnrow"><button id="sortWork">Work trip</button><button id="sortPersonal">Personal trip</button></div>
+  <div class="btnrow" style="margin-top:8px"><button class="small" id="sortLater">Sort later</button></div>
+</div></div>
+
 <!-- Settings sheet -->
 <div class="sheet" id="settingsSheet"><div class="card">
   <h2>Settings</h2>
-  <div class="btnrow" style="margin-bottom:6px"><button id="btnDemo">Demo mode</button><button id="btnTestSound">Test sound</button></div>
+  <div class="btnrow" style="margin-bottom:6px"><button id="btnDemo">Demo mode</button><button id="btnTestSound">Test sound</button><button id="btnTestVoice">Test voice</button></div>
   <p>Warning turns a tile amber. Alarm turns it red and beeps. Saved on this device.</p>
   <div id="settingsRows"></div>
   <div class="btnrow"><button id="resetDefaults">Reset defaults</button><button class="primary" id="saveSettings">Save</button></div>
@@ -485,7 +585,7 @@ const DEFAULTS = {
   battType:'lithium', battAh:100, drawA:2.5,
   show_egt:true, show_boost:true, show_cool:true, show_rpm:true, show_speed:true, show_volt:true, show_load:true,
   show_aux:false, show_fridge:false, show_tyres:true, show_doors:true,
-  night:'auto', dayLook:'light', sound:true,
+  night:'auto', dayLook:'light', sound:true, voice:true, autoTrip:true, autoPark:true,
   driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com'
 };
 const FIELDS = [
@@ -516,10 +616,11 @@ const FIELDS = [
   ['Display and sound'],
   ['night','Night mode','select', [['auto','Auto (7pm to 6am)'],['on','Always on'],['off','Off']]],
   ['dayLook','Daytime look','select', [['light','Light'],['dark','Dark']]],
-  ['sound','Alarm sound','check'],
+  ['sound','Alarm sound','check'], ['voice','Spoken alarms','check'],
+  ['autoTrip','Log trips automatically when the engine link connects','check'], ['autoPark','Save parked spot when a trip ends','check'],
   ['Fun'],
   ['driverName','Driver name','text'], ['uteName','Ute name','text'], ['dogName','Co-pilot (dog) name','text'],
-  ['theme','Theme','select', [['eaton','Eaton Gardening'],['standard','Standard'],['retro','Retro dials'],['rally','Rally']]],
+  ['theme','Theme','select', [['eaton','Eaton Gardening'],['hud','Systems (futuristic)'],['rally','Rally livery'],['standard','Standard'],['retro','Retro dials']]],
   ['gaugeStyle','Gauge style','select', [['digital','Digital numbers'],['analog','Analog dials']]],
   ['copilot','Show co-pilot','check'], ['sweep','Startup sequence','check'], ['chime','Startup sounds','check'],
   ['wrapFooter','Wrapped card footer','text']
@@ -841,6 +942,27 @@ function playSound(name){
   } catch(e){}
 }
 function beep(){ playSound('beep'); }
+const VOICE = { egt:'Exhaust temperature high. Ease off.', cool:'Coolant hot. Ease off and watch the temperature gauge.',
+  tyres:'Tyre pressure low. Pull over when safe and check the tyres.', doors:'A door or lid is open.',
+  roll:'Side tilt alarm. Careful.', pitch:'Steep angle alarm. Careful.', boost:'Boost high. Ease off.' };
+const spokenAt = {};
+let voiceReady = false;
+function speak(text, force){
+  if (!('speechSynthesis' in window) || (!cfg.voice && !force)) return;
+  try {
+    const u = new SpeechSynthesisUtterance(text);
+    const v = speechSynthesis.getVoices().find(v => /en-AU/i.test(v.lang)) || speechSynthesis.getVoices().find(v => /^en/i.test(v.lang));
+    if (v) u.voice = v;
+    u.rate = 1.02; u.pitch = 1; u.volume = 1;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch(e){}
+}
+function unlockVoice(){
+  if (voiceReady || !('speechSynthesis' in window)) return;
+  voiceReady = true;
+  try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch(e){}
+}
+document.addEventListener('pointerdown', unlockVoice, { capture:true });
 function handleAlarms(){
   const b = $('#banner');
   if (!activeAlarms.size){ b.style.display = 'none'; return; }
@@ -848,9 +970,15 @@ function handleAlarms(){
   b.style.display = 'flex';
   const now = Date.now();
   if (cfg.sound && !demo.on && now > silencedUntil && now - lastBeep > 1500){ beep(); lastBeep = now; }
+  if (cfg.voice && !demo.on && now > silencedUntil){
+    for (const a of activeAlarms){
+      if (VOICE[a] && now - (spokenAt[a] || 0) > 30000){ spokenAt[a] = now; setTimeout(() => speak(VOICE[a]), 700); break; }
+    }
+  }
 }
 $('#btnTestSound').onclick = () => { playSound('chime'); setTimeout(() => playSound('beep'), 1100); toast('You should hear the startup chime, then the alarm beep. Nothing? Check the volume buttons.'); };
-$('#silenceBtn').onclick = () => { silencedUntil = Date.now() + 60000; toast('Alarm sound silenced for 60 seconds'); };
+$('#btnTestVoice').onclick = () => { unlockVoice(); speak('Exhaust temperature high. Ease off.', true); toast('You should hear a spoken alarm. Nothing? Check the volume and that the phone is not on silent for speech.'); };
+$('#silenceBtn').onclick = () => { try { speechSynthesis.cancel(); } catch(e){} silencedUntil = Date.now() + 60000; toast('Alarm sound silenced for 60 seconds'); };
 
 /* =========================================================
    UI HELPERS
@@ -905,7 +1033,7 @@ function applyNight(){
   const on = nightForced != null ? nightForced : cfg.night === 'on' || (cfg.night === 'auto' && auto);
   const root = document.documentElement;
   root.classList.toggle('night', on);
-  const lightOK = cfg.theme === 'eaton' || cfg.theme === 'standard';
+  const lightOK = cfg.theme === 'eaton' || cfg.theme === 'standard' || cfg.theme === 'rally';
   root.classList.toggle('day', !on && cfg.dayLook !== 'dark' && lightOK);
   $('#btnNight').classList.toggle('active', on);
   const tc = document.querySelector('meta[name=theme-color]');
@@ -1144,6 +1272,7 @@ async function connectOBD(){
     await initElm();
     chip('obd', 'on', 'OBD live');
     startSweep();
+    autoTripStart();
     pollLoop();
   } catch(e){
     chip('obd', 'off', 'OBD off');
@@ -1414,12 +1543,15 @@ function renderLog(){
   } else {
     const mins = Math.round((Date.now() - new Date(trip.start)) / 60000);
     const est = trip.odoStart ? Math.round(trip.odoStart + (trip.gpsKm || 0)) : '';
-    box.innerHTML = `<h2 style="margin-top:0">${trip.type === 'work' ? 'Work' : 'Personal'} trip in progress</h2>
+    box.innerHTML = `<h2 style="margin-top:0">${trip.type === 'work' ? 'Work trip' : trip.type === 'pending' ? 'Trip logging automatically' : 'Personal trip'} in progress</h2>
       <p>${esc(trip.purpose || 'No purpose entered')} · started ${fmtTime(trip.start)} · ${mins} min</p>
       <div class="stat"><div><b>${(trip.gpsKm || 0).toFixed(1)}</b><small>GPS km</small></div><div><b>${esc(trip.odoStart || '--')}</b><small>Start odo</small></div><div><b>${trip.ecoN >= 60 ? Math.round(trip.ecoGood / trip.ecoN * 100) : '--'}</b><small>Eco score</small></div></div>
       <div class="form"><input class="full" type="number" inputmode="numeric" id="trip-odo-end" placeholder="Odometer at end (km)" value="${esc(est)}"></div>
       <div class="btnrow"><button class="good" id="btnTripEnd">End trip</button><button class="danger" id="btnTripCancel">Discard</button></div>`;
-    $('#btnTripEnd').onclick = endTrip;
+    $('#btnTripEnd').onclick = () => {
+      if (trip.auto){ const o = parseFloat($('#trip-odo-end').value); autoTripEnd(isNaN(o) ? null : o); }
+      else endTrip();
+    };
     $('#btnTripCancel').onclick = () => { if (confirm('Discard this trip?')){ trip.active = false; store.set('activeTrip', trip); stopGeo(); renderLog(); updateTripChip(); } };
   }
   /* Stats for the period */
@@ -1435,9 +1567,12 @@ function renderLog(){
   /* Trip list */
   const list = $('#log-list');
   if (!trips.length){ list.innerHTML = '<p class="hint">No trips yet.</p>'; return; }
-  list.innerHTML = trips.slice(0, 60).map(t => `<div class="item"><div><span class="tag ${t.type === 'work' ? 'work' : ''}">${t.type === 'work' ? 'Work' : 'Personal'}</span> ${esc(t.purpose || '')}
+  const pend = trips.filter(t => t.type === 'pending').length;
+  list.innerHTML = (pend ? `<p class="hint" style="color:var(--warn)">${pend} trip${pend > 1 ? 's' : ''} to sort into work or personal. Tap Sort on each.</p>` : '') +
+    trips.slice(0, 60).map(t => `<div class="item"><div><span class="tag ${t.type === 'work' ? 'work' : t.type === 'pending' ? 'due' : ''}">${t.type === 'work' ? 'Work' : t.type === 'pending' ? 'To sort' : 'Personal'}</span> ${esc(t.purpose || '')}
       <small>${fmtDate(t.start)} ${fmtTime(t.start)} · ${tripKm(t)} km${fuelCostText(tripKm(t))}${t.eco != null ? ' · eco ' + t.eco : ''}${t.odoStart ? ` · odo ${t.odoStart} to ${t.odoEnd || '?'}` : ''}</small></div>
-      <button class="small danger" data-del="${t.id}">Delete</button></div>`).join('');
+      <span style="display:flex;gap:6px">${t.type === 'pending' ? `<button class="small primary" data-sort="${t.id}">Sort</button>` : ''}<button class="small danger" data-del="${t.id}">Delete</button></span></div>`).join('');
+  for (const b of list.querySelectorAll('[data-sort]')) b.onclick = () => openSort(b.dataset.sort);
   for (const b of list.querySelectorAll('[data-del]')) b.onclick = () => {
     if (!confirm('Delete this trip?')) return;
     trips = trips.filter(t => t.id !== b.dataset.del); store.set('trips', trips); renderLog();
@@ -1461,9 +1596,104 @@ function endTrip(){
   toast(`Trip saved: ${tripKm(t)} km${t.eco != null ? ' · eco score ' + t.eco : ''}`);
   checkBadges();
 }
+/* ---- Automatic trips ---- */
+function guessType(){ const d = new Date(), wd = d.getDay(), h = d.getHours(); return wd >= 1 && wd <= 5 && h >= 6 && h < 18 ? 'work' : 'personal'; }
+function autoTripStart(){
+  if (!cfg.autoTrip || trip.active || demo.on) return;
+  Object.assign(trip, { active:true, auto:true, id:uid(), type:'pending', purpose:'', start:new Date().toISOString(), odoStart:lastOdo() ? Number(lastOdo()) : null, gpsKm:0, ecoN:0, ecoGood:0, offSince:null });
+  if (!store.get('logPeriod', '')) store.set('logPeriod', todayISO());
+  store.set('activeTrip', trip); startGeo(); renderLog(); updateTripChip();
+  toast('Trip logging started automatically');
+}
+function autoTripEnd(odoEnd){
+  if (!trip.active || !trip.auto) return;
+  const est = trip.odoStart ? Math.round(trip.odoStart + (trip.gpsKm || 0)) : null;
+  const t = { id:trip.id, type:'pending', guess:guessType(), purpose:'', start:trip.start, end:new Date().toISOString(),
+    odoStart:trip.odoStart, odoEnd:odoEnd != null ? odoEnd : est, gpsKm:Math.round((trip.gpsKm || 0) * 10) / 10,
+    eco:(trip.ecoN || 0) >= 60 ? Math.round(trip.ecoGood / trip.ecoN * 100) : null, auto:true };
+  const keep = t.gpsKm >= 0.3 || (t.odoEnd && t.odoStart && t.odoEnd > t.odoStart);
+  trip.active = false; store.set('activeTrip', trip); stopGeo();
+  if (keep){ trips.unshift(t); store.set('trips', trips); }
+  if (cfg.autoPark) markParked(true);
+  renderLog(); updateTripChip(); checkBadges();
+  if (keep) openSort(t.id);
+}
+setInterval(() => {
+  if (!trip.active || !trip.auto) return;
+  const off = !obd.connected || state.rpm == null || state.rpm < 300;
+  if (!off){ if (trip.offSince){ trip.offSince = null; store.set('activeTrip', trip); } return; }
+  if (!trip.offSince){ trip.offSince = Date.now(); store.set('activeTrip', trip); return; }
+  if (Date.now() - trip.offSince > 150000) autoTripEnd();
+}, 5000);
+let sortId = null;
+function openSort(id){
+  const t = trips.find(x => x.id === id); if (!t) return;
+  sortId = id;
+  $('#sort-summary').textContent = `${fmtDate(t.start)} ${fmtTime(t.start)} to ${fmtTime(t.end)} · ${tripKm(t)} km`;
+  $('#sort-purpose').value = t.purpose || '';
+  $('#sort-odo').value = t.odoEnd || '';
+  $('#sortWork').className = t.guess === 'work' ? 'primary' : '';
+  $('#sortPersonal').className = t.guess === 'personal' ? 'primary' : '';
+  $('#sortSheet').style.display = 'flex';
+}
+function saveSort(type){
+  const t = trips.find(x => x.id === sortId); if (!t) return;
+  t.type = type; t.purpose = $('#sort-purpose').value.trim();
+  const o = parseFloat($('#sort-odo').value); if (!isNaN(o)) t.odoEnd = o;
+  if (t.odoEnd){ svc.odoNow = Math.max(svc.odoNow || 0, t.odoEnd); store.set('svc', svc); }
+  store.set('trips', trips); $('#sortSheet').style.display = 'none'; renderLog(); checkService(); checkBadges();
+  toast(type === 'work' ? 'Saved as a work trip' : 'Saved as a personal trip');
+  if (type === 'work' && !t.purpose) toast('Tip: add a purpose for work trips. The ATO asks for the reason for each business journey.', 6000);
+}
+$('#sortWork').onclick = () => saveSort('work');
+$('#sortPersonal').onclick = () => saveSort('personal');
+$('#sortLater').onclick = () => { $('#sortSheet').style.display = 'none'; };
+
+/* ---- Pre-trip checklist ---- */
+const CHECK_DEFAULT = ['Tyre pressures checked (and set for the terrain)', 'Oil and coolant levels', 'Loads strapped, drawers and toolbox locked',
+  'Tonneau or rack secured', 'Rooftop tent latched and strapped', "Picasso's harness clipped in", 'Recovery gear packed (snatch strap, shackles, boards)',
+  'Water on board, fridge on', 'First aid kit', 'Told someone the route and when you will be back'];
+let checks = store.get('checks', null) || { items:CHECK_DEFAULT.slice(), done:{} };
+function renderChecks(){
+  const l = $('#checkList');
+  l.innerHTML = checks.items.map((t, i) => `<label class="chk${checks.done[t] ? ' done' : ''}"><input type="checkbox" data-i="${i}" ${checks.done[t] ? 'checked' : ''}><span>${esc(t)}</span>${CHECK_DEFAULT.includes(t) ? '' : `<button class="x" data-rm="${i}" aria-label="Remove">×</button>`}</label>`).join('');
+  for (const c of l.querySelectorAll('input[data-i]')) c.onchange = () => { const t = checks.items[c.dataset.i]; checks.done[t] = c.checked; store.set('checks', checks); renderChecks(); };
+  for (const b of l.querySelectorAll('[data-rm]')) b.onclick = e => { e.preventDefault(); const t = checks.items[b.dataset.rm]; checks.items.splice(b.dataset.rm, 1); delete checks.done[t]; store.set('checks', checks); renderChecks(); };
+  const n = checks.items.filter(t => checks.done[t]).length;
+  $('#sum-check').textContent = n === checks.items.length ? 'All done' : `${n} of ${checks.items.length}`;
+  if (n === checks.items.length && n > 0 && !renderChecks.cheered){ renderChecks.cheered = true; say('All checked. Let\'s go!', 4000); }
+  if (n < checks.items.length) renderChecks.cheered = false;
+}
+$('#btnCheckAdd').onclick = () => { const v = $('#checkNew').value.trim(); if (!v || checks.items.includes(v)) return; checks.items.push(v); $('#checkNew').value = ''; store.set('checks', checks); renderChecks(); };
+$('#btnCheckReset').onclick = () => { checks.done = {}; store.set('checks', checks); renderChecks(); };
+renderChecks();
+
+/* ---- Parked spot ---- */
+function renderPark(){
+  const pk = store.get('parked', null), nav = $('#parkNav');
+  if (!pk){ $('#parkInfo').textContent = 'No parked spot saved yet.'; $('#sum-park').textContent = ''; nav.setAttribute('aria-disabled', 'true'); nav.removeAttribute('href'); return; }
+  $('#sum-park').textContent = fmtTime(pk.t);
+  $('#parkInfo').textContent = `Saved ${fmtDate(pk.t)} at ${fmtTime(pk.t)}${pk.acc ? ` (accurate to about ${Math.round(pk.acc)} m)` : ''}.`;
+  nav.href = `https://maps.apple.com/?daddr=${pk.lat},${pk.lon}&dirflg=w`; nav.removeAttribute('aria-disabled');
+  if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => {
+    const d = haversine({ lat:p.coords.latitude, lon:p.coords.longitude }, pk);
+    $('#parkInfo').textContent += ` You are ${d < 1 ? Math.round(d * 1000) + ' m' : d.toFixed(1) + ' km'} away.`;
+  }, () => {}, { enableHighAccuracy:true, maximumAge:10000, timeout:8000 });
+}
+function markParked(quiet){
+  if (!navigator.geolocation){ if (!quiet) toast('Location is not available in this browser'); return; }
+  navigator.geolocation.getCurrentPosition(p => {
+    store.set('parked', { lat:p.coords.latitude, lon:p.coords.longitude, acc:p.coords.accuracy, t:new Date().toISOString() });
+    renderPark(); if (!quiet) toast('Parked spot saved');
+  }, () => { if (!quiet) toast('Could not get your location. Check location is allowed for this browser.'); }, { enableHighAccuracy:true, timeout:15000, maximumAge:0 });
+}
+$('#btnPark').onclick = () => markParked(false);
+$('#parkCard').addEventListener('toggle', e => { if (e.target.open) renderPark(); });
+renderPark();
+
 function updateTripChip(){
   const c = $('#chip-trip');
-  if (trip.active){ c.style.display = ''; c.className = 'chip on'; c.textContent = (trip.type === 'work' ? 'Work' : 'Personal') + ' trip ' + (trip.gpsKm || 0).toFixed(1) + ' km'; }
+  if (trip.active){ c.style.display = ''; c.className = 'chip on'; c.textContent = (trip.type === 'work' ? 'Work trip ' : trip.type === 'pending' ? 'Logging trip ' : 'Personal trip ') + (trip.gpsKm || 0).toFixed(1) + ' km'; }
   else c.style.display = 'none';
 }
 $('#log-period').onchange = e => { store.set('logPeriod', e.target.value); renderLog(); checkBadges(); };
@@ -1471,7 +1701,7 @@ $('#btnLogExport').onclick = () => {
   const period = store.get('logPeriod', '');
   const rows = [['Start date','Start time','End date','End time','Type','Purpose','Odometer start','Odometer end','Km (odometer)','Km (GPS)']];
   const inPeriod = trips.filter(t => !period || localISO(t.start) >= period).slice().reverse();
-  for (const t of inPeriod) rows.push([fmtDate(t.start), fmtTime(t.start), fmtDate(t.end), fmtTime(t.end), t.type === 'work' ? 'Business' : 'Private',
+  for (const t of inPeriod) rows.push([fmtDate(t.start), fmtTime(t.start), fmtDate(t.end), fmtTime(t.end), t.type === 'work' ? 'Business' : t.type === 'pending' ? 'Not yet sorted' : 'Private',
     t.purpose, t.odoStart || '', t.odoEnd || '', t.odoStart && t.odoEnd ? t.odoEnd - t.odoStart : '', t.gpsKm]);
   const total = inPeriod.reduce((s, t) => s + tripKm(t), 0), work = inPeriod.filter(t => t.type === 'work').reduce((s, t) => s + tripKm(t), 0);
   const odos = inPeriod.flatMap(t => [t.odoStart, t.odoEnd]).filter(Boolean);
@@ -1666,7 +1896,7 @@ function openSettings(){
   let grp = null, gi = 0;
   for (const f of FIELDS){
     if (f.length === 1){
-      grp = document.createElement('details'); grp.className = 'fold setgrp'; if (gi++ === 0) grp.open = true;
+      grp = document.createElement('details'); grp.className = 'fold setgrp'; gi++;
       grp.innerHTML = `<summary><span class="group" style="margin:0">${f[0]}</span></summary>`; rows.appendChild(grp); continue;
     }
     const [k, label, unit, opts] = f;
@@ -1754,9 +1984,26 @@ function bootSequence(done){
     setTimeout(() => b.classList.remove('show', 'out'), 560);
     done && done();
   };
-  bootTimers.push(setTimeout(() => { go.classList.add('in'); chime(); }, T));
-  bootTimers.push(setTimeout(finish, T + 900));
-  b.onclick = finish;
+  const enter = $('#bootEnter'), skip = $('#bootSkip');
+  enter.classList.remove('in'); skip.style.display = '';
+  let complete = false;
+  const completeNow = () => {
+    if (complete) return; complete = true;
+    bootTimers.forEach(clearTimeout); bootTimers = [];
+    // fill in any lines not shown yet
+    lines.slice(ul.children.length).forEach(([k, v, cls]) => {
+      const li = document.createElement('li'); li.className = 'in';
+      li.innerHTML = `<span class="k">${esc(k)}</span><span class="dots"></span><span class="v ${cls}">${esc(v)}</span>`; ul.appendChild(li);
+    });
+    bar.style.transition = 'width .25s'; bar.style.width = '100%'; pct.textContent = '100%';
+    go.classList.add('in'); chime(); skip.style.display = 'none';
+    setTimeout(() => enter.classList.add('in'), 350);
+    // never make the driver tap while the ute is moving
+    if ((state.speed || 0) > 5) bootTimers.push(setTimeout(finish, 1500));
+  };
+  bootTimers.push(setTimeout(completeNow, T));
+  b.onclick = e => { if (!complete) completeNow(); };
+  enter.onclick = e => { e.stopPropagation(); finish(); };
 }
 function runSweep(){
   sweep.on = true; sweep.start = performance.now();
@@ -1808,7 +2055,7 @@ function setDial(id, v, max, warn, alarm){
 function applyTheme(){
   document.documentElement.dataset.theme = cfg.theme;
   document.documentElement.dataset.gauge = analogOn() ? 'analog' : 'digital';
-  $('#appTitle').textContent = cfg.theme === 'eaton' ? 'Eaton Gardening' : 'Triton Dash';
+  $('#appTitle').textContent = cfg.theme === 'eaton' ? 'Eaton Gardening' : cfg.theme === 'hud' ? 'Triton' : 'Triton Dash';
   $('#copilot').style.display = cfg.copilot ? '' : 'none';
   $('#dogName').textContent = cfg.dogName;
   copilot.state = null;
@@ -1934,6 +2181,7 @@ async function drawMap(){
    FUN: BADGES
    ========================================================= */
 function cooldownDone(){
+  speak('Turbo cooled down. OK to switch off.');
   const c = store.get('cooldowns', {}), ym = todayISO().slice(0, 7);
   c[ym] = (c[ym] || 0) + 1; c.total = (c.total || 0) + 1; store.set('cooldowns', c);
   checkBadges();
@@ -2084,6 +2332,7 @@ applyNight();
 checkService();
 if (cfg.sweep) setTimeout(() => { lastBoot = Date.now(); bootSequence(() => say(greeting(), 5000)); }, 50);
 if (trip.active){ startGeo(); updateTripChip(); }
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 setInterval(render, 250);
 setInterval(updateTripChip, 5000);
 render();
