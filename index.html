@@ -153,7 +153,7 @@ html[data-theme=eaton] .brand{display:inline-flex}
   h1{font-size:24px}
   nav{left:50%;right:auto;transform:translateX(-50%);width:min(720px,100%);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:16px 16px 0 0}
   nav button{font-size:15px;padding:11px 4px}
-  .controls{grid-template-columns:repeat(3,1fr);max-width:720px}
+  .controls{grid-template-columns:repeat(2,1fr);max-width:480px}
   .tile{min-height:140px;padding:14px 18px}
   .tile .label{font-size:14px}
   .tile .val{font-size:52px}
@@ -218,8 +218,6 @@ html[data-theme=eaton] .brand{display:inline-flex}
   <div class="controls">
     <button class="primary" id="btnObd">Connect OBD</button>
     <button id="btnSensor">Sensor box</button>
-    <button id="btnDemo">Demo mode</button>
-    <button id="btnGauge">Analog gauges</button>
   </div>
   <div class="grid" id="grid"></div>
   <div class="foot">Read-only: this app only reads data. It never clears codes or writes to the engine computer.<br>Keep watching the factory temperature gauge as your backup.</div>
@@ -349,6 +347,7 @@ html[data-theme=eaton] .brand{display:inline-flex}
 <!-- Settings sheet -->
 <div class="sheet" id="settingsSheet"><div class="card">
   <h2>Settings</h2>
+  <div class="btnrow" style="margin-bottom:6px"><button id="btnDemo">Demo mode</button><button id="btnTestSound">Test sound</button></div>
   <p>Warning turns a tile amber. Alarm turns it red and beeps. Saved on this device.</p>
   <div id="settingsRows"></div>
   <div class="btnrow"><button id="resetDefaults">Reset defaults</button><button class="primary" id="saveSettings">Save</button></div>
@@ -431,13 +430,14 @@ function thr(){
    LIVE STATE
    ========================================================= */
 const state = { egt:null, boost:null, cool:null, rpm:null, volt:null, load:null, speed:null, aux:null, fridge:null, amps:null,
-  tyres:{ fl:null, fr:null, rl:null, rr:null, tl:null, tr:null } };
+  tyres:{ fl:null, fr:null, rl:null, rr:null, tl:null, tr:null }, doors:null, lightsOn:null };
 const peaks = { egt:null, boost:null };
 const unsupported = new Set();
 function peak(k, v){ if (v != null && (peaks[k] == null || v > peaks[k])) peaks[k] = v; }
 function clearLive(){
   for (const k of ['egt','boost','cool','rpm','volt','load','speed','aux','fridge','amps']) state[k] = null;
   for (const k in state.tyres) state.tyres[k] = null;
+  state.doors = null; state.lightsOn = null;
   peaks.egt = peaks.boost = null;
   for (const k in hist) hist[k] = [];
 }
@@ -499,9 +499,10 @@ const TILES = [
   { id:'aux', label:'2nd battery', unit:'V', dp:2, sub:runtimeText,
     level:v => v < cfg.auxLow ? 'warn' : 'ok', noData:'Needs sensor box' },
   { id:'fridge', label:'Fridge', unit:'°C', dp:1, level:v => v > 8 ? 'warn' : 'ok', noData:'Needs sensor box' },
-  { id:'tyres', label:'Tyres', unit:'psi', tyres:true }
+  { id:'tyres', label:'Tyres', unit:'psi', tyres:true },
+  { id:'doors', label:'Doors and lids', doors:true }
 ];
-const ALARM_NAMES = { egt:'EGT HIGH', cool:'COOLANT HOT', tyres:'TYRE PRESSURE LOW', roll:'SIDE TILT', pitch:'FRONT TILT' };
+const ALARM_NAMES = { doors:'DOOR OR LID OPEN', egt:'EGT HIGH', cool:'COOLANT HOT', tyres:'TYRE PRESSURE LOW', roll:'SIDE TILT', pitch:'FRONT TILT' };
 
 function buildGrid(){
   const g = $('#grid'); g.innerHTML = '';
@@ -509,7 +510,17 @@ function buildGrid(){
     const el = document.createElement('div');
     el.className = 'tile' + (t.big ? ' big' : '');
     el.id = 'tile-' + t.id;
-    if (t.tyres){
+    if (t.doors){
+      el.innerHTML = `<div class="label"><span>${t.label}</span></div>
+        <div style="display:flex;gap:10px;align-items:center"><svg viewBox="0 0 120 220" style="width:64px;height:118px;flex:none">
+          <rect x="30" y="8" width="60" height="204" rx="14" fill="var(--panel2)" stroke="var(--line)" stroke-width="2"/>
+          <rect x="36" y="40" width="48" height="22" rx="5" fill="var(--line)"/><line x1="36" y1="146" x2="84" y2="146" stroke="var(--line)" stroke-width="2"/>
+          <rect id="dr-fl" x="22" y="64" width="9" height="38" rx="3"/><rect id="dr-rl" x="22" y="106" width="9" height="34" rx="3"/>
+          <rect id="dr-fr" x="89" y="64" width="9" height="38" rx="3"/><rect id="dr-rr" x="89" y="106" width="9" height="34" rx="3"/>
+          <rect id="dr-box" x="40" y="152" width="40" height="14" rx="3"/><rect id="dr-drawer" x="40" y="172" width="40" height="22" rx="3"/>
+          <rect id="dr-tail" x="34" y="207" width="52" height="9" rx="3"/></svg>
+        <div class="sub" id="sub-doors" style="font-size:14px;line-height:1.4"></div></div>`;
+    } else if (t.tyres){
       el.innerHTML = `<div class="label"><span>${t.label}</span><span>psi</span></div>
         <div class="tyres">
           ${[['fl','Front L'],['fr','Front R'],['rl','Rear L'],['rr','Rear R'],['tl','Trailer L'],['tr','Trailer R']].map(([k,n]) =>
@@ -579,6 +590,7 @@ function stripMessage(now){
 /* =========================================================
    RENDER
    ========================================================= */
+const DOOR_NAMES = { fl:'Front left door', fr:'Front right door', rl:'Rear left door', rr:'Rear right door', tail:'Tailgate', drawer:'Drawer', box:'Toolbox' };
 const activeAlarms = new Set();
 function render(){
   const now = Date.now();
@@ -586,6 +598,24 @@ function render(){
   const T = thr();
   for (const t of TILES){
     const el = $('#tile-' + t.id);
+    if (t.doors){
+      const d = state.doors;
+      el.style.display = d || state.lightsOn != null ? '' : 'none';
+      if (!d && state.lightsOn == null) continue;
+      const open = Object.keys(DOOR_NAMES).filter(k => d && d[k]);
+      const moving = (state.speed || 0) > 5;
+      for (const k of Object.keys(DOOR_NAMES)){
+        const r = document.getElementById('dr-' + k);
+        if (r) r.setAttribute('fill', d && d[k] ? (moving ? 'var(--alarm)' : 'var(--warn)') : d && k in d ? 'var(--ok)' : 'var(--line)');
+      }
+      const lightsLeft = state.lightsOn && (state.rpm || 0) < 300;
+      const msgs = open.map(k => DOOR_NAMES[k] + ' open');
+      if (lightsLeft) msgs.push('Lights left on');
+      $('#sub-doors').innerHTML = msgs.length ? msgs.map(esc).join('<br>') : 'All closed';
+      if (open.length && moving) activeAlarms.add('doors');
+      el.className = 'tile ' + (open.length && moving ? 'alarm' : open.length || lightsLeft ? 'warn' : 'ok');
+      continue;
+    }
     if (t.tyres){
       let any = false;
       for (const k of Object.keys(state.tyres)){
@@ -654,15 +684,52 @@ function renderDrive(T){
    ALARMS
    ========================================================= */
 let silencedUntil = 0, lastBeep = 0, actx = null;
-function beep(){
+function wavURI(notes, rate = 22050){
+  const len = Math.ceil(Math.max(...notes.map(n => n[1] + n[2])) * rate) + 200;
+  const pcm = new Float32Array(len);
+  for (const [f, st, du, vol] of notes){
+    const s0 = Math.floor(st * rate), n = Math.floor(du * rate);
+    for (let i = 0; i < n && s0 + i < len; i++){
+      const t = i / rate, env = Math.min(1, i / (0.008 * rate)) * Math.exp(-3.2 * t / du);
+      pcm[s0 + i] += Math.sin(2 * Math.PI * f * t) * env * (vol || 0.55);
+    }
+  }
+  const buf = new ArrayBuffer(44 + len * 2), v = new DataView(buf);
+  const str = (o, t) => { for (let i = 0; i < t.length; i++) v.setUint8(o + i, t.charCodeAt(i)); };
+  str(0, 'RIFF'); v.setUint32(4, 36 + len * 2, true); str(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); str(36, 'data'); v.setUint32(40, len * 2, true);
+  for (let i = 0; i < len; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, pcm[i])) * 32767, true);
+  let bin = ''; const bytes = new Uint8Array(buf);
+  for (let i = 0; i < bytes.length; i += 8192) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+  return 'data:audio/wav;base64,' + btoa(bin);
+}
+const SND = { unlocked:false, warned:false, els:{} };
+try {
+  SND.els.beep = new Audio(wavURI([[880, 0, 0.22], [880, 0.3, 0.22]]));
+  SND.els.chime = new Audio(wavURI([[660, 0, 0.4, 0.4], [880, 0.16, 0.4, 0.4], [1175, 0.32, 0.6, 0.45]]));
+  SND.els.blip = new Audio(wavURI([[988, 0, 0.12, 0.35], [1319, 0.1, 0.25, 0.35]]));
+  for (const a of Object.values(SND.els)){ a.preload = 'auto'; a.setAttribute('playsinline', ''); }
+} catch(e){}
+function unlockSound(){
+  if (SND.unlocked) return;
+  SND.unlocked = true;
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch(e){}
+  for (const a of Object.values(SND.els)){
+    try { a.muted = true; const p = a.play(); if (p) p.then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(() => { a.muted = false; SND.unlocked = false; }); } catch(e){}
+  }
+}
+document.addEventListener('pointerdown', unlockSound, { capture:true });
+document.addEventListener('touchend', unlockSound, { capture:true });
+function playSound(name){
+  const a = SND.els[name];
+  if (!a) return;
   try {
-    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-    const o = actx.createOscillator(), g = actx.createGain();
-    o.frequency.value = 880; g.gain.value = 0.25;
-    o.connect(g); g.connect(actx.destination);
-    o.start(); o.stop(actx.currentTime + 0.3);
+    a.muted = false; a.currentTime = 0;
+    const p = a.play();
+    if (p) p.catch(() => { if (!SND.warned){ SND.warned = true; toast('Tap the screen once to allow sounds'); } });
   } catch(e){}
 }
+function beep(){ playSound('beep'); }
 function handleAlarms(){
   const b = $('#banner');
   if (!activeAlarms.size){ b.style.display = 'none'; return; }
@@ -671,6 +738,7 @@ function handleAlarms(){
   const now = Date.now();
   if (cfg.sound && !demo.on && now > silencedUntil && now - lastBeep > 1500){ beep(); lastBeep = now; }
 }
+$('#btnTestSound').onclick = () => { playSound('chime'); setTimeout(() => playSound('beep'), 1100); toast('You should hear the startup chime, then the alarm beep. Nothing? Check the volume buttons.'); };
 $('#silenceBtn').onclick = () => { silencedUntil = Date.now() + 60000; toast('Alarm sound silenced for 60 seconds'); };
 
 /* =========================================================
@@ -784,6 +852,7 @@ function startDemo(){
     state.fridge = 3.1 + Math.sin(demo.phase) * 0.4;
     state.amps = 2.4;
     state.tyres = { fl:36.2, fr:36.0, rl:41.8, rr:42.1, tl:38.0, tr:37.6 };
+    state.doors = { fl:false, fr:false, rl:false, rr:false, tail:stopped, drawer:false, box:false }; state.lightsOn = false;
     peak('egt', state.egt); peak('boost', state.boost);
   }, 250);
   keepAwake();
@@ -796,7 +865,8 @@ function stopDemo(){
   chip('demo', 'off', 'Demo off'); $('#btnDemo').textContent = 'Demo mode';
   clearLive();
 }
-$('#btnDemo').onclick = () => demo.on ? stopDemo() : startDemo();
+$('#btnDemo').onclick = () => { $('#settingsSheet').style.display = 'none'; demo.on ? stopDemo() : startDemo(); };
+$('#chip-demo').onclick = () => { if (demo.on){ stopDemo(); toast('Demo stopped'); } };
 
 /* =========================================================
    OBD (ELM327 over Bluetooth LE)
@@ -1058,7 +1128,8 @@ $('#btnCodes').onclick = readCodes;
 /* =========================================================
    SENSOR BOX (ESP32: EGT, second battery, fridge, current)
    ========================================================= */
-// Firmware (phase 3) will advertise this service and send text like "egt=652.5;aux=13.21;fridge=3.4;amps=2.3"
+// Firmware (phase 3) will advertise this service and send text like
+// "egt=652.5;aux=13.21;fridge=3.4;amps=2.3;d_fl=0;d_fr=0;d_rl=0;d_rr=0;d_tail=1;d_drawer=0;d_box=0;lights=0"
 const SB_SVC = 'e9a40001-6c2d-4c3a-9a51-6d2f0e0b7a10';
 const SB_CHR = 'e9a40002-6c2d-4c3a-9a51-6d2f0e0b7a10';
 const sensor = { dev:null, connected:false };
@@ -1081,6 +1152,8 @@ async function connectSensor(){
         if (isNaN(n)) continue;
         if (key === 'egt'){ state.egt = n; peak('egt', n); }
         if (['aux','fridge','amps'].includes(key)) state[key] = n;
+        if (key.startsWith('d_') && DOOR_NAMES[key.slice(2)]){ state.doors = state.doors || {}; state.doors[key.slice(2)] = n > 0; }
+        if (key === 'lights') state.lightsOn = n > 0;
       }
     });
     await ch.startNotifications();
@@ -1491,20 +1564,7 @@ function sweepFrac(){
   const e = x => 1 - Math.pow(1 - x, 3);
   return t < 0.5 ? e(t * 2) : e((1 - t) * 2);
 }
-function chime(){
-  if (!cfg.chime) return;
-  try {
-    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-    [[660, 0], [880, 0.16], [1175, 0.32]].forEach(([f, d]) => {
-      const o = actx.createOscillator(), g = actx.createGain();
-      o.type = 'sine'; o.frequency.value = f;
-      g.gain.setValueAtTime(0.0001, actx.currentTime + d);
-      g.gain.exponentialRampToValueAtTime(0.18, actx.currentTime + d + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + d + 0.35);
-      o.connect(g); g.connect(actx.destination); o.start(actx.currentTime + d); o.stop(actx.currentTime + d + 0.4);
-    });
-  } catch(e){}
-}
+function chime(){ if (cfg.chime) playSound('chime'); }
 function greeting(){
   const h = new Date().getHours();
   const g = h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
@@ -1560,7 +1620,6 @@ function setDial(id, v, max, warn, alarm){
 function applyTheme(){
   document.documentElement.dataset.theme = cfg.theme;
   document.documentElement.dataset.gauge = analogOn() ? 'analog' : 'digital';
-  $('#btnGauge').textContent = analogOn() ? 'Digital gauges' : 'Analog gauges';
   $('#appTitle').textContent = cfg.theme === 'eaton' ? 'Eaton Gardening' : 'Triton Dash';
   $('#copilot').style.display = cfg.copilot ? '' : 'none';
   $('#dogName').textContent = cfg.dogName;
@@ -1623,10 +1682,6 @@ function updateCopilot(strip){
     copilot.lastStrip = key;
   }
 }
-$('#btnGauge').onclick = () => {
-  if (cfg.theme === 'retro'){ toast('The Retro theme always uses dials. Change theme in Settings for digital.'); return; }
-  cfg.gaugeStyle = cfg.gaugeStyle === 'analog' ? 'digital' : 'analog'; store.set('cfg', cfg); applyTheme(); render();
-};
 $('#copilot').onclick = () => { celebrate(); say(DOG_LINES[Math.floor(Math.random() * DOG_LINES.length)]); };
 
 /* =========================================================
@@ -1728,7 +1783,7 @@ function checkBadges(){
   for (const b of fresh) earned[b.id] = todayISO();
   store.set('badges', earned);
   const b = fresh[0];
-  toast(`New badge: ${b.ic} ${b.name}`, 5000);
+  toast(`New badge: ${b.ic} ${b.name}`, 5000); playSound('blip');
   celebrate(`Woof! New badge: ${b.name}`);
   if ($('#view-fun').classList.contains('active')) renderBadges();
 }
