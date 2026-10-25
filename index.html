@@ -79,7 +79,7 @@ nav button.active{color:var(--text);background:var(--panel2)}
 .chk .x{background:none;border:none;color:var(--muted);font-size:18px;padding:4px 8px}
 .btnlink{display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 10px;text-decoration:none;flex:1}
 .btnlink[aria-disabled=true]{opacity:.45;pointer-events:none}
-.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .qb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 4px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:12px;font-weight:600}
 .qb svg{width:22px;height:22px}
 .qb.help{color:var(--alarm);border-color:var(--alarm)}
@@ -89,6 +89,58 @@ html[data-theme=rally] .qb{border-radius:4px;font-style:italic}
 .helpbtns{display:grid;gap:8px}
 .helpbtns a,.helpbtns button{display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:16px;padding:14px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:var(--text)}
 .helpbtns .sos{background:var(--alarm);border-color:var(--alarm);color:#fff;font-size:18px}
+.stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;margin-top:10px}
+.stamp{aspect-ratio:1;border-radius:50%;border:3px double var(--accent);color:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;line-height:1.15;opacity:.92}
+.stamp:nth-child(3n){transform:rotate(-8deg)}.stamp:nth-child(3n+1){transform:rotate(6deg)}.stamp:nth-child(3n+2){transform:rotate(-2deg)}
+.stamp svg{width:22px;height:22px;margin-bottom:3px}
+.stamp small{display:block;font-weight:600;font-size:9.5px;opacity:.75;margin-top:3px;letter-spacing:0}
+#camp{position:fixed;inset:0;z-index:42;background:#000;color:#ff3b2a;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;font-family:Manrope,-apple-system,sans-serif;cursor:pointer}
+#camp.show{display:flex}
+#camp .clock{font-size:min(28vw,150px);font-weight:300;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-2px;opacity:.85}
+#camp .date{font-size:16px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+#camp .row3{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+#camp .row3 div{display:flex;flex-direction:column;gap:2px;min-width:90px}
+#camp .row3 b{font-size:24px;font-weight:600;opacity:.85}
+#camp .row3 span{font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.55}
+#camp .sleepy{width:110px;margin-top:20px;filter:grayscale(1) sepia(1) saturate(7) hue-rotate(-35deg) brightness(.55)}
+#camp .zz{font-size:13px;opacity:.5;letter-spacing:.1em}
+#camp .exit{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 18px);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.4}
+.pawpin{color:#e0a91b;background:#1b1b1b;border-radius:50%;padding:4px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.pawpin svg{width:20px;height:20px;display:block}
+#confetti{position:fixed;inset:0;z-index:44;pointer-events:none}
+#postCanvas{width:100%;height:auto;border-radius:12px;display:block;margin:8px 0}
+#costsCard .form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#costsCard .form > *{width:100%;min-width:0;box-sizing:border-box}
+#costsCard .form .full{grid-column:1/-1}
+#loadCard .form{display:grid;grid-template-columns:1fr 90px;gap:8px}
+#loadCard .form > *{width:100%;min-width:0;box-sizing:border-box}
+.wx{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"i m s" "n n n";align-items:center;gap:4px 12px;padding:10px 14px;margin-bottom:12px;border-radius:14px;background:var(--panel);border:1px solid var(--line);color:var(--text);text-decoration:none}
+.wxicon{grid-area:i;width:40px;height:40px;color:var(--accent)}
+.wxicon svg{width:40px;height:40px}
+.wxmain{grid-area:m;display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.wxmain b{font-size:28px;font-variant-numeric:tabular-nums}
+.wxmain span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wxside{grid-area:s;text-align:right;font-size:12.5px;color:var(--muted);line-height:1.45;font-variant-numeric:tabular-nums}
+.wxnote{grid-area:n;font-size:13px;font-weight:700;color:var(--warn)}
+.wxnote:empty{display:none}
+html[data-theme=hud] .wx{border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+html[data-theme=rally] .wx{border-radius:4px}
+.loadbar{height:14px;border-radius:7px;background:var(--panel2);border:1px solid var(--line);overflow:hidden;margin-top:6px}
+.loadbar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s,background .3s}
+.lrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.lrow input[type=checkbox]{width:24px;height:24px;flex:none}
+.lrow span{flex:1}
+.lrow input[type=number]{width:72px;text-align:right}
+.lrow .x{background:none;border:none;color:var(--muted);font-size:18px;padding:4px 6px}
+.prow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.prow b{flex:1;min-width:120px}
+.prow input[type=date]{width:150px}
+.prow .st{font-size:12.5px;font-weight:700;width:100%;color:var(--muted)}
+.prow .st.due{color:var(--warn)}.prow .st.over{color:var(--alarm)}.prow .st.ok{color:var(--ok)}
+#copilot.spin svg{animation:dogspin .8s cubic-bezier(.5,0,.3,1)}
+@keyframes dogspin{to{transform:rotate(360deg)}}
+#copilot.bark svg{animation:dogbark .35s ease 2}
+@keyframes dogbark{30%{transform:scale(1.15) translateY(-3px)}}
 .fold summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
 .fold summary::-webkit-details-marker{display:none}
 .fold summary h2{margin:0}
@@ -387,6 +439,7 @@ html.day .sheet{background:rgba(9,34,23,.35)}
   <span class="chip busy" id="chip-tow" style="display:none">Towing mode</span>
   <span class="chip" id="chip-trip" style="display:none"></span>
   <span class="chip bad" id="chip-service" style="display:none">Service due</span>
+  <span class="chip busy" id="chip-papers" style="display:none"></span>
 </div>
 <div class="strip" id="strip"></div>
 
@@ -397,12 +450,16 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <button id="btnSensor">Add sensor box</button>
   </div>
   <div class="quick" id="quick">
-    <a class="qb" href="https://maps.apple.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg><span>Maps</span></a>
-    <a class="qb" href="spotify://"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>Spotify</span></a>
     <a class="qb" href="https://www.fuelcheck.nsw.gov.au/app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M2 21h13M6 8h5"/><path d="M14 10h2a2 2 0 0 1 2 2v4a1.5 1.5 0 0 0 3 0V8l-3-3"/></svg><span>Diesel</span></a>
     <a class="qb" href="https://www.bom.gov.au/products/IDR713.loop.shtml" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 17A4.5 4.5 0 0 0 16 8.3 6 6 0 0 0 4.5 10 4 4 0 0 0 6 17.8"/><path d="M8 19v2M12 17v3M16 19v2"/></svg><span>Radar</span></a>
     <button class="qb help" id="btnHelp" type="button"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>Help</span></button>
   </div>
+  <a class="wx" id="wxStrip" href="https://www.bom.gov.au/products/IDR713.loop.shtml" target="_blank" rel="noopener" style="display:none">
+    <span class="wxicon" id="wxIcon"></span>
+    <span class="wxmain"><b id="wxTemp">--°</b><span id="wxDesc"></span></span>
+    <span class="wxside" id="wxSide"></span>
+    <span class="wxnote" id="wxNote"></span>
+  </a>
   <div class="card2" id="welcome">
     <h2 style="margin-top:0">Ready when you are</h2>
     <p>Plug the OBD adapter in under the dash, start the engine, then tap Connect OBD. Gauges appear once data comes through.</p>
@@ -447,6 +504,12 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <div class="form" style="margin-top:8px"><input class="full" id="checkNew" placeholder="Add your own item"></div>
     <div class="btnrow"><button class="small" id="btnCheckAdd">Add item</button><button class="small" id="btnCheckReset">Untick all</button></div>
   </details>
+
+  <div class="card2">
+    <h2 style="margin-top:0">Camp mode</h2>
+    <p>Turns the screen into a dim red night light with the time, sunrise and sunset. Turn the phone brightness down too.</p>
+    <div class="btnrow"><button class="primary" id="btnCamp">Start camp mode</button></div>
+  </div>
 
   <details class="card2 fold" id="parkCard">
     <summary><h2>Parked here</h2><span class="sumnote" id="sum-park"></span></summary>
@@ -498,6 +561,40 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <div class="list" id="fuel-list"></div>
   </details>
 
+  <details class="card2 fold" id="papersCard">
+    <summary><h2>Paperwork</h2><span class="sumnote" id="sum-papers"></span></summary>
+    <div class="list" id="papersList"></div>
+    <p class="hint">NSW: a ute this age needs a pink slip (safety check) before each rego renewal, done no more than six weeks before the rego date. The green slip (CTP) has to be current too. You get a reminder 30 days out.</p>
+  </details>
+
+  <details class="card2 fold" id="loadCard">
+    <summary><h2>Load check</h2><span class="sumnote" id="sum-load"></span></summary>
+    <div class="row"><span>Payload limit (kg)</span><input type="number" inputmode="numeric" id="loadPayload" style="width:110px;text-align:right" placeholder="e.g. 900"></div>
+    <p class="hint">Payload is GVM minus the ute's empty weight, both on the compliance plate or in the owner's manual. Tick what's on board. Weights are starting guesses: change them to real figures, or better still, weigh the ute loaded at a public weighbridge.</p>
+    <div class="loadbar"><i id="loadFill"></i></div>
+    <p id="loadText" style="font-weight:700;margin:6px 0 4px"></p>
+    <div class="list" id="loadList"></div>
+    <div class="form" style="margin-top:8px"><input id="loadNewName" placeholder="Add an item"><input type="number" inputmode="numeric" id="loadNewKg" placeholder="kg"></div>
+    <div class="btnrow"><button class="small" id="btnLoadAdd">Add item</button></div>
+  </details>
+
+  <details class="card2 fold" id="costsCard">
+    <summary><h2>Ute costs and tax</h2><span class="sumnote" id="sum-costs"></span></summary>
+    <div class="row"><span>Financial year</span><select id="costFY"></select></div>
+    <div class="stat" id="costStats"></div>
+    <div class="list" id="costBreak"></div>
+    <h3 style="margin:14px 0 6px;font-size:15px">Add a cost</h3>
+    <div class="form">
+      <input type="date" id="costDate">
+      <select id="costCat"><option>Rego and CTP</option><option>Insurance</option><option>Service and repairs</option><option>Tyres</option><option>Roadside assistance</option><option>Parts and accessories</option><option>Cleaning</option><option>Other</option></select>
+      <input type="number" inputmode="decimal" id="costAmt" placeholder="Amount $">
+      <input class="full" id="costNote" placeholder="Note, e.g. 60,000 km service">
+    </div>
+    <div class="btnrow"><button class="primary" id="btnCostAdd">Add cost</button><button id="btnCostExport">Export for the accountant (CSV)</button></div>
+    <div class="list" id="costList"></div>
+    <p class="hint">Fuel comes in automatically from the fuel log. The claim estimate uses the logbook method: total running costs times the business percentage from the logbook. Bigger purchases like the drawer or fridge are usually depreciated rather than claimed in one go, and tolls and parking for work are claimed separately. Your accountant has the final say.</p>
+  </details>
+
   <details class="card2 fold">
     <summary><h2>Diagnostics scan</h2><span class="sumnote" id="sum-diag"></span></summary>
     <p>With the engine running and OBD connected, this lists every reading the Triton offers. Copy it and send it to Claude.</p>
@@ -525,6 +622,11 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <div class="btnrow"><button class="primary" id="btnWrapShare">Share / save image</button></div>
   </div>
   <div class="card2">
+    <h2 style="margin-top:0" id="passTitle">Passport</h2>
+    <p>A stamp for every new town or campsite you park at on personal trips, or when you tap Mark parked spot. Work trips don't count.</p>
+    <div class="stamps" id="stampGrid"></div>
+  </div>
+  <div class="card2">
     <h2 style="margin-top:0">Badges</h2>
     <p>Earned for good habits, never for pushing the ute harder.</p>
     <div class="badges" id="badgeGrid"></div>
@@ -545,6 +647,24 @@ html.day .sheet{background:rgba(9,34,23,.35)}
   <button data-view="fun">Fun</button>
 </nav>
 
+<!-- Camp mode -->
+<div id="camp" aria-hidden="true">
+  <div class="date" id="campDate"></div>
+  <div class="clock" id="campClock">--:--</div>
+  <div class="row3" id="campRow"></div>
+  <div class="sleepy" id="campDog"></div>
+  <div class="zz" id="campZz"></div>
+  <div class="exit">Tap to leave camp mode</div>
+</div>
+<canvas id="confetti" width="10" height="10" style="display:none"></canvas>
+
+<!-- Trip postcard -->
+<div class="sheet" id="postSheet"><div class="card">
+  <h2>Trip postcard</h2>
+  <canvas id="postCanvas" width="1080" height="1350"></canvas>
+  <div class="btnrow"><button class="primary" id="btnPostShare">Share / save image</button><button id="btnPostClose">Close</button></div>
+</div></div>
+
 <!-- Help sheet -->
 <div class="sheet" id="helpSheet"><div class="card">
   <h2>Help</h2>
@@ -555,6 +675,7 @@ html.day .sheet{background:rgba(9,34,23,.35)}
     <a class="sos" href="tel:000">Call 000</a>
     <a id="helpText" href="#">Text my location</a>
     <button id="helpShare" type="button">Share my location</button>
+    <a id="helpMap" href="#">Show me on the offline map</a>
     <a id="helpTow" target="_blank" rel="noopener" href="#">Find a tow truck nearby</a>
     <a id="helpMech" target="_blank" rel="noopener" href="#">Find a mechanic nearby</a>
   </div>
@@ -617,16 +738,16 @@ const DEFAULTS = {
   rollWarn:25, rollAlarm:30, pitchWarn:30, pitchAlarm:35, incFlipP:false, incFlipR:false,
   battType:'lithium', battAh:100, drawA:2.5,
   show_egt:true, show_boost:true, show_cool:true, show_rpm:true, show_speed:true, show_volt:true, show_load:true,
-  show_aux:false, show_fridge:false, show_tyres:true, show_doors:true,
+  show_aux:false, show_fridge:false, show_tyres:true, show_doors:true, show_weather:true,
   night:'auto', dayLook:'light', sound:true, voice:true, welcomeVoice:true, voicePick:'female', autoTrip:true, autoPark:true,
-  driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com', helpName:'Becky', helpPhone:'', quickLaunch:true
+  driverName:'Sam', uteName:'the Triton', dogName:'Picasso', theme:'eaton', gaugeStyle:'digital', copilot:true, sweep:true, chime:true, wrapFooter:'eatongardening.com', helpName:'Becky', helpPhone:'', quickLaunch:true, mapsApp:'mapsme', weatherDog:true, breakMins:120, postcards:true, xmas:true
 };
 const FIELDS = [
   ['Show on dash'],
   ['show_egt','Exhaust temp (EGT)','check'], ['show_boost','Boost','check'], ['show_cool','Coolant','check'],
   ['show_rpm','RPM','check'], ['show_speed','Speed','check'], ['show_volt','Charging voltage','check'],
   ['show_load','Engine load','check'], ['show_aux','Second battery','check'], ['show_fridge','Fridge','check'],
-  ['show_tyres','Tyres','check'], ['show_doors','Doors and lids','check'],
+  ['show_tyres','Tyres','check'], ['show_doors','Doors and lids','check'], ['show_weather','Weather','check'],
   ['Normal alarms'],
   ['egtWarn','EGT warning','°C'], ['egtAlarm','EGT alarm','°C'],
   ['coolWarn','Coolant warning','°C'], ['coolAlarm','Coolant alarm','°C'],
@@ -657,11 +778,13 @@ const FIELDS = [
   ['theme','Theme','select', [['eaton','Eaton Gardening'],['hud','Systems (futuristic)'],['rally','Rally livery'],['standard','Standard'],['retro','Retro dials']]],
   ['gaugeStyle','Gauge style','select', [['digital','Digital numbers'],['analog','Analog dials']]],
   ['copilot','Show co-pilot','check'], ['sweep','Startup sequence','check'], ['chime','Startup sounds','check'],
+  ['weatherDog','Co-pilot dresses for the weather','check'], ['breakMins','Wee-break reminder after (0 = off)','min'], ['postcards','Show a postcard after personal trips','check'], ['xmas','Christmas extras in December','check'],
   ['wrapFooter','Wrapped card footer','text'],
   ['Help'],
   ['helpName','Text my location to (name)','text'], ['helpPhone','Their mobile number','text'],
   ['Dash'],
-  ['quickLaunch','Show quick launch buttons','check']
+  ['quickLaunch','Show quick launch buttons','check'],
+  ['mapsApp','Maps app','select', [['mapsme','MAPS.ME (offline maps)'],['apple','Apple Maps']]]
 ];
 let cfg = Object.assign({}, DEFAULTS, store.get('cfg', {}));
 if (cfg.dogName === 'Co-pilot') cfg.dogName = 'Picasso';
@@ -952,11 +1075,78 @@ function wavURI(notes, rate = 22050){
   for (let i = 0; i < bytes.length; i += 8192) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
   return 'data:audio/wav;base64,' + btoa(bin);
 }
+function pcmURI(pcm, rate = 22050){
+  const len = pcm.length, buf = new ArrayBuffer(44 + len * 2), v = new DataView(buf);
+  const str = (o, t) => { for (let i = 0; i < t.length; i++) v.setUint8(o + i, t.charCodeAt(i)); };
+  str(0, 'RIFF'); v.setUint32(4, 36 + len * 2, true); str(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); str(36, 'data'); v.setUint32(40, len * 2, true);
+  for (let i = 0; i < len; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, pcm[i])) * 32767, true);
+  let bin = ''; const bytes = new Uint8Array(buf);
+  for (let i = 0; i < bytes.length; i += 8192) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+  return 'data:audio/wav;base64,' + btoa(bin);
+}
+function synth(dur, fn, rate = 22050){
+  const n = Math.ceil(dur * rate), pcm = new Float32Array(n); let ph = [0, 0, 0, 0];
+  for (let i = 0; i < n; i++) pcm[i] = fn(i / rate, ph, rate);
+  return pcmURI(pcm, rate);
+}
+function hudBoot(){ // rising synth sweep with a fifth, then a shimmer
+  return synth(1.7, (t, ph, r) => {
+    const f = 160 * Math.pow(9, Math.min(t, 1.2) / 1.2);
+    ph[0] += 2 * Math.PI * f / r; ph[1] += 2 * Math.PI * f * 1.5 / r; ph[2] += 2 * Math.PI * 2400 / r;
+    const env = Math.min(1, t / 0.05) * (t < 1.2 ? 0.5 + 0.4 * t / 1.2 : Math.exp(-(t - 1.2) * 5));
+    const shimmer = t > 1.15 ? Math.sin(ph[2]) * 0.18 * Math.exp(-(t - 1.15) * 6) * (0.5 + 0.5 * Math.sin(t * 90)) : 0;
+    return (Math.sin(ph[0]) * 0.32 + Math.sin(ph[1]) * 0.18) * env + shimmer;
+  });
+}
+function rallyBoot(){ // starter, idle, two revs, crackle
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - 0.5;
+  return synth(2.2, (t, ph, r) => {
+    let f;
+    if (t < 0.35) f = 14 + 6 * Math.sin(t * 60);
+    else if (t < 0.7) f = 30;
+    else if (t < 1.05) f = 30 + 70 * Math.sin((t - 0.7) / 0.35 * Math.PI / 2);
+    else if (t < 1.35) f = 100 - 65 * ((t - 1.05) / 0.3);
+    else if (t < 1.6) f = 35 + 55 * Math.sin((t - 1.35) / 0.25 * Math.PI / 2);
+    else f = 90 - 58 * Math.min(1, (t - 1.6) / 0.35);
+    ph[0] += 2 * Math.PI * f / r;
+    const saw = ((ph[0] / (2 * Math.PI)) % 1) * 2 - 1;
+    const body = saw * 0.35 + Math.sin(ph[0] * 2) * 0.2 + Math.sin(ph[0] * 0.5) * 0.25;
+    const fire = Math.pow(Math.max(0, Math.sin(ph[0] * 2)), 6) * 0.35;
+    const crack = t > 1.9 && t < 2.15 && rnd() > 0.46 ? rnd() * 1.6 : 0;
+    const env = Math.min(1, t / 0.04) * (t > 2.0 ? Math.exp(-(t - 2.0) * 10) : 1);
+    return (body + fire + rnd() * 0.06) * env * 0.8 + crack * 0.5;
+  });
+}
+function xmasBells(){ // sleigh bells over a little 'jingle bells' line
+  let seed = 3; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - 0.5;
+  const notes = [[659, 0], [659, 0.22], [659, 0.44], [659, 0.8], [659, 1.02], [659, 1.24], [659, 1.6], [784, 1.82], [523, 2.04], [587, 2.26], [659, 2.5]];
+  return synth(3.3, t => {
+    let v = 0;
+    for (const [f, st] of notes){ if (t >= st && t < st + 0.6){ const u = t - st; v += Math.sin(2 * Math.PI * f * u) * Math.exp(-u * 5) * 0.3 + Math.sin(2 * Math.PI * f * 2 * u) * Math.exp(-u * 8) * 0.08; } }
+    const shake = (Math.sin(t * 2 * Math.PI * 7) > 0.55 ? 1 : 0) * (t < 3.0 ? 1 : 0);
+    const bells = shake * (Math.sin(2 * Math.PI * 4200 * t) * 0.5 + Math.sin(2 * Math.PI * 5300 * t) * 0.4 + rnd()) * 0.07;
+    return v + bells;
+  });
+}
+function retroBoot(){ // two-tone bell, ding-dong
+  return synth(1.8, t => {
+    const bell = (f, st) => t < st ? 0 : Math.exp(-(t - st) * 2.6) * (Math.sin(2 * Math.PI * f * (t - st)) * 0.42 + Math.sin(2 * Math.PI * f * 2.76 * (t - st)) * 0.12 * Math.exp(-(t - st) * 6));
+    return bell(880, 0) + bell(698.5, 0.45);
+  });
+}
 const SND = { unlocked:false, warned:false, els:{} };
 try {
   SND.els.beep = new Audio(wavURI([[880, 0, 0.22], [880, 0.3, 0.22]]));
   SND.els.chime = new Audio(wavURI([[660, 0, 0.4, 0.4], [880, 0.16, 0.4, 0.4], [1175, 0.32, 0.6, 0.45]]));
   SND.els.boot = new Audio(wavURI([[196, 0, 0.5, 0.18], [294, 0.18, 0.5, 0.2], [392, 0.36, 0.5, 0.22], [587, 0.54, 0.45, 0.24], [784, 0.72, 0.9, 0.26], [1175, 0.9, 1.0, 0.18]]));
+  try { SND.els.boot_xmas = new Audio(xmasBells()); } catch(e){}
+  try { SND.els.boot_hud = new Audio(hudBoot()); SND.els.boot_rally = new Audio(rallyBoot()); SND.els.boot_retro = new Audio(retroBoot()); } catch(e){}
+  try { SND.els.bark = new Audio((() => { let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647 - 0.5;
+    const one = (t, st) => { const u = t - st; if (u < 0 || u > 0.22) return 0; const f = 520 - 900 * u; const env = Math.min(1, u / 0.012) * Math.exp(-u * 14);
+      return (Math.sin(2 * Math.PI * f * u) * 0.55 + Math.sin(2 * Math.PI * f * 2.1 * u) * 0.25 + rnd() * 0.35) * env; };
+    return synth(0.62, t => one(t, 0) + one(t, 0.3)); })()); } catch(e){}
+  SND.els.cheer = new Audio(wavURI([[784, 0, 0.18, 0.4], [988, 0.12, 0.18, 0.4], [1175, 0.24, 0.18, 0.4], [1568, 0.36, 0.6, 0.45]]));
   SND.els.blip = new Audio(wavURI([[988, 0, 0.12, 0.35], [1319, 0.1, 0.25, 0.35]]));
   for (const a of Object.values(SND.els)){ a.preload = 'auto'; a.setAttribute('playsinline', ''); }
 } catch(e){}
@@ -997,6 +1187,7 @@ function pickVoice(){
 if ('speechSynthesis' in window){ try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } catch(e){} }
 function welcomeLine(){
   const ute = (cfg.uteName || 'the Triton').trim();
+  if (isXmas()){ const d = new Date(); return d.getDate() === 25 ? `Merry Christmas, ${cfg.driverName}! Welcome back to ${ute}.` : `Welcome back to ${ute}, ${cfg.driverName}. Not long until Christmas.`; }
   return `Welcome back to ${ute}, ${cfg.driverName || ''}.`.replace(' ,', ',');
 }
 function speak(text, force){
@@ -1568,7 +1759,9 @@ function haversine(a, b){
 function startGeo(){
   if (!navigator.geolocation || geoWatch != null) return;
   geoWatch = navigator.geolocation.watchPosition(p => {
+    if (p.coords.speed != null && p.coords.speed >= 0) geoSpeed = p.coords.speed * 3.6;
     if (!trip.active) return;
+    trip.lastPos = { lat:p.coords.latitude, lon:p.coords.longitude };
     const fix = { lat:p.coords.latitude, lon:p.coords.longitude, acc:p.coords.accuracy };
     if (fix.acc > 50) return;
     if (lastFix){
@@ -1623,8 +1816,9 @@ function renderLog(){
   list.innerHTML = (pend ? `<p class="hint" style="color:var(--warn)">${pend} trip${pend > 1 ? 's' : ''} to sort into work or personal. Tap Sort on each.</p>` : '') +
     trips.slice(0, 60).map(t => `<div class="item"><div><span class="tag ${t.type === 'work' ? 'work' : t.type === 'pending' ? 'due' : ''}">${t.type === 'work' ? 'Work' : t.type === 'pending' ? 'To sort' : 'Personal'}</span> ${esc(t.purpose || '')}
       <small>${fmtDate(t.start)} ${fmtTime(t.start)} · ${tripKm(t)} km${fuelCostText(tripKm(t))}${t.eco != null ? ' · eco ' + t.eco : ''}${t.odoStart ? ` · odo ${t.odoStart} to ${t.odoEnd || '?'}` : ''}</small></div>
-      <span style="display:flex;gap:6px">${t.type === 'pending' ? `<button class="small primary" data-sort="${t.id}">Sort</button>` : ''}<button class="small danger" data-del="${t.id}">Delete</button></span></div>`).join('');
+      <span style="display:flex;gap:6px">${t.type === 'pending' ? `<button class="small primary" data-sort="${t.id}">Sort</button>` : `<button class="small" data-post="${t.id}">Postcard</button>`}<button class="small danger" data-del="${t.id}">Delete</button></span></div>`).join('');
   for (const b of list.querySelectorAll('[data-sort]')) b.onclick = () => openSort(b.dataset.sort);
+  for (const b of list.querySelectorAll('[data-post]')) b.onclick = () => openPostcard(b.dataset.post);
   for (const b of list.querySelectorAll('[data-del]')) b.onclick = () => {
     if (!confirm('Delete this trip?')) return;
     trips = trips.filter(t => t.id !== b.dataset.del); store.set('trips', trips); renderLog();
@@ -1640,6 +1834,7 @@ function startTrip(type){
 function endTrip(){
   const odo = parseFloat($('#trip-odo-end').value);
   const t = { id:trip.id, type:trip.type, purpose:trip.purpose, start:trip.start, end:new Date().toISOString(),
+    endLat:trip.lastPos ? trip.lastPos.lat : null, endLon:trip.lastPos ? trip.lastPos.lon : null,
     odoStart:trip.odoStart, odoEnd:isNaN(odo) ? null : odo, gpsKm:Math.round((trip.gpsKm || 0) * 10) / 10,
     eco:(trip.ecoN || 0) >= 60 ? Math.round(trip.ecoGood / trip.ecoN * 100) : null };
   trips.unshift(t); store.set('trips', trips);
@@ -1647,6 +1842,7 @@ function endTrip(){
   trip.active = false; store.set('activeTrip', trip); stopGeo(); renderLog(); updateTripChip(); checkService();
   toast(`Trip saved: ${tripKm(t)} km${t.eco != null ? ' · eco score ' + t.eco : ''}`);
   checkBadges();
+  afterTripSorted(t);
 }
 /* ---- Automatic trips ---- */
 function guessType(){ const d = new Date(), wd = d.getDay(), h = d.getHours(); return wd >= 1 && wd <= 5 && h >= 6 && h < 18 ? 'work' : 'personal'; }
@@ -1661,6 +1857,7 @@ function autoTripEnd(odoEnd){
   if (!trip.active || !trip.auto) return;
   const est = trip.odoStart ? Math.round(trip.odoStart + (trip.gpsKm || 0)) : null;
   const t = { id:trip.id, type:'pending', guess:guessType(), purpose:'', start:trip.start, end:new Date().toISOString(),
+    endLat:trip.lastPos ? trip.lastPos.lat : null, endLon:trip.lastPos ? trip.lastPos.lon : null,
     odoStart:trip.odoStart, odoEnd:odoEnd != null ? odoEnd : est, gpsKm:Math.round((trip.gpsKm || 0) * 10) / 10,
     eco:(trip.ecoN || 0) >= 60 ? Math.round(trip.ecoGood / trip.ecoN * 100) : null, auto:true };
   const keep = t.gpsKm >= 0.3 || (t.odoEnd && t.odoStart && t.odoEnd > t.odoStart);
@@ -1696,6 +1893,7 @@ function saveSort(type){
   store.set('trips', trips); $('#sortSheet').style.display = 'none'; renderLog(); checkService(); checkBadges();
   toast(type === 'work' ? 'Saved as a work trip' : 'Saved as a personal trip');
   if (type === 'work' && !t.purpose) toast('Tip: add a purpose for work trips. The ATO asks for the reason for each business journey.', 6000);
+  afterTripSorted(t);
 }
 $('#sortWork').onclick = () => saveSort('work');
 $('#sortPersonal').onclick = () => saveSort('personal');
@@ -1726,7 +1924,9 @@ function renderPark(){
   if (!pk){ $('#parkInfo').textContent = 'No parked spot saved yet.'; $('#sum-park').textContent = ''; nav.setAttribute('aria-disabled', 'true'); nav.removeAttribute('href'); return; }
   $('#sum-park').textContent = fmtTime(pk.t);
   $('#parkInfo').textContent = `Saved ${fmtDate(pk.t)} at ${fmtTime(pk.t)}${pk.acc ? ` (accurate to about ${Math.round(pk.acc)} m)` : ''}.`;
-  nav.href = `https://maps.apple.com/?daddr=${pk.lat},${pk.lon}&dirflg=w`; nav.removeAttribute('aria-disabled');
+  nav.href = cfg.mapsApp === 'apple' ? `https://maps.apple.com/?daddr=${pk.lat},${pk.lon}&dirflg=w` : `mapsme://map?v=1&ll=${pk.lat},${pk.lon}&n=${encodeURIComponent('The ute')}`;
+  if (cfg.mapsApp === 'apple') nav.target = '_blank'; else nav.removeAttribute('target');
+  nav.removeAttribute('aria-disabled');
   if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => {
     const d = haversine({ lat:p.coords.latitude, lon:p.coords.longitude }, pk);
     $('#parkInfo').textContent += ` You are ${d < 1 ? Math.round(d * 1000) + ' m' : d.toFixed(1) + ' km'} away.`;
@@ -1736,7 +1936,7 @@ function markParked(quiet){
   if (!navigator.geolocation){ if (!quiet) toast('Location is not available in this browser'); return; }
   navigator.geolocation.getCurrentPosition(p => {
     store.set('parked', { lat:p.coords.latitude, lon:p.coords.longitude, acc:p.coords.accuracy, t:new Date().toISOString() });
-    renderPark(); if (!quiet) toast('Parked spot saved');
+    renderPark(); if (!quiet){ toast('Parked spot saved'); stampPlace(p.coords.latitude, p.coords.longitude, new Date().toISOString(), null); }
   }, () => { if (!quiet) toast('Could not get your location. Check location is allowed for this browser.'); }, { enableHighAccuracy:true, timeout:15000, maximumAge:0 });
 }
 $('#btnPark').onclick = () => markParked(false);
@@ -1752,6 +1952,8 @@ function helpLinks(){
   const t = $('#helpText');
   t.textContent = `Text my location to ${cfg.helpName || 'someone'}`;
   t.href = has ? `sms:${phone}&body=${encodeURIComponent(msg)}` : '#';
+  $('#helpMap').href = has ? (cfg.mapsApp === 'apple' ? `https://maps.apple.com/?ll=${ll}&q=${encodeURIComponent('Me')}` : `mapsme://map?v=1&ll=${ll}&n=${encodeURIComponent(cfg.driverName + ' is here')}`) : '#';
+  $('#helpMap').textContent = cfg.mapsApp === 'apple' ? 'Show me on the map' : 'Show me on the offline map (MAPS.ME)';
   $('#helpTow').href = has ? `https://maps.apple.com/?q=tow%20truck&sll=${ll}` : 'https://maps.apple.com/?q=tow%20truck';
   $('#helpMech').href = has ? `https://maps.apple.com/?q=mechanic&sll=${ll}` : 'https://maps.apple.com/?q=mechanic';
   $('#helpShare').onclick = async () => {
@@ -1775,6 +1977,430 @@ function openHelp(){
 }
 $('#btnHelp').onclick = openHelp;
 $('#helpText').addEventListener('click', e => { if (!helpFix){ e.preventDefault(); toast('Still finding your location'); } else if (!cfg.helpPhone) toast('Tip: add their number in Settings, under Help'); });
+
+
+/* =========================================================
+   FUN PACK: confetti, weather outfits, wee breaks, postcards,
+   passport, camp mode, odometer milestones
+   ========================================================= */
+function confetti(){
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = $('#confetti'), x = c.getContext('2d'), dpr = window.devicePixelRatio || 1;
+  c.style.display = 'block'; c.width = innerWidth * dpr; c.height = innerHeight * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const css = getComputedStyle(document.documentElement), acc = css.getPropertyValue('--accent').trim() || '#4da3ff';
+  const cols = [acc, '#e0a91b', '#8fd6ac', '#ff7a8a', '#7cc7ff', '#ffffff'];
+  const P = Array.from({ length:150 }, () => ({ x:innerWidth / 2 + (Math.random() - 0.5) * 80, y:innerHeight * 0.35, vx:(Math.random() - 0.5) * 14, vy:-Math.random() * 14 - 4,
+    w:6 + Math.random() * 6, h:3 + Math.random() * 4, r:Math.random() * 6, vr:(Math.random() - 0.5) * 0.4, c:cols[Math.floor(Math.random() * cols.length)] }));
+  const t0 = performance.now();
+  const step = now => {
+    const t = now - t0; x.clearRect(0, 0, innerWidth, innerHeight);
+    for (const p of P){ p.vy += 0.35; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.globalAlpha = Math.max(0, 1 - t / 2800); x.fillStyle = p.c; x.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); x.restore(); }
+    if (t < 2800) requestAnimationFrame(step); else { x.clearRect(0, 0, innerWidth, innerHeight); c.style.display = 'none'; }
+  };
+  requestAnimationFrame(step);
+}
+
+/* ---- Weather outfits (Open-Meteo, free, no account) ---- */
+function outfitFor(w){
+  const rainCodes = c => (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || c >= 95;
+  if (w.precip > 0.1 || rainCodes(w.code) || w.rainSoon >= 60) return 'raincoat';
+  if (w.temp >= 30) return 'sunnies';
+  if (w.temp <= 12) return 'beanie';
+  return null;
+}
+const WX_ICON = {
+  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>',
+  part:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v1.5M3.5 8H2M4.3 4.3l1 1M12.2 5.3l-1 1"/><path d="M5.6 11.2A4 4 0 1 1 12.3 7"/><path d="M17.5 20H9a4 4 0 1 1 .9-7.9A5 5 0 0 1 19.5 13a3.5 3.5 0 0 1-2 7z"/></svg>',
+  cloud:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M17.5 19H8a5 5 0 1 1 1.3-9.8A6 6 0 0 1 20.5 11 4 4 0 0 1 17.5 19z"/></svg>',
+  rain:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 15H8a5 5 0 1 1 1.3-9.8A6 6 0 0 1 20.5 7 4 4 0 0 1 17.5 15z"/><path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3"/></svg>',
+  storm:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 14H8a5 5 0 1 1 1.3-9.8A6 6 0 0 1 20.5 6 4 4 0 0 1 17.5 14z"/><path d="M12 15l-2 4h4l-2 4"/></svg>',
+  fog:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9h16M2 13h20M5 17h14M8 21h8"/></svg>'
+};
+function wxInfo(code){
+  if (code === 0) return ['sun', 'Clear'];
+  if (code <= 2) return ['part', code === 1 ? 'Mostly clear' : 'Partly cloudy'];
+  if (code === 3) return ['cloud', 'Overcast'];
+  if (code === 45 || code === 48) return ['fog', 'Fog'];
+  if (code >= 51 && code <= 57) return ['rain', 'Drizzle'];
+  if ((code >= 61 && code <= 67) || (code >= 80 && code <= 82)) return ['rain', code >= 80 ? 'Showers' : 'Rain'];
+  if (code >= 71 && code <= 77) return ['cloud', 'Snow'];
+  if (code >= 95) return ['storm', 'Thunderstorms'];
+  return ['cloud', 'Cloudy'];
+}
+function renderWeather(){
+  const w = store.get('weather', null), el = $('#wxStrip');
+  if (!el) return;
+  if (cfg.show_weather === false || !w || w.temp == null){ el.style.display = 'none'; return; }
+  el.style.display = '';
+  const [ic, desc] = wxInfo(w.code || 0);
+  $('#wxIcon').innerHTML = WX_ICON[ic];
+  $('#wxTemp').textContent = `${w.temp}°`;
+  const age = Math.round((Date.now() - w.t) / 60000);
+  $('#wxDesc').textContent = `${desc}${w.feels != null && Math.abs(w.feels - w.temp) >= 3 ? ` · feels ${w.feels}°` : ''}${age > 60 ? ` · ${age >= 120 ? Math.round(age / 60) + ' h' : age + ' min'} old` : ''}`;
+  const side = [];
+  if (w.hi != null) side.push(`H ${w.hi}° · L ${w.lo}°`);
+  if (w.rainMax != null) side.push(`Rain ${w.rainMax}%${w.rainMax >= 40 && w.rainAt ? ' by ' + w.rainAt : ''}`);
+  if (w.wind != null) side.push(`Wind ${w.wind} km/h`);
+  $('#wxSide').innerHTML = side.map(esc).join('<br>');
+  const notes = [];
+  if (w.gust >= 50) notes.push(`Gusts to ${w.gust} km/h: take care with the rooftop tent`);
+  if (w.uv >= 8) notes.push(`UV ${Math.round(w.uv)} today: sunscreen and water for ${cfg.dogName}`);
+  if (w.temp >= 35) notes.push(`${w.temp}°: don't leave ${cfg.dogName} in the ute`);
+  $('#wxNote').textContent = notes.join(' · ');
+}
+async function updateWeather(force){
+  if ((!cfg.weatherDog && cfg.show_weather === false) || !navigator.geolocation) return;
+  const old = store.get('weather', null);
+  if (!force && old && old.v === 2 && Date.now() - old.t < 15 * 60000){ renderWeather(); return; }
+  navigator.geolocation.getCurrentPosition(async p => {
+    try {
+      const u = `https://api.open-meteo.com/v1/forecast?latitude=${p.coords.latitude.toFixed(3)}&longitude=${p.coords.longitude.toFixed(3)}` +
+        `&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,wind_gusts_10m` +
+        `&hourly=precipitation_probability&forecast_hours=6&daily=temperature_2m_max,temperature_2m_min,uv_index_max&forecast_days=1&timezone=auto`;
+      const j = await (await fetch(u)).json();
+      const probs = (j.hourly && j.hourly.precipitation_probability) || [], times = (j.hourly && j.hourly.time) || [];
+      const rainMax = probs.length ? Math.max(...probs) : 0, idx = probs.findIndex(x => x >= 40);
+      const rainAt = idx >= 0 && times[idx] ? new Date(times[idx]).toLocaleTimeString('en-AU', { hour:'numeric' }) : null;
+      const w = { temp:Math.round(j.current.temperature_2m), feels:Math.round(j.current.apparent_temperature), precip:j.current.precipitation || 0, code:j.current.weather_code || 0,
+        wind:Math.round(j.current.wind_speed_10m), gust:Math.round(j.current.wind_gusts_10m), rainSoon:Math.max(0, ...probs.slice(0, 3), 0), rainMax, rainAt,
+        hi:j.daily ? Math.round(j.daily.temperature_2m_max[0]) : null, lo:j.daily ? Math.round(j.daily.temperature_2m_min[0]) : null, uv:j.daily ? j.daily.uv_index_max[0] : null };
+      const outfit = cfg.weatherDog ? outfitFor(w) : null, changed = outfit !== dogOutfit;
+      store.set('weather', Object.assign({ v:2, t:Date.now(), outfit }, w));
+      dogOutfit = outfit; copilot.state = null;
+      renderWeather();
+      if (changed && outfit){
+        say(outfit === 'raincoat' ? 'Raincoat on. Rain\'s about.' : outfit === 'sunnies' ? `Sunnies on. ${w.temp}° out there.` : `Beanie weather. ${w.temp}°, brr.`, 6000);
+      }
+    } catch(e){ renderWeather(); }
+  }, () => renderWeather(), { maximumAge:10 * 60000, timeout:15000 });
+}
+setTimeout(() => { renderWeather(); updateWeather(false); }, 1500);
+setInterval(() => updateWeather(false), 5 * 60000);
+setInterval(renderWeather, 60000);
+
+/* ---- Wee-break reminder (fatigue) ---- */
+let geoSpeed = null;
+const drive = { since:null, stoppedAt:null, nextAt:0 };
+setInterval(() => {
+  const mins = Number(cfg.breakMins) || 0;
+  const sp = state.speed != null ? state.speed : geoSpeed;
+  const now = Date.now();
+  if (sp != null && sp > 8){ if (!drive.since) drive.since = now; drive.stoppedAt = null; }
+  else {
+    if (!drive.stoppedAt) drive.stoppedAt = now;
+    if (now - drive.stoppedAt > 10 * 60000){ drive.since = null; drive.nextAt = 0; }
+  }
+  if (!mins || !drive.since || demo.on) return;
+  if (now - drive.since >= mins * 60000 && now >= drive.nextAt){
+    drive.nextAt = now + 20 * 60000;
+    const hrs = Math.round((now - drive.since) / 3600000 * 2) / 2;
+    const txt = `${cfg.dogName} needs a wee break! ${hrs >= 1 ? hrs + (hrs === 1 ? ' hour' : ' hours') : mins + (mins === 1 ? ' minute' : ' minutes')} of driving. Time to pull over for a stretch.`;
+    say(txt, 9000); celebrate();
+    speak(`${cfg.dogName} needs a wee break. Time to pull over for a stretch.`);
+  }
+}, 15000);
+
+/* ---- Trip postcards ---- */
+let postTrip = null;
+async function drawPostcard(t){
+  try { await document.fonts.ready; } catch(e){}
+  const c = $('#postCanvas'), x = c.getContext('2d'), W = 1080, H = 1350;
+  const css = getComputedStyle(document.documentElement), col = n => css.getPropertyValue(n).trim();
+  const bg = col('--bg'), panel = col('--panel2'), accent = col('--accent'), text = col('--text'), muted = col('--muted'), line = col('--line');
+  const font = (w, sz) => `${w} ${sz}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+  const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, panel); g.addColorStop(1, bg); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  // postcard border
+  x.strokeStyle = accent; x.lineWidth = 6; x.setLineDash([22, 14]); x.strokeRect(36, 36, W - 72, H - 72); x.setLineDash([]);
+  x.fillStyle = muted; x.font = font(600, 36);
+  const d = new Date(t.start);
+  x.fillText(d.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' }).toUpperCase(), 90, 140);
+  x.fillStyle = text; x.font = cfg.theme === 'eaton' ? '500 96px Yrsa, Georgia, serif' : font(800, 92);
+  x.fillText('Greetings from', 90, 245);
+  x.fillStyle = accent; x.fillText(t.place || 'the road', 90, 345);
+  // route
+  const pts = (store.get('tracks', {})[t.id] || []);
+  const box = { x:90, y:400, w:W - 180, h:520 };
+  x.fillStyle = 'rgba(127,127,127,0.10)'; x.beginPath(); x.roundRect ? x.roundRect(box.x, box.y, box.w, box.h, 30) : x.rect(box.x, box.y, box.w, box.h); x.fill();
+  if (pts.length > 1){
+    const lat0 = pts.reduce((a, p) => a + p[0], 0) / pts.length, k = Math.cos(lat0 * Math.PI / 180);
+    const xs = pts.map(p => p[1] * k), ys = pts.map(p => -p[0]);
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+    const s = Math.min((box.w - 120) / Math.max(1e-6, maxX - minX), (box.h - 120) / Math.max(1e-6, maxY - minY));
+    const ox = box.x + (box.w - (maxX - minX) * s) / 2, oy = box.y + (box.h - (maxY - minY) * s) / 2;
+    const P = i => [ox + (xs[i] - minX) * s, oy + (ys[i] - minY) * s];
+    x.lineJoin = 'round'; x.lineCap = 'round';
+    x.strokeStyle = line; x.lineWidth = 22; x.beginPath(); pts.forEach((_, i) => { const [a, b] = P(i); i ? x.lineTo(a, b) : x.moveTo(a, b); }); x.stroke();
+    x.strokeStyle = accent; x.lineWidth = 10; x.stroke();
+    const [sx, sy] = P(0), [ex, ey] = P(pts.length - 1);
+    x.fillStyle = text; x.beginPath(); x.arc(sx, sy, 16, 0, 7); x.fill();
+    x.fillStyle = accent; x.beginPath(); x.arc(ex, ey, 22, 0, 7); x.fill(); x.fillStyle = bg; x.beginPath(); x.arc(ex, ey, 9, 0, 7); x.fill();
+  } else {
+    x.strokeStyle = accent; x.lineWidth = 10; x.setLineDash([2, 30]); x.lineCap = 'round';
+    x.beginPath(); x.moveTo(box.x + 80, box.y + box.h - 120); x.bezierCurveTo(box.x + 300, box.y + 80, box.x + 600, box.y + 460, box.x + box.w - 80, box.y + 120); x.stroke(); x.setLineDash([]);
+  }
+  // stats
+  const mins = t.end ? Math.round((new Date(t.end) - new Date(t.start)) / 60000) : null;
+  const stats = [[`${tripKm(t)}`, 'km'], [mins != null ? (mins >= 60 ? `${Math.floor(mins / 60)}h ${mins % 60}m` : `${mins}m`) : '--', 'on the road'], [t.eco != null ? String(t.eco) : '--', 'eco score']];
+  stats.forEach(([v, l], i) => { const bx = 90 + i * 300; x.fillStyle = text; x.font = font(800, 72); x.fillText(v, bx, 1030); x.fillStyle = muted; x.font = font(500, 32); x.fillText(l, bx, 1075); });
+  try { const img = await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(dogSVG('happy'))); x.drawImage(img, W - 330, 1080, 230, 211); } catch(e){}
+  x.fillStyle = muted; x.font = font(600, 32);
+  x.fillText(`Love, ${cfg.driverName} and ${cfg.dogName}`, 90, 1170);
+  x.fillStyle = accent; x.font = font(700, 28); x.fillText(cfg.wrapFooter || '', 90, 1250);
+}
+async function openPostcard(id){
+  const t = trips.find(x => x.id === id); if (!t) return;
+  postTrip = t; $('#postSheet').style.display = 'flex'; await drawPostcard(t);
+}
+function shareCanvas(canvas, name, title){
+  canvas.toBlob(async blob => {
+    try {
+      const file = new File([blob], name, { type:'image/png' });
+      if (navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file], title }); return; }
+    } catch(e){ if (e.name === 'AbortError') return; }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    toast('Image saved. If nothing happened, press and hold the image to save it.');
+  }, 'image/png');
+}
+$('#btnPostShare').onclick = () => shareCanvas($('#postCanvas'), `trip-postcard-${postTrip ? localISO(postTrip.start) : 'trip'}.png`, 'Trip postcard');
+$('#btnPostClose').onclick = () => { $('#postSheet').style.display = 'none'; };
+function afterTripSorted(t){
+  if (t.type === 'personal'){
+    if (t.endLat != null) stampPlace(t.endLat, t.endLon, t.end, t.id);
+    else if (cfg.postcards && tripKm(t) >= 20) openPostcard(t.id);
+  }
+  if (t.odoEnd) checkMilestone(t.odoEnd);
+}
+
+/* ---- Passport stamps (reverse geocode with BigDataCloud, free, no account) ---- */
+const PAW = '<svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="6" cy="9" rx="2.2" ry="3"/><ellipse cx="10.5" cy="5.5" rx="2.2" ry="3"/><ellipse cx="15.5" cy="5.5" rx="2.2" ry="3"/><ellipse cx="19" cy="9.5" rx="2.2" ry="3"/><path d="M12.5 11c3 0 6 4 6 6.5 0 2-1.7 3-3.5 2.5-1-.3-1.8-.8-2.5-.8s-1.5.5-2.5.8C8.2 20.5 6.5 19.5 6.5 17.5 6.5 15 9.5 11 12.5 11z"/></svg>';
+async function placeName(lat, lon){
+  const r = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+  const j = await r.json();
+  const town = j.locality || j.city || (j.localityInfo && j.localityInfo.administrative && j.localityInfo.administrative.slice(-1)[0] && j.localityInfo.administrative.slice(-1)[0].name);
+  const st = (j.principalSubdivisionCode || '').replace(/^AU-/, '');
+  if (!town) throw new Error('no name');
+  return st ? `${town}, ${st}` : town;
+}
+async function stampPlace(lat, lon, when, tripId){
+  let name;
+  try { name = await placeName(lat.toFixed(4), lon.toFixed(4)); }
+  catch(e){
+    const q = store.get('stampQueue', []); q.push({ lat, lon, when, tripId }); store.set('stampQueue', q);
+    if (tripId && cfg.postcards){ const t = trips.find(x => x.id === tripId); if (t && tripKm(t) >= 20) openPostcard(tripId); }
+    return;
+  }
+  const stamps = store.get('stamps', {});
+  const isNew = !stamps[name];
+  if (isNew) stamps[name] = { name, lat, lon, first:when || new Date().toISOString(), visits:1 };
+  else stamps[name].visits++;
+  store.set('stamps', stamps);
+  if (tripId){ const t = trips.find(x => x.id === tripId); if (t){ t.place = name.split(',')[0]; store.set('trips', trips); if (cfg.postcards && tripKm(t) >= 20) openPostcard(tripId); } }
+  if (isNew){
+    const town = name.split(',')[0];
+    confetti(); celebrate(`New passport stamp! ${cfg.dogName} has sniffed ${town}.`);
+    if (cfg.chime) playSound('cheer');
+  }
+  renderPassport();
+}
+async function flushStampQueue(){
+  const q = store.get('stampQueue', []); if (!q.length || !navigator.onLine) return;
+  store.set('stampQueue', []);
+  for (const s of q) await stampPlace(s.lat, s.lon, s.when, null);
+}
+setTimeout(flushStampQueue, 6000);
+window.addEventListener('online', flushStampQueue);
+function renderPassport(){
+  const stamps = Object.values(store.get('stamps', {})).sort((a, b) => b.first.localeCompare(a.first));
+  $('#passTitle').textContent = `${cfg.dogName}'s passport · ${stamps.length} stamp${stamps.length === 1 ? '' : 's'}`;
+  $('#stampGrid').innerHTML = stamps.length ? stamps.map(s => `<div class="stamp">${PAW}${esc(s.name.split(',')[0])}<small>${esc(s.name.split(', ')[1] || '')} · ${fmtDate(s.first)}${s.visits > 1 ? ' · x' + s.visits : ''}</small></div>`).join('')
+    : '<p class="hint">No stamps yet. Park somewhere new on a personal trip and tap Mark parked spot.</p>';
+}
+
+/* ---- Camp mode ---- */
+const SUN = (() => {
+  const rad = Math.PI / 180, dayMs = 864e5, J1970 = 2440588, J2000 = 2451545, e = rad * 23.4397;
+  const toDays = d => d.valueOf() / dayMs - 0.5 + J1970 - J2000, fromJ = j => new Date((j + 0.5 - J1970) * dayMs);
+  const M = d => rad * (357.5291 + 0.98560028 * d);
+  const L = m => m + rad * (1.9148 * Math.sin(m) + 0.02 * Math.sin(2 * m) + 0.0003 * Math.sin(3 * m)) + rad * 102.9372 + Math.PI;
+  const dec = l => Math.asin(Math.sin(l) * Math.sin(e));
+  return (date, lat, lng) => {
+    const lw = rad * -lng, phi = rad * lat, d = toDays(date), n = Math.round(d - 0.0009 - lw / (2 * Math.PI));
+    const ds = 0.0009 + lw / (2 * Math.PI) + n, m = M(ds), l = L(m), dc = dec(l);
+    const noon = J2000 + ds + 0.0053 * Math.sin(m) - 0.0069 * Math.sin(2 * l);
+    const w = Math.acos((Math.sin(-0.833 * rad) - Math.sin(phi) * Math.sin(dc)) / (Math.cos(phi) * Math.cos(dc)));
+    const a = 0.0009 + (w + lw) / (2 * Math.PI) + n, set = J2000 + a + 0.0053 * Math.sin(m) - 0.0069 * Math.sin(2 * l);
+    return { rise:fromJ(noon - (set - noon)), set:fromJ(set) };
+  };
+})();
+function moonPhase(d){
+  const p = (((d - new Date(Date.UTC(2000, 0, 6, 18, 14))) / 864e5) % 29.530588853 + 29.530588853) % 29.530588853 / 29.530588853;
+  return ['New moon', 'Waxing crescent', 'First quarter', 'Waxing gibbous', 'Full moon', 'Waning gibbous', 'Last quarter', 'Waning crescent'][Math.round(p * 8) % 8];
+}
+let campT = null, campFix = null;
+function campTick(){
+  const now = new Date();
+  $('#campClock').textContent = now.toLocaleTimeString('en-AU', { hour:'numeric', minute:'2-digit' }).replace(/\s?(am|pm)/i, '');
+  $('#campDate').textContent = now.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long' });
+  const cells = [];
+  if (campFix){
+    const t = SUN(now, campFix.lat, campFix.lon), tm = d => d.toLocaleTimeString('en-AU', { hour:'numeric', minute:'2-digit' });
+    let next, label;
+    if (now < t.rise){ next = t.rise; label = 'Sunrise'; } else if (now < t.set){ next = t.set; label = 'Sunset'; } else { next = SUN(new Date(now.getTime() + 864e5), campFix.lat, campFix.lon).rise; label = 'Sunrise'; }
+    const mins = Math.round((next - now) / 60000);
+    cells.push([tm(next), `${label} · ${mins >= 60 ? Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm' : mins + 'm'}`]);
+  }
+  cells.push([moonPhase(now), 'Moon']);
+  if (state.fridge != null && cfg.show_fridge !== false) cells.push([state.fridge.toFixed(1) + '°', 'Fridge']);
+  if (state.aux != null && cfg.show_aux !== false) cells.push([state.aux.toFixed(2) + ' V', 'Battery']);
+  $('#campRow').innerHTML = cells.map(([v, l]) => `<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
+}
+function startCamp(){
+  $('#camp').classList.add('show'); $('#campDog').innerHTML = dogSVG('sleep', null);
+  $('#campZz').textContent = `${cfg.dogName} is asleep. zzz`;
+  keepAwake(); campTick(); clearInterval(campT); campT = setInterval(campTick, 15000);
+  if (navigator.geolocation) navigator.geolocation.getCurrentPosition(p => { campFix = { lat:p.coords.latitude, lon:p.coords.longitude }; campTick(); }, () => {}, { maximumAge:30 * 60000, timeout:15000 });
+}
+$('#btnCamp').onclick = startCamp;
+$('#camp').onclick = () => { $('#camp').classList.remove('show'); clearInterval(campT); };
+
+/* ---- Odometer milestones ---- */
+function checkMilestone(odo){
+  odo = Number(odo); if (!odo) return;
+  const m = Math.floor(odo / 10000) * 10000, last = store.get('odoMilestone', null);
+  store.set('odoMilestone', Math.max(m, last || 0));
+  if (last == null || m <= last) return;
+  const big = m % 100000 === 0;
+  confetti(); if (cfg.chime) playSound('cheer');
+  celebrate(`${m.toLocaleString('en-AU')} km! ${big ? 'A huge one. ' : ''}${cfg.dogName} is very proud.`);
+  setTimeout(() => speak(`${m.toLocaleString('en-AU')} kilometres! ${cfg.dogName} is very proud.`), 900);
+}
+
+
+/* =========================================================
+   PAPERWORK, LOAD CHECK, UTE COSTS
+   ========================================================= */
+const PAPERS = [ { id:'rego', name:'Rego' }, { id:'insurance', name:'Insurance' }, { id:'roadside', name:'Roadside assistance' }, { id:'licence', name:"Sam's licence" } ];
+let papers = store.get('papers', {});
+function daysTo(iso){ if (!iso) return null; const d = new Date(iso + 'T00:00:00'), t = new Date(); t.setHours(0, 0, 0, 0); return Math.round((d - t) / 864e5); }
+function paperStatus(days){
+  if (days == null) return { cls:'', txt:'Add the date' };
+  if (days < 0) return { cls:'over', txt:`Overdue by ${-days} day${days === -1 ? '' : 's'}` };
+  if (days === 0) return { cls:'over', txt:'Due today' };
+  if (days <= 30) return { cls:'due', txt:`Due in ${days} day${days === 1 ? '' : 's'}` };
+  return { cls:'ok', txt:`Due ${fmtDate(papers_date_cache)}` };
+}
+let papers_date_cache = null;
+function papersDue(){
+  const out = [];
+  for (const p of PAPERS){ const d = daysTo(papers[p.id]); if (d != null && d <= 30) out.push({ name:p.name, d }); }
+  const r = daysTo(papers.rego);
+  if (r != null && r <= 42 && r >= 0 && !papers.pinkDone) out.push({ name:'Pink slip', d:r, pink:true });
+  return out.sort((a, b) => a.d - b.d);
+}
+function renderPapers(){
+  const l = $('#papersList');
+  l.innerHTML = PAPERS.map(p => {
+    papers_date_cache = papers[p.id]; const st = paperStatus(daysTo(papers[p.id]));
+    return `<div class="prow"><b>${p.name}</b><input type="date" data-paper="${p.id}" value="${esc(papers[p.id] || '')}"><span class="st ${st.cls}">${st.txt}</span></div>`;
+  }).join('') + (() => {
+    const r = daysTo(papers.rego); if (r == null) return '';
+    const open = new Date(papers.rego + 'T00:00:00'); open.setDate(open.getDate() - 42);
+    const txt = papers.pinkDone ? 'Done for this rego' : r > 42 ? `Book from ${fmtDate(open.toISOString())}` : r >= 0 ? `Get it now: rego is due in ${r} days` : 'Rego has lapsed';
+    return `<div class="prow"><b>Pink slip</b><label style="display:flex;gap:8px;align-items:center;font-size:14px"><input type="checkbox" id="pinkDone" ${papers.pinkDone ? 'checked' : ''} style="width:22px;height:22px">Done</label><span class="st ${papers.pinkDone ? 'ok' : r <= 42 ? 'due' : ''}">${txt}</span></div>`;
+  })();
+  for (const i of l.querySelectorAll('[data-paper]')) i.onchange = () => {
+    if (i.dataset.paper === 'rego' && i.value !== papers.rego) papers.pinkDone = false;
+    papers[i.dataset.paper] = i.value; store.set('papers', papers); renderPapers();
+  };
+  const pd = $('#pinkDone'); if (pd) pd.onchange = () => { papers.pinkDone = pd.checked; store.set('papers', papers); renderPapers(); };
+  const due = papersDue();
+  const sn = $('#sum-papers'); sn.textContent = due.length ? due.map(x => x.name).join(', ') + (due.some(x => x.d < 0) ? ' overdue' : ' due') : Object.keys(papers).length ? 'All good' : 'Add dates';
+  sn.className = 'sumnote' + (due.some(x => x.d <= 7) ? ' over' : '');
+  const c = $('#chip-papers'); if (c){ c.style.display = due.length ? '' : 'none'; c.textContent = due.length === 1 ? `${due[0].name} ${due[0].d < 0 ? 'overdue' : 'due in ' + due[0].d + 'd'}` : `${due.length} renewals due`; c.className = 'chip ' + (due.some(x => x.d <= 7) ? 'bad' : 'busy'); }
+}
+renderPapers();
+setTimeout(() => { const due = papersDue(); if (due.length) say(`Heads up: ${due[0].name.toLowerCase()} ${due[0].d < 0 ? 'is overdue' : 'is due in ' + due[0].d + ' days'}.`, 7000); }, 9000);
+
+/* ---- Load check ---- */
+const LOAD_DEFAULT = [
+  ['Sam', 85, true], ['Passenger', 65, false], ['Picasso', 25, true], ['Rooftop tent (on the roof)', 60, true], ['Sports bar', 15, true], ['Tonneau cover', 12, true],
+  ['Kings 1300mm drawer', 55, false], ['Tub rack and lights', 30, false], ['Fridge, full (Escape 50)', 45, false], ['Fridge slide', 18, false],
+  ['Second battery, charger and wiring', 18, false], ['Eaton tools and gear', 80, true], ['Water, 40 L', 40, false], ['Recovery gear', 15, false], ['Camping gear', 40, false]
+];
+let loadList = store.get('loadList', null) || { payload:'', items:LOAD_DEFAULT.map(([n, kg, on]) => ({ n, kg, on })) };
+function renderLoad(){
+  $('#loadPayload').value = loadList.payload || '';
+  const l = $('#loadList');
+  l.innerHTML = loadList.items.map((it, i) => `<div class="lrow"><input type="checkbox" data-on="${i}" ${it.on ? 'checked' : ''}><span>${esc(it.n)}</span><input type="number" inputmode="numeric" data-kg="${i}" value="${it.kg}"> kg<button class="x" data-rm="${i}" aria-label="Remove">×</button></div>`).join('');
+  for (const c of l.querySelectorAll('[data-on]')) c.onchange = () => { loadList.items[c.dataset.on].on = c.checked; saveLoad(); };
+  for (const c of l.querySelectorAll('[data-kg]')) c.onchange = () => { const v = parseFloat(c.value); loadList.items[c.dataset.kg].kg = isNaN(v) ? 0 : v; saveLoad(); };
+  for (const b of l.querySelectorAll('[data-rm]')) b.onclick = () => { loadList.items.splice(b.dataset.rm, 1); saveLoad(); };
+  updateLoadBar();
+}
+function updateLoadBar(){
+  const total = loadList.items.filter(i => i.on).reduce((a, i) => a + (Number(i.kg) || 0), 0), pay = Number(loadList.payload) || 0;
+  const roof = loadList.items.filter(i => i.on && /roof/i.test(i.n)).reduce((a, i) => a + (Number(i.kg) || 0), 0);
+  const pct = pay ? total / pay * 100 : 0, f = $('#loadFill');
+  f.style.width = Math.min(100, pct) + '%'; f.style.background = pct > 100 ? 'var(--alarm)' : pct > 85 ? 'var(--warn)' : 'var(--ok)';
+  $('#loadText').textContent = pay ? `${Math.round(total)} kg of ${pay} kg (${Math.round(pct)}%)${pct > 100 ? ': over the limit' : pct > 85 ? ': close to the limit' : ''}` : `${Math.round(total)} kg on board. Add the payload limit to compare.`;
+  $('#loadText').style.color = pct > 100 ? 'var(--alarm)' : pct > 85 ? 'var(--warn)' : '';
+  $('#sum-load').textContent = pay ? `${Math.round(pct)}%` : `${Math.round(total)} kg`;
+  $('#sum-load').className = 'sumnote' + (pct > 100 ? ' over' : '');
+  if (roof) $('#loadText').textContent += ` · ${roof} kg on the roof: check the roof rack's rating too.`;
+}
+function saveLoad(){ store.set('loadList', loadList); renderLoad(); }
+$('#loadPayload').onchange = () => { loadList.payload = $('#loadPayload').value; saveLoad(); };
+$('#btnLoadAdd').onclick = () => { const n = $('#loadNewName').value.trim(), kg = parseFloat($('#loadNewKg').value); if (!n) return; loadList.items.push({ n, kg:isNaN(kg) ? 0 : kg, on:true }); $('#loadNewName').value = ''; $('#loadNewKg').value = ''; saveLoad(); };
+renderLoad();
+
+/* ---- Ute costs and tax ---- */
+let costs = store.get('costs', []);
+function fyOf(iso){ const d = new Date(iso); const y = d.getMonth() >= 6 ? d.getFullYear() + 1 : d.getFullYear(); return y; } // FY named by the year it ends
+function fyLabel(y){ return `${y - 1}-${String(y).slice(2)}`; }
+function inFY(iso, y){ return iso && fyOf(iso) === y; }
+function businessPct(y){
+  const ts = trips.filter(t => t.type !== 'pending' && inFY(t.start, y));
+  const tot = ts.reduce((a, t) => a + tripKm(t), 0), wk = ts.filter(t => t.type === 'work').reduce((a, t) => a + tripKm(t), 0);
+  if (tot) return wk / tot * 100;
+  const all = trips.filter(t => t.type !== 'pending'), T = all.reduce((a, t) => a + tripKm(t), 0), W = all.filter(t => t.type === 'work').reduce((a, t) => a + tripKm(t), 0);
+  return T ? W / T * 100 : 0;
+}
+function renderCosts(){
+  const sel = $('#costFY'), cur = fyOf(new Date().toISOString());
+  const years = [...new Set([cur, ...costs.map(c => fyOf(c.date)), ...fuel.map(f => fyOf(f.date))])].sort((a, b) => b - a);
+  const keep = Number(sel.value) || cur;
+  sel.innerHTML = years.map(y => `<option value="${y}" ${y === keep ? 'selected' : ''}>${fyLabel(y)}</option>`).join('');
+  const y = Number(sel.value) || cur;
+  const cs = costs.filter(c => inFY(c.date, y)), fl = fuel.filter(f => inFY(f.date, y) && f.cost);
+  const byCat = {};
+  for (const c of cs) byCat[c.cat] = (byCat[c.cat] || 0) + c.amt;
+  const fuelTot = fl.reduce((a, f) => a + f.cost, 0); if (fuelTot) byCat['Fuel'] = fuelTot;
+  const total = Object.values(byCat).reduce((a, b) => a + b, 0), pct = businessPct(y), claim = total * pct / 100;
+  const m = n => '$' + Math.round(n).toLocaleString('en-AU');
+  $('#costStats').innerHTML = `<div><b>${m(total)}</b><small>Running costs</small></div><div><b>${Math.round(pct)}%</b><small>Business use</small></div><div><b>${m(claim)}</b><small>Claim estimate</small></div>`;
+  $('#costBreak').innerHTML = Object.entries(byCat).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<div class="item"><div>${esc(k)}</div><b>${m(v)}</b></div>`).join('') || '<p class="hint">No costs for this year yet.</p>';
+  $('#costList').innerHTML = cs.slice().sort((a, b) => b.date.localeCompare(a.date)).map(c => `<div class="item"><div>${esc(c.cat)} <small>${fmtDate(c.date)}${c.note ? ' · ' + esc(c.note) : ''}</small></div><span style="display:flex;gap:8px;align-items:center"><b>$${c.amt.toFixed(2)}</b><button class="small danger" data-cdel="${c.id}">Delete</button></span></div>`).join('');
+  for (const b of $('#costList').querySelectorAll('[data-cdel]')) b.onclick = () => { if (!confirm('Delete this cost?')) return; costs = costs.filter(c => c.id !== b.dataset.cdel); store.set('costs', costs); renderCosts(); };
+  $('#sum-costs').textContent = total ? `${fyLabel(y)}: ${m(claim)} claimable` : '';
+  if (!$('#costDate').value) $('#costDate').value = todayISO();
+}
+$('#costFY').onchange = renderCosts;
+$('#btnCostAdd').onclick = () => {
+  const amt = parseFloat($('#costAmt').value); if (isNaN(amt) || amt <= 0){ toast('Enter the amount'); return; }
+  costs.push({ id:uid(), date:$('#costDate').value || todayISO(), cat:$('#costCat').value, amt, note:$('#costNote').value.trim() });
+  store.set('costs', costs); $('#costAmt').value = ''; $('#costNote').value = ''; renderCosts(); toast('Cost added');
+};
+$('#btnCostExport').onclick = () => {
+  const y = Number($('#costFY').value) || fyOf(new Date().toISOString());
+  const rows = [['Date', 'Category', 'Amount', 'Note']];
+  for (const c of costs.filter(c => inFY(c.date, y)).sort((a, b) => a.date.localeCompare(b.date))) rows.push([fmtDate(c.date), c.cat, c.amt.toFixed(2), c.note]);
+  for (const f of fuel.filter(f => inFY(f.date, y) && f.cost).sort((a, b) => a.date.localeCompare(b.date))) rows.push([fmtDate(f.date), 'Fuel', f.cost.toFixed(2), `${f.litres} L at ${f.odo} km`]);
+  const total = rows.slice(1).reduce((a, r) => a + Number(r[2]), 0), pct = businessPct(y);
+  rows.push([], ['Financial year', fyLabel(y)], ['Total running costs', total.toFixed(2)], ['Business use % (from logbook)', Math.round(pct)], ['Claim estimate', (total * pct / 100).toFixed(2)]);
+  exportFile('Ute costs', `ute-costs-${fyLabel(y)}.csv`, toCSV(rows), 'text/csv');
+};
+setTimeout(renderCosts, 0);
 
 function updateTripChip(){
   const c = $('#chip-trip');
@@ -1864,7 +2490,7 @@ function checkService(){
 $('#btnOdoSave').onclick = () => {
   const v = parseFloat($('#odo-now').value);
   if (isNaN(v)){ toast('Enter a number'); return; }
-  svc.odoNow = v; store.set('svc', svc); renderService(); checkService(); toast('Odometer saved');
+  svc.odoNow = v; store.set('svc', svc); renderService(); checkService(); toast('Odometer saved'); checkMilestone(v);
 };
 
 /* =========================================================
@@ -1903,6 +2529,7 @@ $('#btnFuelAdd').onclick = () => {
   fuel.push({ id:uid(), date:$('#fuel-date').value || todayISO(), odo, litres, cost:isNaN(cost) ? null : cost, full:$('#fuel-full').checked });
   store.set('fuel', fuel);
   for (const id of ['fuel-odo','fuel-l','fuel-cost']) $('#' + id).value = '';
+  if (typeof renderCosts === 'function') renderCosts();
   const pb = fuelPB(); renderFuel(); checkService(); toast('Fill-up saved'); if (pb) store.set('tankPB', true); checkBadges();
 };
 $('#btnFuelExport').onclick = () => {
@@ -1955,7 +2582,8 @@ $('#copyScan').onclick = async () => {
    ========================================================= */
 $('#btnBackup').onclick = () => {
   const data = { app:'triton-dash', version:3, saved:new Date().toISOString(), cfg, towing, trips, activeTrip:trip, logPeriod:store.get('logPeriod', ''), svc, fuel, incRef:inc.ref,
-    tracks:store.get('tracks', {}), badges:store.get('badges', {}), cooldowns:store.get('cooldowns', {}), svcOnTime:store.get('svcOnTime', false), tankPB:store.get('tankPB', false) };
+    tracks:store.get('tracks', {}), badges:store.get('badges', {}), cooldowns:store.get('cooldowns', {}), svcOnTime:store.get('svcOnTime', false), tankPB:store.get('tankPB', false),
+    papers:store.get('papers', {}), loadList:store.get('loadList', null), costs:store.get('costs', []), stamps:store.get('stamps', {}), checks:store.get('checks', null), parked:store.get('parked', null), odoMilestone:store.get('odoMilestone', null) };
   store.set('backedUp', true); setTimeout(checkBadges, 500);
   exportFile('Backup', 'triton-dash-backup-' + todayISO() + '.json', JSON.stringify(data, null, 1), 'application/json');
 };
@@ -1965,7 +2593,7 @@ $('#btnRestore').onclick = () => {
       try {
         const d = JSON.parse(text);
         if (d.app !== 'triton-dash') throw new Error('Not a Triton Dash backup');
-        for (const k of ['cfg','towing','trips','logPeriod','svc','fuel','incRef','tracks','badges','cooldowns','svcOnTime','tankPB']) if (d[k] !== undefined) store.set(k, d[k]);
+        for (const k of ['cfg','towing','trips','logPeriod','svc','fuel','incRef','tracks','badges','cooldowns','svcOnTime','tankPB','papers','loadList','costs','stamps','checks','parked','odoMilestone']) if (d[k] !== undefined) store.set(k, d[k]);
         if (d.activeTrip) store.set('activeTrip', d.activeTrip);
         toast('Restored. Reloading…'); setTimeout(() => location.reload(), 800);
       } catch(e){ toast('Couldn\'t read that backup: ' + e.message, 5000); }
@@ -2023,6 +2651,7 @@ function sweepFrac(){
 }
 function chime(){ if (cfg.chime) playSound('chime'); }
 function greeting(){
+  if (isXmas()){ const d = new Date(); if (d.getDate() === 25) return `Merry Christmas ${cfg.driverName}! Ho ho ho.`; }
   const h = new Date().getHours();
   const g = h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
   const ute = cfg.uteName.charAt(0).toUpperCase() + cfg.uteName.slice(1);
@@ -2037,7 +2666,8 @@ function bootLines(){
     ['SENSOR BOX', se ? 'ONLINE' : d ? 'DEMO' : 'STANDBY', se ? 'ok' : d ? 'wait' : 'dim'],
     ['ALARMS', towing ? 'ARMED · TOW' : 'ARMED', 'ok'],
     ['TILT + GPS', 'READY', 'ok'],
-    ['SERVICE', svcDue ? 'DUE' : 'OK', svcDue ? 'bad' : 'ok']
+    ['SERVICE', svcDue ? 'DUE' : 'OK', svcDue ? 'bad' : 'ok'],
+    (() => { const d = typeof papersDue === 'function' ? papersDue() : []; return ['PAPERWORK', d.length ? d[0].name.toUpperCase() + ' DUE' : 'OK', d.length ? (d[0].d <= 7 ? 'bad' : 'wait') : 'ok']; })()
   ];
   if (cfg.copilot) L.push(['CO-PILOT', (cfg.dogName || 'DOG').toUpperCase() + ' ONBOARD', 'ok']);
   return L;
@@ -2050,7 +2680,7 @@ function bootSequence(done){
   b.classList.remove('out'); b.classList.add('show');
   // restart CSS animations
   b.querySelectorAll('.r2,.title,.mark svg').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
-  if (cfg.chime) playSound('boot');
+  if (cfg.chime) playSound(isXmas() ? 'boot_xmas' : ({ hud:'boot_hud', rally:'boot_rally', retro:'boot_retro' }[cfg.theme] || 'boot'));
   const T = 2600, lines = bootLines(), t0 = performance.now();
   requestAnimationFrame(() => { bar.style.transition = `width ${T}ms cubic-bezier(.4,0,.2,1)`; bar.style.width = '100%'; });
   const tick = () => { const f = Math.min(1, (performance.now() - t0) / T); pct.textContent = Math.round(f * 100) + '%'; if (f < 1 && b.classList.contains('show')) requestAnimationFrame(tick); };
@@ -2145,13 +2775,17 @@ function applyTheme(){
   $('#dogName').textContent = cfg.dogName;
   copilot.state = null;
   const q = document.getElementById('quick'); if (q) q.style.display = cfg.quickLaunch === false ? 'none' : '';
+  if (typeof renderPark === 'function') try { renderPark(); } catch(e){}
+  if (typeof renderWeather === 'function') try { renderWeather(); } catch(e){}
   if (typeof applyNight === 'function' && typeof nightForced !== 'undefined') applyNight();
 }
 
 /* =========================================================
    FUN: DOG CO-PILOT
    ========================================================= */
-function dogSVG(mood){
+let dogOutfit = (store.get('weather', null) || {}).outfit || null;
+function dogSVG(mood, outfit){
+  if (outfit === undefined) outfit = cfg.weatherDog ? dogOutfit : null;
   const earL = mood === 'alert' ? 'rotate(18 22 30) translate(0 -10)' : mood === 'worried' ? 'rotate(-8 22 30) translate(0 4)' : '';
   const earR = mood === 'alert' ? 'rotate(-18 98 30) translate(0 -10)' : mood === 'worried' ? 'rotate(8 98 30) translate(0 4)' : '';
   const browL = mood === 'worried' ? 'M37 37 L51 30' : mood === 'alert' ? 'M37 31 L51 31' : 'M38 35 L51 35';
@@ -2167,10 +2801,22 @@ function dogSVG(mood){
     <ellipse cx="60" cy="52" rx="38" ry="40" fill="#e3ab62"/>
     <ellipse cx="60" cy="75" rx="23" ry="17" fill="#f2cb8f"/>
     <path d="${browL}" stroke="#8a5a2b" stroke-width="3" stroke-linecap="round"/><path d="${browR}" stroke="#8a5a2b" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="45" cy="46" r="${eyeR}" fill="#2a1a0e"/><circle cx="75" cy="46" r="${eyeR}" fill="#2a1a0e"/>
-    <circle cx="46.7" cy="44.3" r="1.7" fill="#fff"/><circle cx="76.7" cy="44.3" r="1.7" fill="#fff"/>
+    ${mood === 'sleep' ? '<path d="M39 47 Q45 51 51 47 M69 47 Q75 51 81 47" stroke="#2a1a0e" stroke-width="3" fill="none" stroke-linecap="round"/>'
+      : `<circle cx="45" cy="46" r="${eyeR}" fill="#2a1a0e"/><circle cx="75" cy="46" r="${eyeR}" fill="#2a1a0e"/><circle cx="46.7" cy="44.3" r="1.7" fill="#fff"/><circle cx="76.7" cy="44.3" r="1.7" fill="#fff"/>`}
     <ellipse cx="60" cy="66" rx="8.5" ry="6" fill="#2a1a0e"/><ellipse cx="57.5" cy="64" rx="2.5" ry="1.4" fill="#6b5141"/>
-    ${tongue}${mouth}${sweat}</svg>`;
+    ${mood === 'sleep' ? '' : tongue}${mouth}${sweat}${dogAccessory(outfit, mood)}</svg>`;
+}
+function isXmas(){ const d = window.__fakeDate ? new Date(window.__fakeDate) : new Date(); return cfg.xmas !== false && d.getMonth() === 11; }
+function santaHat(){ return '<path d="M20 30 Q46 -10 92 4 Q108 10 104 26 Q96 12 84 14 Q70 18 98 32 Z" fill="#d7262e"/><circle cx="104" cy="28" r="8" fill="#fff"/><rect x="16" y="25" width="86" height="12" rx="6" fill="#fff"/>'; }
+function dogAccessory(o, mood){
+  if (isXmas() && o !== 'raincoat') return (o === 'sunnies' && mood !== 'sleep' ? dogAccessoryBase('sunnies', mood) : '') + santaHat();
+  return dogAccessoryBase(o, mood);
+}
+function dogAccessoryBase(o, mood){
+  if (o === 'sunnies' && mood !== 'sleep') return '<rect x="32" y="38" width="26" height="16" rx="7" fill="#151515"/><rect x="62" y="38" width="26" height="16" rx="7" fill="#151515"/><path d="M58 44 L62 44 M32 42 L20 38 M88 42 L100 38" stroke="#151515" stroke-width="3" stroke-linecap="round"/><path d="M36 42 L44 42 M66 42 L74 42" stroke="#9ad7ff" stroke-width="2" stroke-linecap="round" opacity=".8"/>';
+  if (o === 'raincoat') return '<path d="M14 64 Q8 8 60 6 Q112 8 106 64 L95 60 Q96 22 60 19 Q24 22 25 60 Z" fill="#ffcc33" stroke="#d9a400" stroke-width="2"/><path d="M22 60 L30 104 M98 60 L90 104" stroke="#ffcc33" stroke-width="10" stroke-linecap="round"/><path d="M8 20 l-3 7 M112 30 l-3 7 M104 8 l-3 7" stroke="#7cc7ff" stroke-width="2.5" stroke-linecap="round"/>';
+  if (o === 'beanie') return '<path d="M22 32 Q60 -8 98 32 Z" fill="#2f6fb0"/><path d="M34 22 Q36 12 40 8 M50 16 Q52 6 56 3 M70 6 Q73 12 74 18 M84 14 Q87 20 88 26" stroke="#2a5e96" stroke-width="2" fill="none"/><rect x="19" y="27" width="82" height="11" rx="5.5" fill="#e8eef2"/><circle cx="60" cy="3" r="8" fill="#ffffff" stroke="#d6dde3"/>';
+  return '';
 }
 const copilot = { state:null, sayT:null, lastStrip:null };
 const DOG_LINES = ['Window down please.', 'Is it lunch yet?', 'I\'ve got the left side covered.', 'Good drive so far.', 'Who\'s a good ute? You are.',
@@ -2204,7 +2850,23 @@ function updateCopilot(strip){
     copilot.lastStrip = key;
   }
 }
-$('#copilot').onclick = () => { celebrate(); say(DOG_LINES[Math.floor(Math.random() * DOG_LINES.length)]); };
+(function(){
+  const el = $('#copilot'); let taps = [], holdT = null, held = false;
+  el.addEventListener('pointerdown', () => { held = false; clearTimeout(holdT); holdT = setTimeout(() => { held = true; bark(); }, 600); });
+  const cancel = () => clearTimeout(holdT);
+  el.addEventListener('pointerup', cancel); el.addEventListener('pointerleave', cancel); el.addEventListener('pointercancel', cancel);
+  el.addEventListener('contextmenu', e => e.preventDefault());
+  el.addEventListener('click', () => {
+    if (held) return;
+    const now = Date.now(); taps = taps.filter(t => now - t < 700); taps.push(now);
+    if (taps.length >= 3){ taps = []; el.classList.remove('spin'); void el.offsetWidth; el.classList.add('spin'); setTimeout(() => el.classList.remove('spin'), 900); say(['Ta-da!', 'Spin trick! Treat please.', 'Did you see that?'][Math.floor(Math.random() * 3)]); return; }
+    if (taps.length === 1) setTimeout(() => { if (taps.length === 1){ celebrate(); say(DOG_LINES[Math.floor(Math.random() * DOG_LINES.length)]); } }, 450);
+  });
+  function bark(){
+    el.classList.remove('bark'); void el.offsetWidth; el.classList.add('bark'); setTimeout(() => el.classList.remove('bark'), 800);
+    playSound('bark'); say('Woof! Woof!', 2500);
+  }
+})();
 
 /* =========================================================
    FUN: ECO SCORE (sampled once a second during a trip)
@@ -2248,7 +2910,8 @@ async function drawMap(){
   const el = $('#map'), tracks = store.get('tracks', {});
   const lines = trips.filter(t => tracks[t.id] && tracks[t.id].length > 1).map(t => ({ t, pts:tracks[t.id] }));
   if (trip.active && tracks[trip.id] && tracks[trip.id].length > 1) lines.push({ t:trip, pts:tracks[trip.id] });
-  if (!lines.length){ el.innerHTML = '<p class="hint" style="padding:16px">Trips logged with GPS will show up here.</p>'; mapObj = null; return; }
+  const stamps = Object.values(store.get('stamps', {}));
+  if (!lines.length && !stamps.length){ el.innerHTML = '<p class="hint" style="padding:16px">Trips logged with GPS will show up here.</p>'; mapObj = null; return; }
   let L;
   try { L = await loadLeaflet(); } catch(e){ el.innerHTML = '<p class="hint" style="padding:16px">Couldn\'t load the map. Check the internet connection.</p>'; return; }
   if (!mapObj){
@@ -2259,7 +2922,9 @@ async function drawMap(){
   if (mapLayer) mapLayer.remove();
   mapLayer = L.featureGroup(lines.map(({ t, pts }) =>
     L.polyline(pts, { color:t.type === 'work' ? '#4da3ff' : '#ffb020', weight:4, opacity:.85 })
-      .bindPopup(`${t.type === 'work' ? 'Work' : 'Personal'}: ${esc(t.purpose || '')}<br>${fmtDate(t.start)} · ${tripKm(t)} km`))).addTo(mapObj);
+      .bindPopup(`${t.type === 'work' ? 'Work' : 'Personal'}: ${esc(t.purpose || '')}<br>${fmtDate(t.start)} · ${tripKm(t)} km`)).concat(
+    stamps.map(st => L.marker([st.lat, st.lon], { icon:L.divIcon({ className:'pawpin', html:PAW, iconSize:[28, 28], iconAnchor:[14, 14] }) })
+      .bindPopup(`${esc(st.name)}<br>First stamp ${fmtDate(st.first)}${st.visits > 1 ? ' · ' + st.visits + ' visits' : ''}`)))).addTo(mapObj);
   setTimeout(() => { mapObj.invalidateSize(); mapObj.fitBounds(mapLayer.getBounds(), { padding:[20, 20] }); }, 50);
 }
 
@@ -2402,7 +3067,7 @@ $('#btnWrapShare').onclick = () => {
 };
 function renderFun(){
   if (!$('#wrapMonth').value) $('#wrapMonth').value = todayISO().slice(0, 7);
-  drawWrapped(); renderBadges(); drawMap();
+  drawWrapped(); renderPassport(); renderBadges(); drawMap();
 }
 
 
